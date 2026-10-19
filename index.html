@@ -3,18 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Rotta · Recolección de fruta y verdura</title>
-<meta name="description" content="Rotta: avisa la fruta y verdura que se va a echar a perder, pasamos a recogerla a tu negocio, ganas puntos y la comida se dona a albergues.">
+<title>Rotta · Lo que ya no vendes, todavía alimenta</title>
+<meta name="description" content="Rotta: avisa la fruta y verdura que se va a echar a perder, pasamos a recogerla a tu negocio, ganas puntos y la comida se dona a albergues y comedores.">
 <meta property="og:title" content="Rotta">
-<meta property="og:description" content="Avisa lo que se va a echar a perder, pasamos a tu negocio por él, ganas puntos y se dona a albergues.">
-<meta name="theme-color" content="#1d7a3e">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231d7a3e'/%3E%3Ctext x='16' y='23' font-family='Arial' font-weight='700' font-size='20' fill='%23fff' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<meta property="og:description" content="Avisa lo que se va a echar a perder, pasamos a tu negocio por él, ganas puntos y se dona a albergues y comedores.">
+<meta name="theme-color" content="#17803d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%2317803d'/%3E%3Ccircle cx='20' cy='23' r='11' fill='%23ff6b3d'/%3E%3Cpath d='M20 12c0-4 3-6 7-6-1 4-3 6-7 6z' fill='%238fe0a0'/%3E%3C/svg%3E">
 <style>
   :root {
-    --marca: #1d7a3e; --marca-osc: #155c2e; --marca-claro: #eef6f0;
-    --rojo: #c0392b; --amarillo: #a86b00; --pasado: #6b5a48;
-    --texto: #1f2421; --suave: #626b65; --borde: #dde2dd; --fondo: #f6f7f5;
-    --radio: 8px;
+    --marca: #17803d; --marca-osc: #0e5c2b; --marca-claro: #e6f4ea;
+    --naranja: #ff6b3d; --naranja-claro: #fff0ea;
+    --amarillo: #f2a516; --amarillo-claro: #fff6df; --amarillo-texto: #7a5200;
+    --rojo: #d23a3a; --rojo-claro: #fdeeee;
+    --pasado: #6d5d4b; --pasado-claro: #f1ece6;
+    --azul-claro: #eaf1fd; --rosa-claro: #fdebf3;
+    --texto: #16211a; --suave: #5d6a61; --borde: #e3e8e1; --fondo: #f2f5f0;
+    --sombra: 0 1px 2px rgba(16, 32, 20, .05), 0 8px 22px rgba(16, 32, 20, .06);
+    --radio: 18px;
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
@@ -22,169 +27,229 @@
   b, .num { font-variant-numeric: tabular-nums; }
 
   /* Barra superior */
-  .barra { position: sticky; top: 0; z-index: 5; background: var(--marca); color: #fff; }
-  .barra-in { max-width: 560px; margin: 0 auto; display: flex; align-items: baseline; gap: 10px; padding: 12px 16px; padding-top: calc(12px + env(safe-area-inset-top)); }
-  .marca h1 { margin: 0; font-size: 1.3rem; font-weight: 800; letter-spacing: -.2px; }
-  .barra-in p { margin: 0; font-size: .82rem; opacity: .85; }
+  .barra { position: sticky; top: 0; z-index: 5; background: var(--marca); color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.12); }
+  .barra-in { max-width: 560px; margin: 0 auto; display: flex; align-items: center; gap: 11px; padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top)); }
+  .logo { width: 40px; height: 40px; border-radius: 12px; background: #fff; display: grid; place-items: center; flex: none; }
+  .marca h1 { margin: 0; font-size: 1.4rem; letter-spacing: .3px; line-height: 1.1; }
+  .marca p { margin: 0; font-size: .8rem; opacity: .92; }
 
-  main { max-width: 560px; margin: 0 auto; padding: 12px 12px 90px; }
-  section { background: #fff; border: 1px solid var(--borde); border-radius: var(--radio); padding: 14px; margin: 0 0 12px; }
-  h2 { font-size: 1.05rem; margin: 0 0 8px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  main { max-width: 560px; margin: 0 auto; padding: 14px 14px 112px; }
+  section, .tarjeta { background: #fff; border: 1px solid var(--borde); border-radius: var(--radio); padding: 16px; margin: 0 0 14px; box-shadow: var(--sombra); }
+  h2 { font-size: 1.1rem; margin: 0 0 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   h3 { font-size: 1rem; margin: 0; }
   p { margin: 0 0 8px; }
   .nota { font-size: .85rem; color: var(--suave); }
-  .vacio { color: var(--suave); margin: 6px 0; }
+  .vacio { color: var(--suave); font-style: italic; margin: 6px 0; }
   .fila { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .oculto { display: none !important; }
 
-  /* Resumen */
-  .cifras { display: grid; grid-template-columns: repeat(3, 1fr); margin: 2px 0 10px; }
-  .cifras div { padding: 0 8px; border-left: 1px solid var(--borde); }
-  .cifras div:first-child { padding-left: 0; border-left: 0; }
-  .cifras b { display: block; font-size: 1.5rem; line-height: 1.15; }
-  .cifras span { font-size: .8rem; color: var(--suave); }
-  .cifras .principal-cifra b { color: var(--marca); }
-  .camino { margin: 0; padding-top: 10px; border-top: 1px solid var(--borde); font-size: .9rem; }
+  /* Héroe */
+  .heroe { background: linear-gradient(140deg, #1c9147 0%, #0e5c2b 100%); color: #fff; border: 0; position: relative; overflow: hidden; }
+  .heroe::before { content: ""; position: absolute; right: -50px; top: -60px; width: 190px; height: 190px; border-radius: 50%; background: rgba(255,255,255,.07); }
+  .heroe::after { content: "🍅🥑🍌"; position: absolute; right: 14px; top: 14px; font-size: 1.3rem; letter-spacing: 2px; opacity: .95; }
+  .heroe .saludo { font-size: .9rem; opacity: .92; margin: 0 0 2px; }
+  .heroe .grande { font-size: 2.7rem; font-weight: 800; line-height: 1; margin: 2px 0; }
+  .heroe .grande small { font-size: 1rem; font-weight: 600; opacity: .92; }
+  .heroe .chicos { display: flex; gap: 10px; margin-top: 12px; }
+  .heroe .chico { flex: 1; background: rgba(255,255,255,.13); border-radius: 14px; padding: 9px 11px; }
+  .heroe .chico b { display: block; font-size: 1.15rem; }
+  .heroe .chico span { font-size: .78rem; opacity: .92; }
+  .heroe .camino { margin: 12px 0 0; background: rgba(255,255,255,.96); color: var(--texto); border-radius: 14px; padding: 9px 12px; font-size: .9rem; }
 
-  .pasos { margin: 0 0 10px; padding-left: 20px; }
-  .pasos li { margin: 0 0 4px; }
-  .aviso-caja { border: 1px solid #cfe3d5; background: var(--marca-claro); border-radius: 6px; padding: 9px 11px; font-size: .92rem; margin: 8px 0; }
+  /* Bienvenida y novedades */
+  .pasos { list-style: none; padding: 0; margin: 0 0 10px; display: grid; gap: 9px; }
+  .pasos li { display: flex; gap: 10px; align-items: flex-start; }
+  .pasos .n { flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--marca-claro); color: var(--marca); font-weight: 800; display: grid; place-items: center; font-size: .85rem; }
+  .beneficio { display: flex; gap: 10px; align-items: center; background: var(--naranja-claro); border-radius: 14px; padding: 10px 12px; font-size: .92rem; margin: 8px 0; }
+  .beneficio .ico { background: #fff; }
+  .ico { flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; font-size: 1.2rem; }
+  .i-verde { background: var(--marca-claro); } .i-naranja { background: var(--naranja-claro); } .i-amarillo { background: var(--amarillo-claro); }
+  .i-azul { background: var(--azul-claro); } .i-rosa { background: var(--rosa-claro); } .i-cafe { background: var(--pasado-claro); }
+  .novedades { background: linear-gradient(180deg, #ffffff 0%, #fffaf2 100%); }
+  .novedades b { color: var(--marca-osc); }
 
   /* Semáforo */
-  .semaforo { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--borde); border-radius: 6px; margin: 4px 0 10px; }
-  .semaforo div { padding: 7px 4px; text-align: center; font-size: .78rem; color: var(--suave); border-left: 1px solid var(--borde); }
-  .semaforo div:first-child { border-left: 0; }
-  .semaforo b { display: block; font-size: 1.35rem; line-height: 1.2; }
-  .s-pasado b { color: var(--pasado); } .s-rojo b { color: var(--rojo); } .s-amarillo b { color: var(--amarillo); } .s-verde b { color: var(--marca); }
+  .semaforo { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 4px 0 10px; }
+  .semaforo div { border-radius: 14px; padding: 9px 4px; text-align: center; font-size: .75rem; font-weight: 600; }
+  .semaforo b { display: block; font-size: 1.5rem; line-height: 1.15; }
+  .s-pasado { background: var(--pasado-claro); color: var(--pasado); }
+  .s-rojo { background: var(--rojo-claro); color: var(--rojo); }
+  .s-amarillo { background: var(--amarillo-claro); color: var(--amarillo-texto); }
+  .s-verde { background: var(--marca-claro); color: var(--marca); }
 
   /* Botones */
-  button, .boton { font: inherit; border: 1px solid #c8cfc9; border-radius: 6px; padding: 10px 13px; cursor: pointer; background: #fff; color: var(--texto); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; font-size: .93rem; }
-  button:hover, .boton:hover { background: #f1f3f1; }
-  button.principal, .boton.principal { background: var(--marca); border-color: var(--marca); color: #fff; }
+  button, .boton { font: inherit; border: 0; border-radius: 12px; padding: 11px 14px; cursor: pointer; background: #edf0ec; color: var(--texto); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-weight: 600; font-size: .95rem; }
+  button.principal, .boton.principal { background: var(--marca); color: #fff; }
   button.principal:hover, .boton.principal:hover { background: var(--marca-osc); }
-  button.peligro { color: var(--rojo); }
-  button.chico { padding: 8px 10px; font-size: .88rem; }
+  button.whatsapp { background: #25d366; color: #063b1a; }
+  button.peligro { background: var(--rojo-claro); color: var(--rojo); }
+  button.chico { padding: 8px 11px; font-size: .88rem; }
   button.ancho { width: 100%; }
+  button.enlace { background: none; padding: 4px 6px; font-size: .78rem; font-weight: 500; color: var(--suave); text-decoration: underline; }
   button:disabled { opacity: .45; cursor: not-allowed; }
   button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, label.opcion:focus-within { outline: 3px solid #1565c0; outline-offset: 2px; }
 
   /* Formularios */
   label { display: block; font-size: .88rem; font-weight: 600; margin: 10px 0 4px; }
-  input, select { font: inherit; width: 100%; padding: 9px 10px; border: 1px solid #c8cfc9; border-radius: 6px; background: #fff; color: var(--texto); }
+  input, select { font: inherit; width: 100%; padding: 10px 11px; border: 1px solid #c9d1c7; border-radius: 10px; background: #fff; color: var(--texto); }
+  select:disabled { background: #f4f6f3; color: var(--texto); opacity: 1; }
   fieldset { border: 0; padding: 0; margin: 10px 0 0; }
   legend { font-size: .88rem; font-weight: 600; margin-bottom: 6px; padding: 0; }
-  .opciones { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  label.opcion { margin: 0; border: 1px solid #c8cfc9; border-radius: 6px; padding: 8px 10px 8px 32px; cursor: pointer; font-weight: 600; display: block; position: relative; }
-  label.opcion input { position: absolute; left: 10px; top: 11px; width: 15px; height: 15px; margin: 0; accent-color: var(--marca); }
-  label.opcion small { display: block; font-weight: 400; color: var(--suave); font-size: .8rem; }
+  .opciones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  label.opcion { margin: 0; border: 2px solid var(--borde); border-radius: 14px; padding: 9px 10px; cursor: pointer; font-weight: 600; display: block; position: relative; }
+  label.opcion input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  label.opcion small { display: block; font-weight: 500; color: var(--suave); font-size: .78rem; }
   label.opcion:has(input:checked) { border-color: var(--marca); background: var(--marca-claro); }
-  .estimado { border-top: 1px solid var(--borde); padding: 10px 0 2px; margin: 12px 0 10px; }
-  .estimado b { font-size: 1.15rem; color: var(--marca); }
+  .precio-rotta { display: flex; gap: 10px; align-items: center; background: var(--azul-claro); border-radius: 14px; padding: 10px 12px; margin: 12px 0 0; font-size: .92rem; }
+  .precio-rotta .ico { background: #fff; }
+  .precio-rotta b { font-size: 1.08rem; }
+  .precio-rotta small { display: block; color: var(--suave); font-size: .78rem; margin-top: 2px; line-height: 1.35; }
+  .aprovecha { display: flex; gap: 10px; align-items: center; background: var(--pasado-claro); border-radius: 14px; padding: 10px 12px; margin: 12px 0 0; font-size: .9rem; }
+  .aprovecha .ico { background: #fff; }
+  .estimado { background: var(--amarillo-claro); border-radius: 14px; padding: 10px 12px; margin: 12px 0; }
+  .estimado b { font-size: 1.15rem; }
 
   /* Productos */
-  .producto { border-top: 1px solid var(--borde); padding: 12px 0; }
-  .producto:first-child { border-top: 0; padding-top: 4px; }
-  .producto .titulo { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-  .producto .info { font-size: .86rem; color: var(--suave); margin: 1px 0 0; }
-  .estado { font-size: .84rem; font-weight: 600; white-space: nowrap; }
-  .estado.pasado { color: var(--pasado); } .estado.rojo { color: var(--rojo); } .estado.amarillo { color: var(--amarillo); } .estado.verde { color: var(--marca); }
-  .vida { height: 5px; border-radius: 3px; background: #e7eae7; overflow: hidden; margin: 8px 0 3px; }
-  .vida i { display: block; height: 100%; }
-  .vida-txt { display: flex; justify-content: space-between; font-size: .76rem; color: var(--suave); }
-  .decide { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--borde); border-radius: 6px; margin: 10px 0 8px; }
-  .decide > div { padding: 8px 10px; }
-  .decide > div + div { border-left: 1px solid var(--borde); }
-  .decide .t { display: block; font-size: .8rem; color: var(--suave); }
-  .decide b { display: block; font-size: 1.15rem; line-height: 1.25; }
-  .decide .segura b { color: var(--marca); }
-  .decide span:not(.t) { font-size: .78rem; color: var(--suave); }
-  .consejo { font-size: .83rem; color: var(--suave); margin: 0 0 8px; }
+  .producto { border: 1px solid var(--borde); border-radius: 16px; padding: 12px; margin: 10px 0; background: #fff; }
+  .producto .top { display: flex; gap: 11px; align-items: center; }
+  .producto .emoji { font-size: 1.7rem; width: 46px; height: 46px; border-radius: 14px; background: var(--fondo); display: grid; place-items: center; flex: none; }
+  .emoji.pasado { background: var(--pasado-claro); } .emoji.rojo { background: var(--rojo-claro); }
+  .emoji.amarillo { background: var(--amarillo-claro); } .emoji.verde { background: var(--marca-claro); }
+  .producto .info { font-size: .85rem; color: var(--suave); margin: 1px 0 0; }
+  .producto .top > div { flex: 1; min-width: 0; }
+  .producto .titulo { display: flex; justify-content: space-between; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .estado { display: inline-flex; align-items: center; gap: 5px; font-size: .8rem; font-weight: 700; white-space: nowrap; }
+  .estado::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+  .estado.pasado { color: var(--pasado); } .estado.rojo { color: var(--rojo); }
+  .estado.amarillo { color: var(--amarillo-texto); } .estado.verde { color: var(--marca); }
+  .vida { height: 8px; border-radius: 99px; background: #edf0ec; overflow: hidden; margin: 10px 0 4px; }
+  .vida i { display: block; height: 100%; border-radius: 99px; }
+  .vida-txt { display: flex; justify-content: space-between; font-size: .75rem; color: var(--suave); }
+  .decide { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 8px; }
+  .decide > div { border-radius: 14px; padding: 9px 10px; }
+  .decide .remate { background: var(--naranja-claro); }
+  .decide .segura { background: var(--marca-claro); }
+  .decide .rescate { background: var(--pasado-claro); grid-column: 1 / -1; }
+  .decide .t { font-size: .78rem; font-weight: 700; color: var(--suave); }
+  .decide b { display: block; font-size: 1.25rem; line-height: 1.2; margin: 1px 0; }
+  .decide span { font-size: .78rem; color: var(--suave); }
+  .consejo { font-size: .82rem; color: var(--suave); margin: 0 0 8px; }
+  .consejo b { color: var(--texto); }
   .producto .acciones { display: flex; gap: 6px; flex-wrap: wrap; }
   .producto .acciones.rejilla { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .acciones.rejilla button { padding: 8px 4px; font-size: .86rem; }
-  .acciones.rejilla .principal { grid-column: 1 / -1; font-size: .95rem; padding: 10px; }
+  .acciones.rejilla button { padding: 9px 4px; font-size: .84rem; }
+  .acciones.rejilla .principal { grid-column: 1 / -1; font-size: .95rem; padding: 11px; }
+  .acciones.rejilla.par { grid-template-columns: 1fr; }
 
   /* Avisos */
-  .linea { display: grid; grid-template-columns: repeat(4, 1fr); list-style: none; padding: 0; margin: 10px 0; border: 1px solid var(--borde); border-radius: 6px; overflow: hidden; }
-  .linea li { font-size: .72rem; text-align: center; padding: 6px 2px; color: #8a928c; border-left: 1px solid var(--borde); }
-  .linea li:first-child { border-left: 0; }
-  .linea li.hecho { color: var(--marca); }
-  .linea li.actual { background: var(--marca); color: #fff; font-weight: 600; }
-  .segmento { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #c8cfc9; border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
-  .segmento button { border: 0; border-radius: 0; font-size: .88rem; padding: 9px 6px; }
-  .segmento button + button { border-left: 1px solid #c8cfc9; }
-  .segmento button[aria-pressed="true"] { background: var(--marca); color: #fff; }
-  .subtitulo { font-size: .8rem; font-weight: 600; color: var(--suave); margin: 14px 0 0; }
+  .linea { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; list-style: none; padding: 0; margin: 12px 0 10px; }
+  .linea li { font-size: .7rem; text-align: center; padding-top: 7px; border-top: 4px solid #e3e8e1; color: #8a948c; font-weight: 600; }
+  .linea li.hecho { border-top-color: #93d3a8; color: var(--marca); }
+  .linea li.actual { border-top-color: var(--marca); color: var(--marca-osc); font-weight: 800; }
+  .segmento { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: #e9ede8; padding: 4px; border-radius: 14px; margin-bottom: 8px; }
+  .segmento button { background: transparent; font-size: .88rem; padding: 9px 6px; }
+  .segmento button[aria-pressed="true"] { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.14); }
+  .subtitulo { font-size: .95rem; font-weight: 700; color: var(--suave); margin: 16px 0 2px; }
 
   /* Puntos */
-  .saldo { text-align: center; }
-  .saldo b { display: block; font-size: 2.6rem; line-height: 1.1; color: var(--marca); }
-  table { width: 100%; border-collapse: collapse; font-size: .9rem; table-layout: fixed; }
-  th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--borde); vertical-align: top; }
-  th { font-size: .8rem; color: var(--suave); font-weight: 600; }
-  td.pts { font-weight: 700; white-space: nowrap; }
+  .saldo { text-align: center; background: linear-gradient(135deg, #fff6df, #ffe7b0); border-color: #f7dc9b; }
+  .saldo b { display: block; font-size: 3rem; line-height: 1.05; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--borde); vertical-align: top; }
+  th { font-size: .78rem; color: var(--suave); font-weight: 700; }
+  td.pts { font-weight: 800; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
   .renglon { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px solid var(--borde); padding: 9px 0; }
   .renglon:last-child { border-bottom: 0; }
   .renglon button { white-space: nowrap; }
-  .mas { color: var(--marca); font-weight: 700; white-space: nowrap; }
-  .menos { color: var(--rojo); font-weight: 700; white-space: nowrap; }
-  .lista-ben { margin: 0; padding-left: 20px; }
-  .lista-ben li { margin: 0 0 6px; font-size: .93rem; }
-  details summary { cursor: pointer; font-weight: 600; padding: 2px 0; }
-  .etiqueta { display: inline-block; color: #1d5fa8; border: 1px solid #9dbbe0; border-radius: 3px; font-size: .66rem; font-weight: 700; padding: 0 4px; text-transform: uppercase; letter-spacing: .4px; vertical-align: middle; line-height: 1.5; }
+  .mas { color: var(--marca); font-weight: 800; white-space: nowrap; }
+  .menos { color: var(--rojo); font-weight: 800; white-space: nowrap; }
+  .escala { display: grid; gap: 12px; margin: 10px 0 0; }
+  .escala .paso { display: grid; grid-template-columns: 38px 1fr auto; gap: 5px 10px; align-items: center; }
+  .escala .paso b { display: block; font-size: .93rem; }
+  .escala .paso small { display: block; font-size: .78rem; color: var(--suave); line-height: 1.3; }
+  .escala .paso strong { font-size: 1.15rem; white-space: nowrap; }
+  .escala .medidor { grid-column: 2 / -1; height: 8px; border-radius: 99px; background: #edf0ec; overflow: hidden; }
+  .escala .medidor i { display: block; height: 100%; border-radius: 99px; }
+  .lista-ben { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .lista-ben li { display: flex; gap: 11px; align-items: center; font-size: .92rem; }
+  details summary { cursor: pointer; font-weight: 700; padding: 2px 0; list-style: none; display: flex; align-items: center; gap: 8px; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: "›"; margin-left: auto; font-size: 1.3rem; line-height: 1; color: var(--suave); transition: transform .2s; }
+  details[open] summary::after { transform: rotate(90deg); }
+  details.dentro { margin-top: 12px; border-top: 1px solid var(--borde); padding-top: 10px; }
+  details.dentro summary { font-size: .92rem; color: var(--marca-osc); }
 
   /* Navegación */
-  nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 6; background: #fff; border-top: 1px solid var(--borde); }
-  .nav-in { max-width: 560px; margin: 0 auto; display: flex; padding: 4px 2px calc(4px + env(safe-area-inset-bottom)); }
-  nav button { border: 0; border-radius: 0; background: none; font-size: .72rem; font-weight: 500; padding: 5px 2px; flex: 1; color: #6f7872; flex-direction: column; gap: 2px; }
-  nav button:hover { background: none; }
-  nav button svg { width: 22px; height: 22px; }
-  nav button[aria-current="page"] { color: var(--marca); font-weight: 700; }
+  nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 6; background: rgba(255,255,255,.97); border-top: 1px solid var(--borde); backdrop-filter: blur(6px); }
+  .nav-in { max-width: 560px; margin: 0 auto; display: flex; align-items: flex-end; padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); }
+  nav button { background: none; font-size: .7rem; font-weight: 600; padding: 4px 2px; flex: 1; color: #7b857d; flex-direction: column; gap: 2px; border-radius: 10px; }
+  nav button svg { width: 24px; height: 24px; }
+  nav button[aria-current="page"] { color: var(--marca); }
+  nav button.central .circulo { width: 54px; height: 54px; border-radius: 50%; background: var(--naranja); color: #fff; display: grid; place-items: center; margin-top: -26px; box-shadow: 0 6px 14px rgba(255,107,61,.35); border: 4px solid #fff; }
+  nav button.central[aria-current="page"] .circulo { background: #e8562a; }
 
-  .toast { position: fixed; left: 50%; bottom: 80px; transform: translateX(-50%); background: #222; color: #fff; padding: 10px 14px; border-radius: 6px; font-size: .9rem; z-index: 10; width: max-content; max-width: 90vw; }
+  .toast { position: fixed; left: 50%; bottom: 98px; transform: translateX(-50%); background: #1e2a22; color: #fff; padding: 11px 16px; border-radius: 12px; font-size: .9rem; z-index: 10; width: max-content; max-width: 90vw; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
   footer { text-align: center; font-size: .76rem; color: var(--suave); margin-top: 6px; }
+  @media (min-width: 700px) { main { padding-top: 22px; } }
 </style>
 </head>
 <body>
 <header class="barra">
   <div class="barra-in">
-    <div class="marca"><h1>Rotta</h1></div>
-    <p>Recolección de fruta y verdura</p>
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 40 40" width="30" height="30"><circle cx="20" cy="23" r="12" fill="#ff6b3d"/><path d="M20 11c0-4.5 3.2-7 7.5-7-1 4.4-3.4 7-7.5 7z" fill="#3fb86a"/><path d="M20 11c-1.2-3-4-4.3-6.6-3.4 1.2 2.4 3.5 3.5 6.6 3.4z" fill="#17803d"/><ellipse cx="15.5" cy="19.5" rx="3" ry="2.2" fill="#fff" opacity=".35"/></svg>
+    </div>
+    <div class="marca">
+      <h1>Rotta</h1>
+      <p>Lo que ya no vendes, todavía alimenta.</p>
+    </div>
   </div>
 </header>
 
 <main>
   <!-- ===== HOY ===== -->
   <div id="vista-inicio">
-    <section aria-labelledby="t-resumen">
-      <h2 id="t-resumen">Resumen</h2>
-      <div class="cifras">
-        <div class="principal-cifra"><b id="n-puntos">0</b><span>puntos (<span id="n-equiv">$0</span>)</span></div>
-        <div><b id="n-donado">$0</b><span>donado a albergues</span></div>
-        <div><b id="n-perdido">$0</b><span>tirado a la basura</span></div>
+    <section class="heroe" aria-labelledby="t-resumen">
+      <p class="saludo" id="t-resumen">Tus puntos</p>
+      <p class="grande"><span id="n-puntos">0</span> <small>pts = <span id="n-equiv">$0</span></small></p>
+      <div class="chicos">
+        <div class="chico"><b id="n-donado">$0</b><span>donados a albergues</span></div>
+        <div class="chico"><b id="n-perdido">$0</b><span>tirados a la basura</span></div>
       </div>
       <p class="camino" id="n-camino"></p>
     </section>
 
     <section id="bienvenida" aria-labelledby="t-como">
-      <h2 id="t-como">¿Cómo funciona Rotta?</h2>
+      <h2 id="t-como">👋 ¿Cómo funciona Rotta?</h2>
       <ol class="pasos">
-        <li>Registra lo que te llegó. Rotta te dice cuántos días le quedan.</li>
-        <li>Decide si lo rematas o si lo avisas en la app.</li>
-        <li>Un colaborador pasa a recogerlo a tu negocio.</li>
-        <li>Ganas puntos y los cambias por dinero u objetos, o los regalas.</li>
+        <li><span class="n">1</span><span>Registra lo que te llegó. Rotta pone el precio y te dice cuántos días le quedan.</span></li>
+        <li><span class="n">2</span><span><b>Mientras antes lo avises, más puntos ganas.</b> Si prefieres, remátalo.</span></li>
+        <li><span class="n">3</span><span>Un colaborador pasa a recogerlo a tu negocio, sin costo.</span></li>
+        <li><span class="n">4</span><span>Cambia tus puntos por dinero u objetos, o dónalos.</span></li>
       </ol>
-      <p class="aviso-caja">Todo lo que se recoge se dona a albergues y comedores para preparar comida.</p>
-      <p class="nota">Tiene productos de ejemplo para que la pruebes. No necesitas instalar nada ni crear cuenta.</p>
+      <div class="beneficio"><span class="ico" aria-hidden="true">🍲</span><span>Todo lo que se recoge se dona a albergues y comedores para preparar comida.</span></div>
+      <p class="nota">No necesitas instalar nada ni crear cuenta.</p>
       <div class="fila">
         <button type="button" id="cerrar-bienvenida">Entendido</button>
         <a class="boton principal enlace-opinion" href="#" target="_blank" rel="noopener">Danos tu opinión</a>
       </div>
     </section>
 
+    <section class="novedades" aria-labelledby="t-nuevo">
+      <h2 id="t-nuevo">✨ Lo nuevo en Rotta</h2>
+      <ul class="lista-ben">
+        <li><span class="ico i-verde" aria-hidden="true">🚚</span><span><b>Pasamos por él a tu negocio.</b> Ya no tienes que llevarlo a ningún lado.</span></li>
+        <li><span class="ico i-amarillo" aria-hidden="true">⏰</span><span><b>Mientras antes avises, más ganas.</b> Faltando 2 días te damos 10 puntos por cada $100; el último día, 2.</span></li>
+        <li><span class="ico i-cafe" aria-hidden="true">♻️</span><span><b>Si ya se pasó, depende del producto.</b> Del plátano se aprovecha casi todo; de la lechuga, poco.</span></li>
+        <li><span class="ico i-azul" aria-hidden="true">🏷️</span><span><b>Precio Rotta.</b> Ya no escribes precios: la app los pone con el mercado de la semana.</span></li>
+        <li><span class="ico i-rosa" aria-hidden="true">🤝</span><span><b>Dinero, objetos o donarlos.</b> Tú decides qué hacer con tus puntos.</span></li>
+      </ul>
+    </section>
+
     <section aria-labelledby="t-reporte">
-      <h2 id="t-reporte">Reporte de hoy <span class="etiqueta">Nuevo</span></h2>
+      <h2 id="t-reporte">📋 Reporte de hoy</h2>
       <p class="nota" id="fecha-hoy"></p>
       <div class="semaforo" role="list">
         <div class="s-pasado" role="listitem"><b id="n-pasado">0</b>Ya se pasó</div>
@@ -194,44 +259,41 @@
       </div>
       <p id="texto-reporte"></p>
       <div class="fila">
-        <button type="button" id="reporte-whatsapp">Recibir el reporte por WhatsApp</button>
-        <button type="button" id="activar-avisos">Activar alertas</button>
+        <button type="button" class="whatsapp" id="reporte-whatsapp">Mandarme el reporte por WhatsApp</button>
+        <button type="button" id="activar-avisos">🔔 Activar alertas</button>
       </div>
-      <p class="nota" style="margin-top:8px">Revísalo antes de abrir el negocio.</p>
+      <p class="nota" style="margin-top:8px">Revísalo antes de abrir tu negocio.</p>
     </section>
 
     <section aria-labelledby="t-urgente">
-      <h2 id="t-urgente">Por echarse a perder</h2>
-      <p class="nota">Mientras más cerca está de echarse a perder, más puntos da. Si todavía le quedan días, conviene más rematarlo.</p>
+      <h2 id="t-urgente">⏳ ¿Qué te conviene hoy?</h2>
+      <p class="nota">Mientras antes lo avises, más puntos ganas. Si ya se pasó, solo cuenta lo que se aprovecha, y eso depende de cada producto.</p>
       <div id="lista-urgente"></div>
     </section>
 
-    <section aria-labelledby="t-opinion">
-      <h2 id="t-opinion">Tu opinión nos ayuda</h2>
+    <section id="opinion" aria-labelledby="t-opinion">
+      <h2 id="t-opinion">💬 Tu opinión nos ayuda</h2>
       <p>¿Usarías Rotta en tu negocio? Contesta unas preguntas rápidas.</p>
-      <div class="fila">
-        <a class="boton principal enlace-opinion" href="#" target="_blank" rel="noopener">Danos tu opinión</a>
-        <button type="button" class="peligro" id="reiniciar">Volver al ejemplo</button>
-      </div>
+      <a class="boton principal enlace-opinion" href="#" target="_blank" rel="noopener">Danos tu opinión</a>
     </section>
   </div>
 
-  <!-- ===== LO QUE TENGO ===== -->
+  <!-- ===== PRODUCTOS ===== -->
   <div id="vista-inventario" class="oculto">
     <section aria-labelledby="t-inventario">
-      <h2 id="t-inventario">Lo que tengo</h2>
+      <h2 id="t-inventario">🧺 Lo que tengo</h2>
       <p class="nota">Ordenado por lo que se echa a perder primero.</p>
       <div id="lista-inventario"></div>
     </section>
     <section>
       <details id="caja-registrar">
-        <summary>Registrar lo que me llegó</summary>
+        <summary>➕ Registrar lo que me llegó</summary>
         <form id="form-agregar">
           <label for="f-producto">Producto</label>
           <select id="f-producto"></select>
           <div id="caja-f-otro" class="oculto">
             <label for="f-otro">¿Cuál?</label>
-            <input id="f-otro" type="text" maxlength="40" placeholder="Ej. guayaba">
+            <input id="f-otro" type="text" maxlength="40" placeholder="Escribe el nombre">
           </div>
           <div class="dos">
             <div>
@@ -245,8 +307,8 @@
           </div>
           <div class="dos">
             <div>
-              <label for="f-precio">Precio por unidad ($)</label>
-              <input id="f-precio" type="number" min="0" step="0.5" required value="20" inputmode="decimal">
+              <label for="f-calidad">Calidad</label>
+              <select id="f-calidad"><option value="primera">De primera</option><option value="segunda">De segunda</option></select>
             </div>
             <div>
               <label for="f-dias">Días que aguanta</label>
@@ -255,9 +317,26 @@
           </div>
           <label for="f-llegada">¿Cuándo llegó?</label>
           <input id="f-llegada" type="date" required>
-          <p class="nota" style="margin-top:8px">El precio y los días se llenan solos según el producto. Puedes cambiarlos.</p>
+          <div class="precio-rotta" id="f-precio-info" aria-live="polite"></div>
+          <p class="nota" style="margin-top:8px">Los días se llenan solos según el producto. Si llegó muy maduro, bájalos.</p>
           <button type="submit" class="principal ancho">Guardar</button>
         </form>
+      </details>
+    </section>
+    <section aria-labelledby="t-precios">
+      <h2 id="t-precios">🏷️ Precios Rotta de la semana</h2>
+      <p class="nota">Semana <span id="semana-precios"></span>. Rotta pone el precio de cada producto con tres criterios:</p>
+      <ul class="lista-ben" style="margin:8px 0 4px">
+        <li><span class="ico i-azul" aria-hidden="true">📈</span><span><b>Precio en la central de abasto</b> esa semana.</span></li>
+        <li><span class="ico i-verde" aria-hidden="true">🌱</span><span><b>Temporada:</b> en temporada baja 10 %; fuera de temporada sube 10 %.</span></li>
+        <li><span class="ico i-amarillo" aria-hidden="true">⭐</span><span><b>Calidad:</b> si llegó de segunda, baja 20 %.</span></li>
+      </ul>
+      <details class="dentro">
+        <summary>Ver todos los precios</summary>
+        <table>
+          <thead><tr><th scope="col">Producto</th><th scope="col">Precio Rotta</th><th scope="col">Temporada</th></tr></thead>
+          <tbody id="tabla-precios"></tbody>
+        </table>
       </details>
     </section>
   </div>
@@ -265,15 +344,15 @@
   <!-- ===== AVISAR ===== -->
   <div id="vista-avisar" class="oculto">
     <section aria-labelledby="t-avisar">
-      <h2 id="t-avisar">Avisar para que lo recojan</h2>
-      <p class="aviso-caja"><b>Pasamos a recogerlo a tu negocio</b>, sin costo. <span class="etiqueta">Nuevo</span></p>
+      <h2 id="t-avisar">📦 Avisar para que lo recojan</h2>
+      <div class="beneficio"><span class="ico" aria-hidden="true">🚚</span><span><b>Pasamos a recogerlo a tu negocio</b>, sin costo. Tú no cargas nada.</span></div>
       <form id="form-aviso">
         <input type="hidden" id="a-producto-id">
         <label for="a-producto">Producto</label>
         <select id="a-producto"></select>
         <div id="caja-a-otro" class="oculto">
           <label for="a-otro">¿Cuál?</label>
-          <input id="a-otro" type="text" maxlength="40" placeholder="Ej. guayaba">
+          <input id="a-otro" type="text" maxlength="40" placeholder="Escribe el nombre">
         </div>
         <div class="dos">
           <div>
@@ -285,18 +364,18 @@
             <select id="a-unidad"><option>kg</option><option>piezas</option><option>manojos</option><option>cajas</option></select>
           </div>
         </div>
-        <label for="a-precio">Precio normal por unidad ($)</label>
-        <input id="a-precio" type="number" min="0" step="0.5" required value="20" inputmode="decimal">
+        <label for="a-calidad">Calidad</label>
+        <select id="a-calidad"><option value="primera">De primera</option><option value="segunda">De segunda</option></select>
+        <div class="precio-rotta" id="a-precio-info" aria-live="polite"></div>
 
         <fieldset>
           <legend>¿Cuándo se echa a perder?</legend>
           <div class="opciones" id="a-etapas"></div>
         </fieldset>
 
-        <div id="caja-util" class="oculto">
-          <label for="a-util">¿Cuánto todavía se puede usar?</label>
-          <select id="a-util"></select>
-          <p class="nota" style="margin-top:6px">Ganas puntos solo por lo que todavía sirve. El colaborador lo revisa al recoger.</p>
+        <div id="caja-util" class="aprovecha oculto">
+          <span class="ico" aria-hidden="true">♻️</span>
+          <span id="a-util-info"></span>
         </div>
 
         <label for="a-cuando">¿Cuándo pueden pasar?</label>
@@ -306,9 +385,9 @@
           <option>Mañana temprano, antes de abrir (7 a 9 a. m.)</option>
         </select>
         <label for="a-nota">Nota para el colaborador (opcional)</label>
-        <input id="a-nota" type="text" maxlength="120" placeholder="Ej. está en cajas junto a la báscula">
+        <input id="a-nota" type="text" maxlength="120" placeholder="Está en cajas junto a la báscula">
         <div class="estimado" id="a-estimado" aria-live="polite"></div>
-        <button type="submit" class="principal ancho">Avisar para que lo recojan</button>
+        <button type="submit" class="principal ancho">📦 Avisar para que lo recojan</button>
       </form>
     </section>
   </div>
@@ -316,10 +395,10 @@
   <!-- ===== MIS AVISOS ===== -->
   <div id="vista-avisos" class="oculto">
     <section aria-labelledby="t-avisos">
-      <h2 id="t-avisos">Mis avisos</h2>
+      <h2 id="t-avisos">🚚 Mis avisos</h2>
       <div class="segmento" role="group" aria-label="Ver la app como">
-        <button type="button" id="modo-comercio" aria-pressed="true">Comercio</button>
-        <button type="button" id="modo-colaborador" aria-pressed="false">Colaborador (prueba)</button>
+        <button type="button" id="modo-comercio" aria-pressed="true">🏪 Comercio</button>
+        <button type="button" id="modo-colaborador" aria-pressed="false">🚚 Colaborador</button>
       </div>
       <p class="nota" id="nota-modo"></p>
       <div id="lista-avisos"></div>
@@ -329,33 +408,38 @@
   <!-- ===== PUNTOS ===== -->
   <div id="vista-puntos" class="oculto">
     <section class="saldo" aria-labelledby="t-saldo">
-      <h2 id="t-saldo" style="justify-content:center">Tus puntos</h2>
+      <h2 id="t-saldo" style="justify-content:center">⭐ Tus puntos</h2>
       <b id="p-saldo">0</b>
       <span>equivalen a <span id="p-equiv">$0</span> · cada punto vale $1</span>
     </section>
 
     <section aria-labelledby="t-escala">
-      <h2 id="t-escala">¿Cuántos puntos gano?</h2>
-      <p class="nota">Depende de qué tan cerca está de echarse a perder. Puntos por cada $100 de producto, a tu precio normal.</p>
-      <table>
-        <colgroup><col style="width:40%"><col style="width:22%"><col style="width:38%"></colgroup>
-        <thead><tr><th scope="col">Cómo está</th><th scope="col">Puntos</th><th scope="col">Qué te conviene</th></tr></thead>
-        <tbody id="tabla-escala"></tbody>
-      </table>
+      <h2 id="t-escala">🎯 ¿Cuántos puntos gano?</h2>
+      <p class="nota">Puntos por cada $100 de producto, a Precio Rotta. Mientras antes lo avises, más ganas.</p>
+      <div class="escala" id="tabla-escala"></div>
+      <p class="nota" style="margin-top:10px">🟢 Si está fresco (3 días o más), véndelo normal.</p>
+      <details class="dentro" id="caja-pasado">
+        <summary>♻️ Si ya se pasó: cuánto se aprovecha de cada producto</summary>
+        <p class="nota" style="margin-top:8px">No todo se aprovecha igual. Ganas 2 puntos por cada $100 de la parte que todavía sirve. El colaborador lo revisa al recoger.</p>
+        <table>
+          <thead><tr><th scope="col">Producto</th><th scope="col">Se aprovecha</th><th scope="col">Para</th></tr></thead>
+          <tbody id="tabla-pasado"></tbody>
+        </table>
+      </details>
     </section>
 
     <section aria-labelledby="t-beneficios">
-      <h2 id="t-beneficios">Lo que ganas</h2>
+      <h2 id="t-beneficios">🎁 Lo que ganas</h2>
       <ul class="lista-ben">
-        <li><b>Pasamos a tu negocio.</b> Te quitas el producto sin cargarlo ni tirarlo.</li>
-        <li><b>Gratis.</b> Sin cuota mensual ni comisión. <span class="etiqueta">Nuevo</span></li>
-        <li><b>Puntos</b> que cambias por dinero u objetos, o regalas.</li>
-        <li><b>Ayudas.</b> Con lo que se recoge se cocina en albergues y comedores.</li>
+        <li><span class="ico i-verde" aria-hidden="true">🚚</span><span><b>Pasamos a tu negocio.</b> Te quitas el producto sin cargarlo ni tirarlo.</span></li>
+        <li><span class="ico i-amarillo" aria-hidden="true">💸</span><span><b>Gratis.</b> Sin cuota mensual ni comisión.</span></li>
+        <li><span class="ico i-azul" aria-hidden="true">⭐</span><span><b>Puntos</b> que cambias por dinero u objetos, o donas.</span></li>
+        <li><span class="ico i-naranja" aria-hidden="true">🍲</span><span><b>Ayudas.</b> Se cocina en albergues y comedores.</span></li>
       </ul>
     </section>
 
     <section aria-labelledby="t-dinero">
-      <h2 id="t-dinero">Cámbialos por dinero <span class="etiqueta">Nuevo</span></h2>
+      <h2 id="t-dinero">💵 Cámbialos por dinero</h2>
       <form id="form-dinero">
         <div class="dos">
           <div>
@@ -373,43 +457,43 @@
     </section>
 
     <section aria-labelledby="t-objetos">
-      <h2 id="t-objetos">Cámbialos por objetos</h2>
+      <h2 id="t-objetos">🛍️ Cámbialos por objetos</h2>
       <div id="catalogo"></div>
-      <p class="nota" style="margin-top:6px">Objetos de ejemplo. El colaborador te lo lleva en su siguiente visita.</p>
+      <p class="nota" style="margin-top:6px">El colaborador te lo lleva en su siguiente visita.</p>
     </section>
 
-    <section aria-labelledby="t-regalar">
-      <h2 id="t-regalar">Regálalos</h2>
-      <p>Regala tus puntos a un albergue o comedor que cocina con lo rescatado.</p>
-      <form id="form-regalar">
+    <section aria-labelledby="t-donar">
+      <h2 id="t-donar">🤝 Dónalos</h2>
+      <p>Dona tus puntos a un albergue o comedor. Rotta los convierte en despensa para su cocina.</p>
+      <form id="form-donar">
         <div class="dos">
           <div>
-            <label for="r-puntos">Puntos</label>
-            <input id="r-puntos" type="number" min="1" step="1" required value="10" inputmode="numeric">
+            <label for="don-puntos">Puntos</label>
+            <input id="don-puntos" type="number" min="1" step="1" required value="10" inputmode="numeric">
           </div>
           <div>
-            <label for="r-destino">¿A quién?</label>
-            <select id="r-destino"></select>
+            <label for="don-destino">¿A quién?</label>
+            <select id="don-destino"></select>
           </div>
         </div>
-        <p style="margin-top:10px"><button type="submit" class="principal ancho">Regalar mis puntos</button></p>
+        <p style="margin-top:10px"><button type="submit" class="principal ancho">Donar mis puntos</button></p>
       </form>
     </section>
 
     <section aria-labelledby="t-movimientos">
-      <h2 id="t-movimientos">Movimientos</h2>
+      <h2 id="t-movimientos">🧾 Movimientos</h2>
       <div id="movimientos"></div>
     </section>
   </div>
 
-  <footer><span class="etiqueta">Nuevo</span> = lo que cambiamos después de platicar con comerciantes.<br>Rotta, prototipo del Equipo 8, Emprendimiento que florece. Productos, puntos, objetos y albergues de ejemplo; no se hacen pagos reales.</footer>
+  <footer>Rotta · Lo que ya no vendes, todavía alimenta · 2026<br><button type="button" class="enlace" id="reiniciar">Restablecer datos</button></footer>
 </main>
 
 <nav aria-label="Secciones">
   <div class="nav-in">
     <button type="button" data-vista="inicio" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Hoy</button>
     <button type="button" data-vista="inventario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16l-1.5 10a2 2 0 0 1-2 1.7h-9a2 2 0 0 1-2-1.7z"/><path d="M8 9l4-6 4 6"/></svg>Productos</button>
-    <button type="button" data-vista="avisar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Avisar</button>
+    <button type="button" data-vista="avisar" class="central"><span class="circulo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>Avisar</button>
     <button type="button" data-vista="avisos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h12v10H2zM14 9h4.5L22 12.5V16h-8"/><circle cx="6.5" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/></svg>Mis avisos</button>
     <button type="button" data-vista="puntos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>Puntos</button>
   </div>
@@ -418,34 +502,53 @@
 <div id="toast" class="toast oculto" role="status" aria-live="polite"></div>
 
 <script>
-// ===== Ajustes del prototipo (el equipo puede cambiarlos) =====
-const ENCUESTA_URL = "";            // Enlace del formulario de opinión
+// ===== Ajustes de Rotta =====
+const ENCUESTA_URL = "";            // Enlace publicado del landing con la encuesta. Vacío: no se muestran los botones de opinión
 const WHATSAPP_ROTTA = "";          // WhatsApp de Rotta (10 dígitos). Vacío: WhatsApp deja elegir el contacto
-// Puntos por cada $100 de producto, según qué tan cerca está de echarse a perder
+// Puntos por cada $100 de producto (a Precio Rotta): mientras antes se avisa, más puntos
 const ETAPAS = {
-  dos:    { nombre: "Faltan 2 días",        corto: "En 2 días",           pts: 2,  consejo: "Remátalo; si no se vende, avísalo después" },
-  manana: { nombre: "Falta 1 día",          corto: "Mañana",              pts: 5,  consejo: "Remátalo o vete a la segura" },
-  hoy:    { nombre: "Se echa a perder hoy", corto: "Hoy",                 pts: 10, consejo: "Avísalo: ganas más puntos" },
-  pasado: { nombre: "Ya se echó a perder",  corto: "Ya se pasó",          pts: 10, consejo: "Avisa solo lo que todavía sirve" }
+  dos:    { nombre: "Faltan 2 días",        corto: "En 2 días",  pts: 10, consejo: "Avísalo ya: es cuando más ganas" },
+  manana: { nombre: "Falta 1 día",          corto: "Mañana",     pts: 5,  consejo: "Remátalo hoy o avísalo; mañana baja" },
+  hoy:    { nombre: "Se echa a perder hoy", corto: "Hoy",        pts: 2,  consejo: "Último día: avísalo antes de que se pase" },
+  pasado: { nombre: "Ya se echó a perder",  corto: "Ya se pasó", pts: 2,  consejo: "Solo cuenta lo que se aprovecha, según el producto" }
 };
 const UTIL = [[1, "Todo"], [0.75, "Casi todo (3 de cada 4)"], [0.5, "La mitad"], [0.25, "Poco (1 de cada 4)"]];
-const REMATE = { hoy: 50, manana: 30, dos: 30 };  // Descuento sugerido para rematar (%)
+const REMATE = { dos: 20, manana: 30, hoy: 50 };  // Descuento sugerido para rematar (%)
 const VALOR_PUNTO = 1;              // Cada punto vale $1
 const MINIMO_DINERO = 50;           // Puntos mínimos para pedir dinero
 const OBJETOS = [["Bolsa de mandado reutilizable", 40], ["Mandil de Rotta", 80], ["Caja plegable para fruta", 120], ["Báscula digital de mostrador", 450]];
-const DESTINOS = ["Albergue para personas migrantes (ejemplo)", "Comedor comunitario (ejemplo)", "Casa hogar (ejemplo)"];
-const COLABORADOR_PRUEBA = "Carlos";
+const DESTINOS = ["Albergue para migrantes La Esperanza", "Comedor Comunitario San Andrés", "Casa Hogar Santa María"];
+const COLABORADOR = "Carlos";
+// Criterios del Precio Rotta
+const TEMPORADA = { en: 0.9, fuera: 1.1 };
+const CALIDAD = { primera: { nombre: "De primera", f: 1 }, segunda: { nombre: "De segunda", f: 0.8 } };
 
-const CLAVE = "rotta-v1";
+const CLAVE = "rotta-v2";
 const DIA = 86400000;
-// [nombre, días que aguanta, unidad, precio normal de ejemplo]
+// [nombre, ícono, días que aguanta, unidad, precio en la central de abasto esta semana,
+//  meses de temporada (vacío: todo el año), cuánto se aprovecha si ya se pasó, para qué se aprovecha]
 const PRODUCTOS = [
-  ["Aguacate", 5, "piezas", 10], ["Cebolla", 14, "kg", 25], ["Chile serrano", 7, "kg", 40], ["Cilantro", 3, "manojos", 8],
-  ["Durazno", 4, "kg", 45], ["Fresa", 3, "kg", 60], ["Jitomate", 6, "kg", 28], ["Lechuga", 4, "piezas", 15],
-  ["Limón", 14, "kg", 30], ["Mango", 6, "kg", 30], ["Manzana", 20, "kg", 40], ["Naranja", 14, "kg", 18],
-  ["Papa", 20, "kg", 28], ["Papaya", 5, "piezas", 35], ["Pepino", 7, "kg", 20], ["Plátano", 5, "kg", 22],
-  ["Zanahoria", 15, "kg", 18]
+  ["Aguacate", "🥑", 5, "piezas", 12, [10, 11, 12, 1, 2, 3], 0.5, "guacamole del día"],
+  ["Cebolla", "🧅", 14, "kg", 26, [], 0.5, "caldos y guisos"],
+  ["Chile serrano", "🌶️", 7, "kg", 42, [], 0.5, "salsas"],
+  ["Cilantro", "🌿", 3, "manojos", 8, [], 0.25, "caldos"],
+  ["Durazno", "🍑", 4, "kg", 46, [6, 7, 8, 9], 0.75, "mermelada y postres"],
+  ["Fresa", "🍓", 3, "kg", 62, [12, 1, 2, 3, 4], 0.5, "mermelada y licuados"],
+  ["Jitomate", "🍅", 6, "kg", 28, [], 0.75, "salsa y caldillo"],
+  ["Lechuga", "🥬", 4, "piezas", 15, [], 0.25, "solo las hojas de adentro"],
+  ["Limón", "🍋", 14, "kg", 30, [5, 6, 7, 8, 9], 0.5, "agua fresca"],
+  ["Mango", "🥭", 6, "kg", 32, [3, 4, 5, 6, 7, 8], 0.75, "licuados y mermelada"],
+  ["Manzana", "🍎", 20, "kg", 40, [8, 9, 10, 11], 0.75, "compota y postres"],
+  ["Naranja", "🍊", 14, "kg", 18, [11, 12, 1, 2, 3], 0.5, "jugo"],
+  ["Papa", "🥔", 20, "kg", 28, [], 0.5, "puré y guisos"],
+  ["Papaya", "🍈", 5, "piezas", 36, [], 0.5, "licuados"],
+  ["Pepino", "🥒", 7, "kg", 20, [], 0.25, "agua fresca"],
+  ["Plátano", "🍌", 5, "kg", 22, [], 0.75, "pan de plátano y licuados"],
+  ["Zanahoria", "🥕", 15, "kg", 18, [], 0.5, "caldos y jugos"]
 ];
+const OTRO = { icono: "🧺", dias: 5, unidad: "kg", mercado: 20, temporada: [], aprov: 0.5, uso: "lo que se pueda cocinar" };
+const CAT = {};
+PRODUCTOS.forEach(([nombre, icono, dias, unidad, mercado, temporada, aprov, uso]) => { CAT[nombre] = { nombre, icono, dias, unidad, mercado, temporada, aprov, uso }; });
 const ESTADOS = ["avisado", "en_camino", "recogido", "entregado"];
 const NOMBRE_ESTADO = { avisado: "Avisado", en_camino: "En camino", recogido: "Recogido", entregado: "En el albergue" };
 
@@ -461,48 +564,81 @@ function id() { return Date.now().toString(36) + Math.random().toString(36).slic
 function fechaCorta(s) { return deTexto(s).toLocaleDateString("es-MX", { day: "numeric", month: "short" }); }
 function el(tag, clase, texto) { const e = document.createElement(tag); if (clase) e.className = clase; if (texto != null) e.textContent = texto; return e; }
 function boton(t, clase, fn) { const b = el("button", clase, t); b.type = "button"; b.addEventListener("click", fn); return b; }
-function etiqueta() { return el("span", "etiqueta", "Nuevo"); }
+function mayus(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+function info(nombre) { return CAT[nombre] || { ...OTRO, nombre }; }
+function conocido(nombre) { return !!CAT[nombre]; }
+function icono(nombre) { return info(nombre).icono; }
+function porUnidad(u) { return { kg: "kg", piezas: "pieza", manojos: "manojo", cajas: "caja" }[u] || u; }
 function utilTexto(u) { const x = UTIL.find(y => y[0] === u); return x ? x[1].toLowerCase() : Math.round(u * 100) + " %"; }
-function calcPuntos(valorP, etapa, util) { return Math.floor(valorP * util * ETAPAS[etapa].pts / 100); }
+function ptsTxt(n) { return n === 1 ? "1 punto" : n.toLocaleString("es-MX") + " puntos"; }
+function calcPuntos(valorP, etapa, util) { return Math.round(valorP * util * ETAPAS[etapa].pts / 100); }
 
-function ejemplo() {
-  const av = (nombre, cantidad, unidad, precio, etapa, util, cuando, estado, colaborador, destino, dias) => {
-    const a = { id: id(), nombre, cantidad, unidad, precio, etapa, util, utilReal: estado === "avisado" || estado === "en_camino" ? null : util, cuando, nota: "", estado, colaborador, destino, puntos: 0, fecha: haceDias(dias), producto: null };
+// ----- Precio Rotta: central de abasto de la semana × temporada × calidad -----
+function temporadaDe(nombre) {
+  const t = info(nombre).temporada;
+  if (!t.length) return { texto: "Todo el año", f: 1 };
+  return t.includes(hoy().getMonth() + 1) ? { texto: "En temporada", f: TEMPORADA.en } : { texto: "Fuera de temporada", f: TEMPORADA.fuera };
+}
+function precioRotta(nombre, calidad) {
+  return Math.round(info(nombre).mercado * temporadaDe(nombre).f * CALIDAD[calidad || "primera"].f * 2) / 2;
+}
+function pct(f) { return (f < 1 ? "−" : "+") + Math.round(Math.abs(1 - f) * 100) + " %"; }
+function porQue(nombre, calidad) {
+  const t = temporadaDe(nombre), c = CALIDAD[calidad || "primera"];
+  return [(conocido(nombre) ? "Central de abasto esta semana: " : "Precio general, el colaborador lo revisa: ") + precioTxt(info(nombre).mercado),
+    t.texto + (t.f !== 1 ? " (" + pct(t.f) + ")" : ""),
+    c.nombre + (c.f !== 1 ? " (" + pct(c.f) + ")" : "")].join(" · ");
+}
+function pintarPrecio(caja, nombre, calidad, unidad) {
+  caja.innerHTML = "";
+  caja.appendChild(el("span", "ico", "🏷️")).setAttribute("aria-hidden", "true");
+  const t = el("span", "");
+  t.appendChild(document.createTextNode("Precio Rotta: "));
+  t.appendChild(el("b", "", precioTxt(precioRotta(nombre, calidad))));
+  t.appendChild(document.createTextNode(" por " + porUnidad(unidad)));
+  t.appendChild(el("small", "", porQue(nombre, calidad)));
+  caja.appendChild(t);
+}
+function semanaTexto() {
+  const d = hoy(), lunes = new Date(d.getTime() - ((d.getDay() + 6) % 7) * DIA), domingo = new Date(lunes.getTime() + 6 * DIA);
+  const f = x => x.toLocaleDateString("es-MX", { day: "numeric", month: "long" });
+  return "del " + f(lunes) + " al " + f(domingo);
+}
+
+function inicial() {
+  const av = (nombre, cantidad, etapa, estado, colaborador, destino, dias, cuando) => {
+    const precio = precioRotta(nombre), util = etapa === "pasado" ? info(nombre).aprov : 1;
+    const a = { id: id(), nombre, cantidad, unidad: info(nombre).unidad, calidad: "primera", precio, etapa, util, utilReal: estado === "avisado" || estado === "en_camino" ? null : util, cuando, nota: "", estado, colaborador, destino, puntos: 0, fecha: haceDias(dias), producto: null };
     if (a.utilReal != null) a.puntos = calcPuntos(cantidad * precio, etapa, util);
     return a;
   };
   const avisos = [
-    av("Mango", 4, "kg", 30, "hoy", 1, "Hoy en la tarde (4 a 7 p. m.)", "en_camino", "Lupita", "", 0),
-    av("Jitomate", 12, "kg", 28, "hoy", 1, "Hoy en la mañana (9 a 12)", "entregado", "Carlos", DESTINOS[1], 2),
-    av("Lechuga", 20, "piezas", 15, "pasado", 0.5, "Mañana temprano, antes de abrir (7 a 9 a. m.)", "entregado", "Carlos", DESTINOS[0], 4),
-    av("Papaya", 6, "piezas", 35, "manana", 1, "Hoy en la tarde (4 a 7 p. m.)", "entregado", "Lupita", DESTINOS[2], 6)
+    av("Mango", 4, "manana", "en_camino", "Lupita", "", 0, "Hoy en la tarde (4 a 7 p. m.)"),
+    av("Jitomate", 20, "dos", "entregado", "Carlos", DESTINOS[1], 2, "Hoy en la mañana (9 a 12)"),
+    av("Aguacate", 40, "manana", "entregado", "Lupita", DESTINOS[0], 3, "Hoy en la tarde (4 a 7 p. m.)"),
+    av("Papaya", 6, "pasado", "entregado", "Carlos", DESTINOS[0], 5, "Mañana temprano, antes de abrir (7 a 9 a. m.)"),
+    av("Durazno", 5, "hoy", "entregado", "Lupita", DESTINOS[2], 6, "Hoy en la tarde (4 a 7 p. m.)")
   ];
   const hechos = avisos.filter(a => a.estado === "entregado");
+  const prod = (nombre, cantidad, hace) => ({ id: id(), nombre, cantidad, unidad: info(nombre).unidad, calidad: "primera", precio: precioRotta(nombre), llegada: haceDias(hace), dias: info(nombre).dias });
   return {
     bienvenidaVista: false, modo: "comercio",
     puntos: hechos.reduce((s, a) => s + a.puntos, 0),
     donado: hechos.reduce((s, a) => s + a.cantidad * a.precio * a.utilReal, 0),
     perdido: 0,
-    productos: [
-      { id: id(), nombre: "Plátano", cantidad: 6, unidad: "kg", precio: 22, llegada: haceDias(5), dias: 5 },
-      { id: id(), nombre: "Cilantro", cantidad: 10, unidad: "manojos", precio: 8, llegada: haceDias(3), dias: 3 },
-      { id: id(), nombre: "Jitomate", cantidad: 8, unidad: "kg", precio: 28, llegada: haceDias(5), dias: 6 },
-      { id: id(), nombre: "Aguacate", cantidad: 15, unidad: "piezas", precio: 10, llegada: haceDias(3), dias: 5 },
-      { id: id(), nombre: "Fresa", cantidad: 3, unidad: "kg", precio: 60, llegada: haceDias(1), dias: 3 },
-      { id: id(), nombre: "Durazno", cantidad: 4, unidad: "kg", precio: 45, llegada: haceDias(5), dias: 4 },
-      { id: id(), nombre: "Manzana", cantidad: 10, unidad: "kg", precio: 40, llegada: haceDias(2), dias: 20 },
-      { id: id(), nombre: "Limón", cantidad: 5, unidad: "kg", precio: 30, llegada: haceDias(1), dias: 14 }
-    ],
+    productos: [prod("Plátano", 8, 6), prod("Lechuga", 20, 5), prod("Cilantro", 10, 3), prod("Jitomate", 10, 5),
+      prod("Aguacate", 20, 3), prod("Fresa", 3, 1), prod("Manzana", 10, 2), prod("Limón", 5, 1)],
     avisos,
     movimientos: hechos.map(a => ({ id: id(), fecha: a.fecha, texto: movTexto(a), puntos: a.puntos }))
   };
 }
 function movTexto(a) {
-  return "Recolección: " + a.nombre.toLowerCase() + ", " + cant(a.cantidad) + " " + a.unidad + " (" + ETAPAS[a.etapa].corto.toLowerCase() + (a.utilReal < 1 ? ", sirvió " + utilTexto(a.utilReal) : "") + ")";
+  const cuando = { dos: "avisado faltando 2 días", manana: "avisado faltando 1 día", hoy: "avisado el último día", pasado: "ya se había pasado" }[a.etapa];
+  return "Recolección: " + a.nombre.toLowerCase() + ", " + cant(a.cantidad) + " " + a.unidad + " (" + cuando + (a.utilReal < 1 ? "; se aprovechó " + utilTexto(a.utilReal) : "") + ")";
 }
 
 let datos;
-try { datos = JSON.parse(localStorage.getItem(CLAVE)) || ejemplo(); } catch (e) { datos = ejemplo(); }
+try { datos = JSON.parse(localStorage.getItem(CLAVE)) || inicial(); } catch (e) { datos = inicial(); }
 function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(datos)); } catch (e) {} }
 
 function restantes(p) { return Math.round((deTexto(p.llegada).getTime() + p.dias * DIA - hoy().getTime()) / DIA); }
@@ -521,20 +657,21 @@ function ordenados() { return [...datos.productos].sort((a, b) => restantes(a) -
 function toast(t) {
   const e = $("toast");
   e.textContent = t; e.classList.remove("oculto");
-  clearTimeout(toast.t); toast.t = setTimeout(() => e.classList.add("oculto"), 3000);
+  clearTimeout(toast.t); toast.t = setTimeout(() => e.classList.add("oculto"), 3200);
 }
 
 // ----- Tarjeta de producto -----
-const COLOR_BARRA = { pasado: "var(--pasado)", rojo: "var(--rojo)", amarillo: "#e0a020", verde: "var(--marca)" };
+const COLOR_BARRA = { pasado: "var(--pasado)", rojo: "var(--rojo)", amarillo: "var(--amarillo)", verde: "var(--marca)" };
 function tarjetaProducto(p) {
-  const c = color(p), e = etapaDe(p), r = restantes(p), v = valor(p);
+  const c = color(p), e = etapaDe(p), r = restantes(p), v = valor(p), i = info(p.nombre);
   const div = el("div", "producto");
   const top = el("div", "top");
+  top.appendChild(el("span", "emoji " + c, i.icono));
   const t = el("div", ""), tit = el("div", "titulo");
   tit.appendChild(el("h3", "", p.nombre));
   tit.appendChild(el("span", "estado " + c, estadoTexto(p)));
   t.appendChild(tit);
-  t.appendChild(el("p", "info", cant(p.cantidad) + " " + p.unidad + " · " + precioTxt(p.precio) + " c/u · vale " + pesos(v)));
+  t.appendChild(el("p", "info", cant(p.cantidad) + " " + p.unidad + (p.calidad === "segunda" ? " de segunda" : "") + " · Precio Rotta " + precioTxt(p.precio) + "/" + porUnidad(p.unidad) + " · vale " + pesos(v)));
   top.appendChild(t);
   div.appendChild(top);
 
@@ -552,37 +689,48 @@ function tarjetaProducto(p) {
 
   const acciones = el("div", "acciones");
   if (e === "pasado") {
-    const d = el("div", "decide");
-    const a = el("div", "segura"); a.style.gridColumn = "1 / -1";
-    a.appendChild(el("span", "t", "Todavía puedes rescatar algo"));
-    a.appendChild(el("b", "", "Si sirve la mitad: " + calcPuntos(v, "pasado", 0.5) + " puntos"));
-    a.appendChild(el("span", "", "Ganas puntos por lo que todavía se puede usar y pasamos a tu negocio por él."));
+    const pts = calcPuntos(v, "pasado", i.aprov);
+    const d = el("div", "decide"), a = el("div", "rescate");
+    a.appendChild(el("span", "t", "♻️ Todavía se aprovecha algo"));
+    a.appendChild(el("b", "", pts + " pts"));
+    a.appendChild(el("span", "", "De " + p.nombre.toLowerCase() + " se aprovecha " + utilTexto(i.aprov) + ": " + i.uso + ". Pasamos a tu negocio por él."));
     d.appendChild(a); div.appendChild(d);
-    acciones.appendChild(boton("Rescatar lo que sirve", "principal chico", () => avisarDesde(p.id)));
-    acciones.appendChild(boton("Lo tiré", "peligro chico", () => tirado(p.id)));
-    acciones.classList.add("rejilla");
+    acciones.appendChild(boton("♻️ Rescatar lo que sirve · " + pts + " pts", "principal chico", () => avisarDesde(p.id)));
+    acciones.appendChild(boton("🗑️ Lo tiré", "peligro chico", () => tirado(p.id)));
+    acciones.classList.add("rejilla", "par");
   } else if (e) {
     const desc = REMATE[e], pts = calcPuntos(v, e, 1);
     const d = el("div", "decide");
     const rem = el("div", "remate");
-    rem.appendChild(el("span", "t", "Si lo rematas"));
+    rem.appendChild(el("span", "t", "🏷️ Si lo rematas"));
     rem.appendChild(el("b", "", "hasta " + pesos(v * (1 - desc / 100))));
     rem.appendChild(el("span", "", desc + " % menos, si se vende todo"));
     const seg = el("div", "segura");
-    seg.appendChild(el("span", "t", "Si lo avisas hoy"));
-    seg.appendChild(el("b", "", pts + " puntos"));
-    seg.appendChild(el("span", "", "seguros, y pasamos por él"));
+    seg.appendChild(el("span", "t", "🛡️ Si lo avisas"));
+    seg.appendChild(el("b", "", pts + " pts"));
+    seg.appendChild(el("span", "", "hoy mismo, y pasamos por él"));
     d.appendChild(rem); d.appendChild(seg); div.appendChild(d);
-    if (e !== "hoy") div.appendChild(el("p", "consejo", "Si esperas a su último día y sigue bien, serían hasta " + calcPuntos(v, "hoy", 1) + " puntos. Si se echa a perder, solo cuenta lo que sirva."));
-    acciones.appendChild(boton("Avisar (" + pts + " puntos)", "principal chico", () => avisarDesde(p.id)));
-    const rb = boton("Rematar", "chico", () => rematar(p.id)); rb.title = "Manda el remate por WhatsApp";
+    const consejo = el("p", "consejo");
+    if (e === "dos") consejo.textContent = "Si esperas a mañana bajan a " + calcPuntos(v, "manana", 1) + " pts, y el último día a " + calcPuntos(v, "hoy", 1) + ".";
+    else if (e === "manana") consejo.textContent = "Si esperas a mañana bajan a " + calcPuntos(v, "hoy", 1) + " pts.";
+    else {
+      const z = calcPuntos(v, "pasado", i.aprov);
+      consejo.textContent = "Es su último día. Si se pasa, de " + p.nombre.toLowerCase() + " solo se aprovecha " + utilTexto(i.aprov) + (z > 0 ? " y bajan a " + z + " pts." : " y ya casi no da puntos.");
+    }
+    div.appendChild(consejo);
+    acciones.appendChild(boton("📦 Avisar · " + pts + " pts", "principal chico", () => avisarDesde(p.id)));
+    const rb = boton("🏷️ Rematar", "whatsapp chico", () => rematar(p.id)); rb.title = "Manda el remate por WhatsApp";
     acciones.appendChild(rb);
-    acciones.appendChild(boton("Lo vendí", "chico", () => vendido(p.id)));
-    acciones.appendChild(boton("Lo tiré", "peligro chico", () => tirado(p.id)));
+    acciones.appendChild(boton("✅ Lo vendí", "chico", () => vendido(p.id)));
+    acciones.appendChild(boton("🗑️ Lo tiré", "peligro chico", () => tirado(p.id)));
     acciones.classList.add("rejilla");
   } else {
-    div.appendChild(el("p", "consejo", "Está fresco: véndelo normal. Rotta lo recoge desde 2 días antes de que se eche a perder."));
-    acciones.appendChild(boton("Lo vendí", "chico", () => vendido(p.id)));
+    const c2 = el("p", "consejo");
+    c2.appendChild(document.createTextNode("Está fresco: véndelo normal. Si faltando 2 días sigue aquí, avísalo y ganas "));
+    c2.appendChild(el("b", "", calcPuntos(v, "dos", 1) + " pts"));
+    c2.appendChild(document.createTextNode("."));
+    div.appendChild(c2);
+    acciones.appendChild(boton("✅ Lo vendí", "chico", () => vendido(p.id)));
   }
   div.appendChild(acciones);
   return div;
@@ -593,9 +741,10 @@ function tarjetaAviso(a) {
   const colab = datos.modo === "colaborador";
   const div = el("div", "producto");
   const top = el("div", "top");
+  top.appendChild(el("span", "emoji", icono(a.nombre)));
   const t = el("div", "");
   t.appendChild(el("h3", "", a.nombre + " · " + cant(a.cantidad) + " " + a.unidad));
-  t.appendChild(el("p", "info", ETAPAS[a.etapa].nombre + (a.etapa === "pasado" ? " · sirve " + utilTexto(a.util) : "") + " · " + ETAPAS[a.etapa].pts + " pts por $100"));
+  t.appendChild(el("p", "info", ETAPAS[a.etapa].nombre + (a.etapa === "pasado" ? " · se aprovecha " + utilTexto(a.util) : "") + " · " + ETAPAS[a.etapa].pts + " pts por $100"));
   top.appendChild(t);
   div.appendChild(top);
   div.appendChild(el("p", "info", "Pasan: " + a.cuando + (a.nota ? " · Nota: " + a.nota : "") + " · Avisado el " + fechaCorta(a.fecha)));
@@ -613,28 +762,27 @@ function tarjetaAviso(a) {
   const detalle = el("p", "");
   const acciones = el("div", "acciones");
   if (a.estado === "avisado") {
-    detalle.textContent = colab ? "Producto de " + pesos(valor(a)) + ". Al recogerlo, el comercio gana unos " + estim + " puntos." : "Esperando a que un colaborador lo acepte. Ganarás unos " + estim + " puntos.";
+    detalle.textContent = colab ? "Producto de " + pesos(valor(a)) + " a Precio Rotta. Al recogerlo, el comercio gana unos " + ptsTxt(estim) + "." : "Esperando a que un colaborador lo acepte. Ganarás unos " + ptsTxt(estim) + ".";
     if (colab) acciones.appendChild(boton("Aceptar: voy en camino", "principal chico", () => aceptar(a.id)));
     else {
       acciones.appendChild(boton("Mandar también por WhatsApp", "whatsapp chico", () => avisoWhatsapp(a.id)));
-      acciones.appendChild(etiqueta());
       acciones.appendChild(boton("Cancelar aviso", "peligro chico", () => cancelar(a.id)));
     }
   } else if (a.estado === "en_camino") {
     if (colab) {
-      detalle.textContent = "Vas en camino. Al llegar, revisa cuánto se puede usar.";
-      const lab = el("label", "", "¿Cuánto sirve de verdad?"); const sel = el("select", "");
+      const max = a.etapa === "pasado" ? info(a.nombre).aprov : 1;
+      detalle.textContent = "Vas en camino. Al llegar, revisa cuánto se aprovecha" + (max < 1 ? " (de " + a.nombre.toLowerCase() + ", máximo " + utilTexto(max) + ")." : ".");
+      const lab = el("label", "", "¿Cuánto se aprovecha de verdad?"); const sel = el("select", "");
       sel.id = "util-" + a.id; lab.htmlFor = sel.id;
-      UTIL.forEach(([u, txt]) => { const o = el("option", "", txt); o.value = u; if (u === a.util) o.selected = true; sel.appendChild(o); });
+      UTIL.filter(([u]) => u <= max).forEach(([u, txt]) => { const o = el("option", "", txt); o.value = u; if (u === a.util) o.selected = true; sel.appendChild(o); });
       const caja = el("div", ""); caja.style.width = "100%"; caja.appendChild(lab); caja.appendChild(sel);
       acciones.appendChild(caja);
       acciones.appendChild(boton("Ya lo recogí", "principal chico", () => recoger(a.id, Number(sel.value))));
     } else {
-      detalle.textContent = a.colaborador + " de Rotta va a pasar por él a tu negocio. ";
-      detalle.appendChild(etiqueta());
+      detalle.textContent = "👤 " + a.colaborador + " de Rotta va a pasar por él a tu negocio.";
     }
   } else if (a.estado === "recogido") {
-    detalle.textContent = colab ? "Llévalo al albergue o comedor." : a.colaborador + " lo recogió" + (a.utilReal < 1 ? " (sirvió " + utilTexto(a.utilReal) + ")" : "") + ". Ganaste " + a.puntos + " puntos. Va camino al albergue.";
+    detalle.textContent = colab ? "Llévalo al albergue o comedor." : "✅ " + a.colaborador + " lo recogió" + (a.utilReal < 1 ? " (se aprovechó " + utilTexto(a.utilReal) + ")" : "") + ". Ganaste " + ptsTxt(a.puntos) + ". Va camino al albergue.";
     if (colab) {
       const sel = el("select", ""); sel.setAttribute("aria-label", "¿A dónde lo entregaste?");
       DESTINOS.forEach(d => sel.appendChild(el("option", "", d)));
@@ -642,7 +790,7 @@ function tarjetaAviso(a) {
       acciones.appendChild(boton("Entregado en el albergue", "principal chico", () => entregar(a.id, sel.value)));
     }
   } else {
-    detalle.textContent = "Llegó a " + a.destino + ". Ganaste " + a.puntos + " puntos" + (a.utilReal < 1 ? " por " + utilTexto(a.utilReal) + " que sirvió" : "") + ".";
+    detalle.textContent = "🍲 Llegó a " + a.destino + ". Ganaste " + ptsTxt(a.puntos) + (a.utilReal < 1 ? " por " + utilTexto(a.utilReal) + " que se aprovechó" : "") + ".";
   }
   div.appendChild(detalle);
   if (acciones.childNodes.length) div.appendChild(acciones);
@@ -656,14 +804,13 @@ function pintar() {
   $("n-equiv").textContent = pesos(datos.puntos * VALOR_PUNTO);
   $("n-donado").textContent = pesos(datos.donado);
   $("n-perdido").textContent = pesos(datos.perdido);
-  const f = hoy().toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" });
-  $("fecha-hoy").textContent = f.charAt(0).toUpperCase() + f.slice(1);
+  $("fecha-hoy").textContent = mayus(hoy().toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" }));
 
   const activos = datos.avisos.filter(a => a.estado !== "entregado");
   const camino = activos.filter(a => a.estado === "en_camino");
   $("n-camino").textContent = camino.length
-    ? "En camino: " + camino.map(a => a.colaborador + " va por " + cant(a.cantidad) + " " + a.unidad + " de " + a.nombre.toLowerCase()).join("; ") + "."
-    : activos.length ? "Tienes " + activos.length + " aviso(s) en proceso." : "Lo que avisas se dona a albergues y comedores.";
+    ? "🚚 " + camino.map(a => a.colaborador + " va por " + cant(a.cantidad) + " " + a.unidad + " de " + a.nombre.toLowerCase()).join(" · ")
+    : activos.length ? "📦 Tienes " + activos.length + " aviso(s) en proceso." : "🍲 Lo que avisas se dona a albergues y comedores.";
 
   const lista = ordenados();
   const cuenta = { pasado: 0, rojo: 0, amarillo: 0, verde: 0 };
@@ -673,8 +820,8 @@ function pintar() {
   const urgentes = lista.filter(p => color(p) !== "verde");
   const enRiesgo = urgentes.reduce((s, p) => s + valor(p), 0);
   $("texto-reporte").textContent = urgentes.length
-    ? "Tienes " + pesos(enRiesgo) + " en producto que se echa a perder. Remátalo o avísalo para que lo recojan."
-    : "Todo está fresco.";
+    ? "Tienes " + pesos(enRiesgo) + " en producto que se echa a perder. Avísalo hoy (mientras antes, más puntos) o remátalo."
+    : "Todo está fresco. ¡Buen día!";
 
   const lu = $("lista-urgente"); lu.innerHTML = "";
   if (!urgentes.length) lu.appendChild(el("p", "vacio", "No hay nada urgente."));
@@ -688,7 +835,7 @@ function pintar() {
   const colab = datos.modo === "colaborador";
   $("modo-comercio").setAttribute("aria-pressed", String(!colab));
   $("modo-colaborador").setAttribute("aria-pressed", String(colab));
-  $("nota-modo").textContent = colab ? "Vista de prueba: así ve los avisos el colaborador que pasa a recoger." : "Aquí ves en qué va cada aviso.";
+  $("nota-modo").textContent = colab ? "Así ve los avisos el colaborador que pasa a recoger." : "Aquí ves en qué va cada aviso.";
   const la = $("lista-avisos"); la.innerHTML = "";
   if (colab) {
     if (!activos.length) la.appendChild(el("p", "vacio", "No hay recolecciones pendientes."));
@@ -725,12 +872,26 @@ function pintar() {
   });
 }
 
-function pintarEscala() {
-  const tb = $("tabla-escala");
-  const fila = (estado, pts, consejo) => { const tr = el("tr", ""); tr.appendChild(el("td", "", estado)); tr.appendChild(el("td", "pts", pts)); tr.appendChild(el("td", "", consejo)); tb.appendChild(tr); };
-  fila("Fresco (3 días o más)", "0", "Véndelo normal");
-  ["dos", "manana", "hoy"].forEach(k => fila(ETAPAS[k].nombre, ETAPAS[k].pts + " pts", ETAPAS[k].consejo));
-  fila(ETAPAS.pasado.nombre + " (cuenta lo que sirve)", ETAPAS.pasado.pts + " pts", ETAPAS.pasado.consejo);
+function pintarTablas() {
+  const fila = (tb, celdas) => { const tr = el("tr", ""); celdas.forEach(([txt, clase]) => tr.appendChild(el("td", clase || "", txt))); tb.appendChild(tr); };
+  const te = $("tabla-escala");
+  [["dos", "⏰", "i-amarillo", "var(--amarillo)"], ["manana", "⏳", "i-naranja", "var(--naranja)"],
+   ["hoy", "⚠️", "i-rosa", "var(--rojo)"], ["pasado", "♻️", "i-cafe", "var(--pasado)"]].forEach(([k, ic, tinte, col]) => {
+    const e = ETAPAS[k], d = el("div", "paso");
+    d.appendChild(el("span", "ico " + tinte, ic)).setAttribute("aria-hidden", "true");
+    const t = el("span", ""); t.appendChild(el("b", "", e.nombre)); t.appendChild(el("small", "", e.consejo));
+    d.appendChild(t);
+    d.appendChild(el("strong", "", e.pts + " pts"));
+    const m = el("span", "medidor"), i = el("i", "");
+    i.style.width = (k === "pasado" ? e.pts * 0.5 : e.pts) * 10 + "%"; i.style.background = col;
+    m.appendChild(i); d.appendChild(m);
+    te.appendChild(d);
+  });
+  const tp = $("tabla-pasado");
+  [...PRODUCTOS].sort((a, b) => b[6] - a[6] || a[0].localeCompare(b[0], "es")).forEach(([n, ic, , , , , aprov, uso]) => fila(tp, [[ic + " " + n], [mayus(utilTexto(aprov))], [mayus(uso)]]));
+  const tr = $("tabla-precios");
+  PRODUCTOS.forEach(([n, ic, , unidad]) => fila(tr, [[ic + " " + n], [precioTxt(precioRotta(n)) + "/" + porUnidad(unidad), "pts"], [temporadaDe(n).texto]]));
+  $("semana-precios").textContent = semanaTexto();
 }
 
 // ----- Inventario -----
@@ -743,64 +904,70 @@ function tirado(pid) {
   const p = datos.productos.find(x => x.id === pid); if (!p) return;
   datos.perdido += valor(p);
   datos.productos = datos.productos.filter(x => x.id !== pid);
-  guardar(); pintar(); toast("Anotamos " + pesos(valor(p)) + " tirados. La próxima vez avísalo y gana puntos.");
+  guardar(); pintar(); toast("Anotamos " + pesos(valor(p)) + " tirados. La próxima vez avísalo antes y gana puntos.");
 }
 function rematar(pid) {
   const p = datos.productos.find(x => x.id === pid); if (!p) return;
-  const desc = REMATE[etapaDe(p)] || 30, nuevo = p.precio * (1 - desc / 100);
-  const t = "¡Remate de hoy! Tengo " + cant(p.cantidad) + " " + p.unidad + " de " + p.nombre.toLowerCase() + " a " + precioTxt(nuevo) + " por " + (p.unidad === "kg" ? "kg" : "unidad") + " (" + desc + " % menos). ¿Te aparto?";
+  const desc = REMATE[etapaDe(p)] || 20, nuevo = Math.round(p.precio * (1 - desc / 100) * 2) / 2;
+  const t = "¡Remate de hoy! Tengo " + cant(p.cantidad) + " " + p.unidad + " de " + p.nombre.toLowerCase() + " a " + precioTxt(nuevo) + " por " + porUnidad(p.unidad) + " (" + desc + " % menos). ¿Te aparto?";
   window.open("https://wa.me/?text=" + encodeURIComponent(t), "_blank", "noopener");
 }
 
 // ----- Avisar -----
 function llenarSelect(sel) {
-  PRODUCTOS.forEach(([n]) => sel.appendChild(el("option", "", n)));
-  sel.appendChild(el("option", "", "Otro"));
+  PRODUCTOS.forEach(([n, ic]) => { const o = el("option", "", ic + " " + n); o.value = n; sel.appendChild(o); });
+  const o = el("option", "", "🧺 Otro"); o.value = "Otro"; sel.appendChild(o);
 }
 const ap = $("a-producto"); llenarSelect(ap);
-["hoy", "manana", "dos", "pasado"].forEach(k => {
+["dos", "manana", "hoy", "pasado"].forEach(k => {
   const lab = el("label", "opcion"); const inp = el("input", "");
   inp.type = "radio"; inp.name = "etapa"; inp.value = k; inp.id = "etapa-" + k;
   lab.appendChild(inp); lab.appendChild(document.createTextNode(ETAPAS[k].corto));
-  lab.appendChild(el("small", "", k === "pasado" ? ETAPAS[k].pts + " pts por $100 que sirva" : ETAPAS[k].pts + " pts por cada $100"));
+  lab.appendChild(el("small", "", k === "pasado" ? "Según el producto" : ETAPAS[k].pts + " pts por cada $100"));
   inp.addEventListener("change", estimado);
   $("a-etapas").appendChild(lab);
 });
-UTIL.forEach(([u, txt]) => { const o = el("option", "", txt); o.value = u; $("a-util").appendChild(o); });
-$("a-util").value = "0.5";
 function etapaElegida() { const r = document.querySelector("input[name=etapa]:checked"); return r ? r.value : "hoy"; }
 function elegirEtapa(k) { $("etapa-" + k).checked = true; }
+function nombreAviso() { return ap.value === "Otro" ? ($("a-otro").value.trim() || "Otro") : ap.value; }
+function precioAviso() { return precioRotta(nombreAviso(), $("a-calidad").value); }
+function utilAviso(e) { return e === "pasado" ? info(nombreAviso()).aprov : 1; }
 function llenarAviso() {
-  const pr = PRODUCTOS.find(x => x[0] === ap.value);
-  $("caja-a-otro").classList.toggle("oculto", !!pr);
-  if (pr) { $("a-unidad").value = pr[2]; $("a-precio").value = pr[3]; }
+  const ok = conocido(ap.value);
+  $("caja-a-otro").classList.toggle("oculto", ok);
+  if (ok) $("a-unidad").value = info(ap.value).unidad;
+  $("a-unidad").disabled = ok;
   estimado();
 }
 function estimado() {
-  const e = etapaElegida(), pas = e === "pasado";
+  const e = etapaElegida(), pas = e === "pasado", nombre = nombreAviso(), i = info(nombre);
+  const util = utilAviso(e), precio = precioAviso();
+  pintarPrecio($("a-precio-info"), nombre, $("a-calidad").value, $("a-unidad").value);
   $("caja-util").classList.toggle("oculto", !pas);
-  const util = pas ? Number($("a-util").value) : 1;
-  const v = Number($("a-cantidad").value) * Number($("a-precio").value);
+  $("a-util-info").textContent = "De " + nombre.toLowerCase() + " se aprovecha " + utilTexto(util) + ": " + i.uso + ". El colaborador lo confirma al recoger.";
+  const v = Number($("a-cantidad").value) * precio;
   const box = $("a-estimado"); box.innerHTML = "";
-  if (!(v > 0)) { box.textContent = "Escribe la cantidad y el precio para calcular tus puntos."; return; }
+  if (!(v > 0)) { box.textContent = "Escribe la cantidad para calcular tus puntos."; return; }
   box.appendChild(document.createTextNode("Ganarás unos "));
-  box.appendChild(el("b", "", calcPuntos(v, e, util) + " puntos"));
-  box.appendChild(el("div", "nota", pesos(v) + " de producto" + (pas ? " × " + utilTexto(util) + " que sirve" : "") + " · " + ETAPAS[e].nombre.toLowerCase() + ": " + ETAPAS[e].pts + " pts por cada $100"));
+  box.appendChild(el("b", "", ptsTxt(calcPuntos(v, e, util))));
+  box.appendChild(el("div", "nota", pesos(v) + " de producto" + (pas ? " × " + utilTexto(util) + " que se aprovecha" : "") + " · " + ETAPAS[e].nombre.toLowerCase() + ": " + ETAPAS[e].pts + " pts por cada $100"));
 }
 ap.addEventListener("change", () => { $("a-producto-id").value = ""; llenarAviso(); });
-["a-cantidad", "a-precio"].forEach(i => $(i).addEventListener("input", estimado));
-$("a-util").addEventListener("change", estimado);
+["a-cantidad", "a-otro"].forEach(i => $(i).addEventListener("input", estimado));
+["a-calidad", "a-unidad"].forEach(i => $(i).addEventListener("change", estimado));
 function limpiarAviso() {
   $("form-aviso").reset(); $("a-producto-id").value = "";
-  ap.value = "Jitomate"; elegirEtapa("hoy"); $("a-util").value = "0.5"; llenarAviso();
+  ap.value = "Jitomate"; elegirEtapa("hoy"); llenarAviso();
 }
 function avisarDesde(pid) {
   const p = datos.productos.find(x => x.id === pid); if (!p) return;
-  const conocido = PRODUCTOS.some(x => x[0] === p.nombre);
-  ap.value = conocido ? p.nombre : "Otro";
-  $("caja-a-otro").classList.toggle("oculto", conocido);
-  if (!conocido) $("a-otro").value = p.nombre;
-  $("a-cantidad").value = p.cantidad; $("a-unidad").value = p.unidad; $("a-precio").value = p.precio;
+  const ok = conocido(p.nombre);
+  ap.value = ok ? p.nombre : "Otro";
+  $("a-otro").value = ok ? "" : p.nombre;
+  $("a-calidad").value = p.calidad || "primera";
+  $("a-cantidad").value = p.cantidad;
+  llenarAviso();
+  if (!ok) $("a-unidad").value = p.unidad;
   $("a-producto-id").value = p.id;
   elegirEtapa(etapaDe(p) || "dos");
   estimado(); mostrar("avisar");
@@ -809,14 +976,14 @@ $("form-aviso").addEventListener("submit", e => {
   e.preventDefault();
   const nombre = ap.value === "Otro" ? $("a-otro").value.trim() : ap.value;
   if (!nombre) { toast("Escribe el nombre del producto."); return; }
-  const cantidad = Number($("a-cantidad").value), precio = Number($("a-precio").value);
+  const cantidad = Number($("a-cantidad").value);
   if (!(cantidad > 0)) { toast("Escribe cuánto es."); return; }
   const etapa = etapaElegida();
   const pid = $("a-producto-id").value;
   const original = pid ? datos.productos.find(x => x.id === pid) : null;
   const a = {
-    id: id(), nombre, cantidad, unidad: $("a-unidad").value, precio, etapa,
-    util: etapa === "pasado" ? Number($("a-util").value) : 1, utilReal: null,
+    id: id(), nombre, cantidad, unidad: $("a-unidad").value, calidad: $("a-calidad").value, precio: precioAviso(), etapa,
+    util: utilAviso(etapa), utilReal: null,
     cuando: $("a-cuando").value, nota: $("a-nota").value.trim(),
     estado: "avisado", colaborador: "", destino: "", puntos: 0, fecha: aTexto(hoy()),
     producto: original ? { ...original } : null
@@ -833,7 +1000,7 @@ $("form-aviso").addEventListener("submit", e => {
 
 function textoAviso(a) {
   return "Hola, Rotta. Tengo para recoger: " + cant(a.cantidad) + " " + a.unidad + " de " + a.nombre.toLowerCase() +
-    " (" + ETAPAS[a.etapa].nombre.toLowerCase() + (a.etapa === "pasado" ? "; sirve " + utilTexto(a.util) : "") + "). Pueden pasar: " + a.cuando.toLowerCase() + "." + (a.nota ? " Nota: " + a.nota : "");
+    " (" + ETAPAS[a.etapa].nombre.toLowerCase() + (a.etapa === "pasado" ? "; se aprovecha " + utilTexto(a.util) : "") + "). Pueden pasar: " + a.cuando.toLowerCase() + "." + (a.nota ? " Nota: " + a.nota : "");
 }
 function avisoWhatsapp(aid) {
   const a = datos.avisos.find(x => x.id === aid); if (!a) return;
@@ -851,10 +1018,10 @@ function cancelar(aid) {
   guardar(); pintar(); toast("Aviso cancelado." + (a.producto ? " Regresó a «Lo que tengo»." : ""));
 }
 
-// ----- Colaborador (prueba) -----
+// ----- Colaborador -----
 function aceptar(aid) {
   const a = datos.avisos.find(x => x.id === aid); if (!a) return;
-  a.estado = "en_camino"; a.colaborador = COLABORADOR_PRUEBA;
+  a.estado = "en_camino"; a.colaborador = COLABORADOR;
   guardar(); pintar(); toast("Aceptado. El comercio ya sabe que vas en camino.");
 }
 function recoger(aid, utilReal) {
@@ -862,7 +1029,7 @@ function recoger(aid, utilReal) {
   a.estado = "recogido"; a.utilReal = utilReal; a.puntos = calcPuntos(valor(a), a.etapa, utilReal);
   datos.puntos += a.puntos; datos.donado += valor(a) * utilReal;
   datos.movimientos.unshift({ id: id(), fecha: aTexto(hoy()), texto: movTexto(a), puntos: a.puntos });
-  guardar(); pintar(); toast("Recogido. El comercio ganó " + a.puntos + " puntos.");
+  guardar(); pintar(); toast("Recogido. El comercio ganó " + ptsTxt(a.puntos) + ".");
 }
 function entregar(aid, destino) {
   const a = datos.avisos.find(x => x.id === aid); if (!a) return;
@@ -890,14 +1057,15 @@ $("form-dinero").addEventListener("submit", e => {
   e.preventDefault();
   const n = Number($("d-puntos").value);
   if (n < MINIMO_DINERO) { toast("El mínimo para pedir dinero es " + MINIMO_DINERO + " puntos."); return; }
-  const metodo = $("d-metodo").value;
-  canjear(n, "Dinero: " + pesos(n * VALOR_PUNTO) + " (" + metodo.toLowerCase() + ")", "Pediste " + pesos(n * VALOR_PUNTO) + " por " + metodo.toLowerCase() + ". (Prototipo: no se hacen pagos reales.)");
+  const efectivo = $("d-metodo").value.startsWith("Efectivo");
+  canjear(n, "Dinero: " + pesos(n * VALOR_PUNTO) + (efectivo ? " (efectivo)" : " (transferencia)"),
+    "Pediste " + pesos(n * VALOR_PUNTO) + (efectivo ? " en efectivo. Te lo da el colaborador en su siguiente visita." : " por transferencia. Te llega en 1 a 2 días hábiles."));
 });
-DESTINOS.forEach(d => $("r-destino").appendChild(el("option", "", d)));
-$("form-regalar").addEventListener("submit", e => {
+DESTINOS.forEach(d => $("don-destino").appendChild(el("option", "", d)));
+$("form-donar").addEventListener("submit", e => {
   e.preventDefault();
-  const n = Number($("r-puntos").value), destino = $("r-destino").value;
-  canjear(n, "Regalo a " + destino, "¡Gracias! Regalaste " + n + " puntos a " + destino + ".");
+  const n = Number($("don-puntos").value), destino = $("don-destino").value;
+  canjear(n, "Donación a " + destino, "¡Gracias! Donaste " + ptsTxt(n) + " a " + destino + ".");
 });
 
 // ----- Reporte y alertas -----
@@ -907,7 +1075,7 @@ function textoReporte() {
   return "Rotta · Reporte de hoy\n" + urg.map(p => {
     const e = etapaDe(p);
     return "• " + p.nombre + ": " + cant(p.cantidad) + " " + p.unidad + " (" + estadoTexto(p).toLowerCase() + ") → " +
-      (e === "pasado" ? "rescata lo que sirva" : "remátalo o avísalo por " + calcPuntos(valor(p), e, 1) + " pts");
+      (e === "pasado" ? "rescata lo que se aprovecha (" + calcPuntos(valor(p), "pasado", info(p.nombre).aprov) + " pts)" : "avísalo hoy por " + calcPuntos(valor(p), e, 1) + " pts o remátalo");
   }).join("\n") + "\nPasamos a tu negocio por lo que avises.";
 }
 $("reporte-whatsapp").addEventListener("click", () => {
@@ -916,7 +1084,7 @@ $("reporte-whatsapp").addEventListener("click", () => {
 function notificar() {
   const urg = ordenados().filter(p => color(p) !== "verde");
   if (!urg.length) return;
-  try { new Notification("Rotta", { body: urg.length + " producto(s) se echan a perder: " + urg.slice(0, 3).map(p => p.nombre).join(", ") + ". Remátalos o avísalos." }); } catch (e) {}
+  try { new Notification("Rotta", { body: urg.length + " producto(s) se echan a perder: " + urg.slice(0, 3).map(p => p.nombre).join(", ") + ". Avísalos hoy y gana más puntos." }); } catch (e) {}
 }
 $("activar-avisos").addEventListener("click", async () => {
   if (!("Notification" in window)) { toast("Tu navegador no permite alertas. Usa el reporte por WhatsApp."); return; }
@@ -927,12 +1095,18 @@ $("activar-avisos").addEventListener("click", async () => {
 
 // ----- Registrar lo que llegó -----
 const fp = $("f-producto"); llenarSelect(fp);
+function nombreRegistro() { return fp.value === "Otro" ? ($("f-otro").value.trim() || "Otro") : fp.value; }
+function precioRegistro() { pintarPrecio($("f-precio-info"), nombreRegistro(), $("f-calidad").value, $("f-unidad").value); }
 function llenarProducto() {
-  const pr = PRODUCTOS.find(x => x[0] === fp.value);
-  $("caja-f-otro").classList.toggle("oculto", !!pr);
-  if (pr) { $("f-dias").value = pr[1]; $("f-unidad").value = pr[2]; $("f-precio").value = pr[3]; }
+  const ok = conocido(fp.value);
+  $("caja-f-otro").classList.toggle("oculto", ok);
+  if (ok) { $("f-dias").value = info(fp.value).dias; $("f-unidad").value = info(fp.value).unidad; }
+  $("f-unidad").disabled = ok;
+  precioRegistro();
 }
 fp.addEventListener("change", llenarProducto);
+["f-calidad", "f-unidad"].forEach(i => $(i).addEventListener("change", precioRegistro));
+$("f-otro").addEventListener("input", precioRegistro);
 function limpiarRegistro() {
   $("form-agregar").reset(); fp.value = "Jitomate"; llenarProducto();
   $("f-llegada").value = aTexto(hoy()); $("f-llegada").max = aTexto(hoy());
@@ -941,23 +1115,25 @@ $("form-agregar").addEventListener("submit", e => {
   e.preventDefault();
   const nombre = fp.value === "Otro" ? $("f-otro").value.trim() : fp.value;
   if (!nombre) { toast("Escribe el nombre del producto."); return; }
+  const calidad = $("f-calidad").value;
   const p = {
     id: id(), nombre,
-    cantidad: Number($("f-cantidad").value), unidad: $("f-unidad").value,
-    precio: Number($("f-precio").value), llegada: $("f-llegada").value, dias: Number($("f-dias").value)
+    cantidad: Number($("f-cantidad").value), unidad: $("f-unidad").value, calidad,
+    precio: precioRotta(nombre, calidad), llegada: $("f-llegada").value, dias: Number($("f-dias").value)
   };
   datos.productos.push(p); guardar(); pintar();
-  toast(nombre + " guardado: " + estadoTexto(p).toLowerCase() + ".");
+  toast(nombre + " guardado a " + precioTxt(p.precio) + "/" + porUnidad(p.unidad) + ": " + estadoTexto(p).toLowerCase() + ".");
   limpiarRegistro();
 });
 
 $("cerrar-bienvenida").addEventListener("click", () => { datos.bienvenidaVista = true; guardar(); pintar(); });
 $("reiniciar").addEventListener("click", () => {
-  if (confirm("¿Borrar tus cambios y volver a los datos de ejemplo?")) { datos = ejemplo(); guardar(); pintar(); mostrar("inicio"); toast("Listo, volviste al ejemplo."); }
+  if (confirm("¿Restablecer los datos de Rotta? Se borran los cambios que hiciste.")) { datos = inicial(); guardar(); pintar(); mostrar("inicio"); toast("Datos restablecidos."); }
 });
+$("opinion").classList.toggle("oculto", !ENCUESTA_URL);
 document.querySelectorAll(".enlace-opinion").forEach(a => {
   if (ENCUESTA_URL) a.href = ENCUESTA_URL;
-  else a.addEventListener("click", e => { e.preventDefault(); toast("Muy pronto agregaremos la encuesta."); });
+  else a.classList.add("oculto");
 });
 
 // ----- Navegación -----
@@ -972,7 +1148,7 @@ document.querySelectorAll("nav button").forEach(b => b.addEventListener("click",
   mostrar(b.dataset.vista);
 }));
 
-pintarEscala(); limpiarAviso(); limpiarRegistro(); pintar();
+pintarTablas(); limpiarAviso(); limpiarRegistro(); pintar();
 if ("Notification" in window && Notification.permission === "granted") notificar();
 </script>
 </body>
