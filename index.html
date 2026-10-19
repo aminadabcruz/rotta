@@ -566,7 +566,7 @@ function fechaCorta(s) { return deTexto(s).toLocaleDateString("es-MX", { day: "n
 function el(tag, clase, texto) { const e = document.createElement(tag); if (clase) e.className = clase; if (texto != null) e.textContent = texto; return e; }
 function boton(t, clase, fn) { const b = el("button", clase, t); b.type = "button"; b.addEventListener("click", fn); return b; }
 function mayus(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
-function sinAcentos(t) { return t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); }
+function sinAcentos(t) { return t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); }
 function info(nombre) { return CAT[nombre]; }
 function porUnidad(u) { return { kg: "kg", piezas: "pieza", manojos: "manojo", cajas: "caja" }[u] || u; }
 function utilTexto(u) { const x = UTIL.find(y => y[0] === u); return x ? x[1].toLowerCase() : Math.round(u * 100) + " %"; }
