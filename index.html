@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Rotta · Te compramos lo que ya no vas a vender</title>
-<meta name="description" content="Rotta te compra la fruta y verdura que ya no vas a vender: pasamos a tu negocio y te pagamos al recogerla. Mientras antes nos avises, más te pagamos.">
+<title>Rotta · Precios de la fruta y cuánto obtienes por ella</title>
+<meta name="description" content="La app de Rotta acompaña a su agente de WhatsApp: aquí miras los precios de la fruta y verdura de la semana y cuánto te pagamos por lo que ya no vas a vender. Todo lo demás se hace por WhatsApp.">
 <meta property="og:title" content="Rotta">
-<meta property="og:description" content="Te compramos lo que ya no vas a vender. Mientras antes nos avises, más te pagamos.">
+<meta property="og:description" content="Mira los precios de la semana y cuánto obtienes por tu fruta y verdura. Todo lo demás, por WhatsApp.">
 <meta name="theme-color" content="#17803d">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%2317803d'/%3E%3Ccircle cx='20' cy='23' r='11' fill='%23ff6b3d'/%3E%3Cpath d='M20 12c0-4 3-6 7-6-1 4-3 6-7 6z' fill='%238fe0a0'/%3E%3C/svg%3E">
 <style>
@@ -17,6 +17,7 @@
     --rojo: #d23a3a; --rojo-claro: #fdeeee;
     --pasado: #6d5d4b; --pasado-claro: #f1ece6;
     --azul-claro: #eaf1fd; --rosa-claro: #fdebf3;
+    --wa: #25d366; --wa-osc: #063b1a;
     --texto: #16211a; --suave: #5d6a61; --borde: #e3e8e1; --fondo: #f2f5f0;
     --sombra: 0 1px 2px rgba(16, 32, 20, .05), 0 8px 22px rgba(16, 32, 20, .06);
     --radio: 18px;
@@ -30,8 +31,11 @@
   .barra { position: sticky; top: 0; z-index: 5; background: var(--marca); color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.12); }
   .barra-in { max-width: 560px; margin: 0 auto; display: flex; align-items: center; gap: 11px; padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top)); }
   .logo { width: 40px; height: 40px; border-radius: 12px; background: #fff; display: grid; place-items: center; flex: none; }
+  .marca { flex: 1; min-width: 0; }
   .marca h1 { margin: 0; font-size: 1.4rem; letter-spacing: .3px; line-height: 1.1; }
   .marca p { margin: 0; font-size: .8rem; opacity: .92; }
+  .barra .chat-boton { flex: none; width: 40px; height: 40px; border-radius: 12px; padding: 0; background: rgba(255,255,255,.16); color: #fff; }
+  .barra .chat-boton svg { width: 22px; height: 22px; }
 
   main { max-width: 560px; margin: 0 auto; padding: 14px 14px 112px; }
   section, .tarjeta { background: #fff; border: 1px solid var(--borde); border-radius: var(--radio); padding: 16px; margin: 0 0 14px; box-shadow: var(--sombra); }
@@ -50,12 +54,22 @@
   .heroe::after { content: "🍅🥑🍌"; position: absolute; right: 14px; top: 14px; font-size: 1.3rem; letter-spacing: 2px; opacity: .95; }
   .heroe .saludo { font-size: .9rem; opacity: .92; margin: 0 0 2px; }
   .heroe .grande { font-size: 2.7rem; font-weight: 800; line-height: 1; margin: 2px 0; }
-  .heroe .grande small { font-size: 1rem; font-weight: 600; opacity: .92; }
+  .heroe .grande small { display: block; font-size: .92rem; font-weight: 600; opacity: .92; margin-top: 6px; line-height: 1.3; }
   .heroe .chicos { display: flex; gap: 10px; margin-top: 12px; }
   .heroe .chico { flex: 1; background: rgba(255,255,255,.13); border-radius: 14px; padding: 9px 11px; }
   .heroe .chico b { display: block; font-size: 1.15rem; }
   .heroe .chico span { font-size: .78rem; opacity: .92; }
-  .heroe .camino { margin: 12px 0 0; background: rgba(255,255,255,.96); color: var(--texto); border-radius: 14px; padding: 9px 12px; font-size: .9rem; }
+  .heroe .camino { margin: 12px 0 0; background: rgba(255,255,255,.96); color: var(--texto); border-radius: 14px; padding: 9px 12px; font-size: .9rem; white-space: pre-line; }
+
+  /* Agente de WhatsApp */
+  .agente { background: linear-gradient(180deg, #effcf3 0%, #ffffff 100%); border-color: #c8ecd3; }
+  .sync { display: flex; align-items: center; gap: 8px; font-size: .8rem; color: var(--suave); margin: 12px 0 0; }
+  .sync::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--wa); box-shadow: 0 0 0 3px rgba(37,211,102,.22); }
+  .chat { background: #efe7dc; border-radius: 16px; padding: 12px; margin: 2px 0 12px; display: grid; gap: 6px; }
+  .chat p { margin: 0; max-width: 86%; padding: 7px 10px; border-radius: 12px; font-size: .88rem; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+  .chat .yo { justify-self: end; background: #d9fdd3; border-top-right-radius: 4px; }
+  .chat .rotta { justify-self: start; background: #fff; border-top-left-radius: 4px; }
+  .chat .quien { display: block; font-size: .72rem; font-weight: 700; color: var(--marca); }
 
   /* Bienvenida y novedades */
   .pasos { list-style: none; padding: 0; margin: 0 0 10px; display: grid; gap: 9px; }
@@ -82,18 +96,17 @@
   button, .boton { font: inherit; border: 0; border-radius: 12px; padding: 11px 14px; cursor: pointer; background: #edf0ec; color: var(--texto); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-weight: 600; font-size: .95rem; }
   button.principal, .boton.principal { background: var(--marca); color: #fff; }
   button.principal:hover, .boton.principal:hover { background: var(--marca-osc); }
-  button.whatsapp { background: #25d366; color: #063b1a; }
-  button.peligro { background: var(--rojo-claro); color: var(--rojo); }
+  button.whatsapp { background: var(--wa); color: var(--wa-osc); }
+  button.whatsapp:hover { background: #1fbe5b; }
   button.chico { padding: 8px 11px; font-size: .88rem; }
   button.ancho { width: 100%; }
-  button.enlace { background: none; padding: 4px 6px; font-size: .78rem; font-weight: 500; color: var(--suave); text-decoration: underline; }
+  button.texto { background: none; padding: 6px 2px; color: var(--marca-osc); font-size: .9rem; }
   button:disabled { opacity: .45; cursor: not-allowed; }
   button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, label.opcion:focus-within { outline: 3px solid #1565c0; outline-offset: 2px; }
 
   /* Formularios */
   label { display: block; font-size: .88rem; font-weight: 600; margin: 10px 0 4px; }
   input, select { font: inherit; width: 100%; padding: 10px 11px; border: 1px solid #c9d1c7; border-radius: 10px; background: #fff; color: var(--texto); }
-  select:disabled { background: #f4f6f3; color: var(--texto); opacity: 1; }
   fieldset { border: 0; padding: 0; margin: 10px 0 0; }
   legend { font-size: .88rem; font-weight: 600; margin-bottom: 6px; padding: 0; }
   .opciones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -107,8 +120,10 @@
   .precio-rotta small { display: block; color: var(--suave); font-size: .78rem; margin-top: 2px; line-height: 1.35; }
   .aprovecha { display: flex; gap: 10px; align-items: center; background: var(--pasado-claro); border-radius: 14px; padding: 10px 12px; margin: 12px 0 0; font-size: .9rem; }
   .aprovecha .ico { background: #fff; }
-  .estimado { background: var(--amarillo-claro); border-radius: 14px; padding: 10px 12px; margin: 12px 0; }
-  .estimado b { font-size: 1.15rem; }
+  .resultado { background: linear-gradient(135deg, #fff6df, #ffe7b0); border-radius: 16px; padding: 12px 14px; margin: 14px 0 6px; text-align: center; }
+  .resultado span { display: block; font-size: .9rem; font-weight: 600; }
+  .resultado b { display: block; font-size: 2.5rem; line-height: 1.1; margin: 2px 0; }
+  .resultado .nota { font-weight: 500; }
 
   /* Productos */
   .producto { border: 1px solid var(--borde); border-radius: 16px; padding: 12px; margin: 10px 0; background: #fff; }
@@ -136,20 +151,37 @@
   .decide span { font-size: .78rem; color: var(--suave); }
   .consejo { font-size: .82rem; color: var(--suave); margin: 0 0 8px; }
   .consejo b { color: var(--texto); }
-  .producto .acciones { display: flex; gap: 6px; flex-wrap: wrap; }
-  .producto .acciones.rejilla { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .acciones.rejilla button { padding: 9px 4px; font-size: .84rem; }
-  .acciones.rejilla .principal { grid-column: 1 / -1; font-size: .95rem; padding: 11px; }
-  .acciones.rejilla.par { grid-template-columns: 1fr; }
+  .acciones { display: grid; grid-template-columns: 1.7fr 1fr; gap: 8px; }
+  .acciones.uno { grid-template-columns: 1fr; }
+  .acciones button { padding: 10px 8px; font-size: .88rem; }
 
-  /* Avisos */
-  .linea { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; list-style: none; padding: 0; margin: 12px 0 10px; }
-  .linea li { font-size: .7rem; text-align: center; padding-top: 7px; border-top: 4px solid #e3e8e1; color: #8a948c; font-weight: 600; }
+  /* Precios */
+  .buscar { margin: 4px 0 8px; }
+  .segmento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; background: #e9ede8; padding: 4px; border-radius: 14px; margin: 0 0 6px; }
+  .segmento button { background: transparent; font-size: .88rem; padding: 8px 6px; }
+  .segmento button[aria-pressed="true"] { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.14); }
+  .precio-fila { border-bottom: 1px solid var(--borde); }
+  .precio-fila:last-child { border-bottom: 0; }
+  .cab { display: flex; align-items: center; gap: 10px; padding: 10px 0; }
+  .precio-fila summary.cab { padding: 10px 0; }
+  .cab .emoji { font-size: 1.3rem; width: 40px; height: 40px; border-radius: 12px; background: var(--fondo); display: grid; place-items: center; flex: none; }
+  .cab .nom { flex: 1; min-width: 0; font-weight: 700; }
+  .cab .nom small, .cab .val small { display: block; font-size: .76rem; font-weight: 600; color: var(--suave); }
+  .cab .val { text-align: right; white-space: nowrap; min-width: 62px; }
+  .cab .val b { font-size: 1.05rem; }
+  .linea-mini { flex: none; }
+  .sube { color: var(--marca) !important; } .baja { color: #c4521f !important; } .igual { color: #8a948c !important; }
+  .detalle-precio { padding: 0 0 12px; font-size: .9rem; }
+  .por-etapa { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 6px 0 10px; }
+  .por-etapa div { border-radius: 12px; padding: 7px 3px; text-align: center; font-size: .72rem; font-weight: 600; color: var(--suave); }
+  .por-etapa b { display: block; font-size: .98rem; color: var(--texto); }
+  .e-dos { background: var(--amarillo-claro); } .e-manana { background: var(--naranja-claro); } .e-hoy { background: var(--rojo-claro); } .e-pasado { background: var(--pasado-claro); }
+
+  /* Ventas */
+  .linea { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; list-style: none; padding: 0; margin: 12px 0 10px; }
+  .linea li { font-size: .72rem; text-align: center; padding-top: 7px; border-top: 4px solid #e3e8e1; color: #8a948c; font-weight: 600; }
   .linea li.hecho { border-top-color: #93d3a8; color: var(--marca); }
   .linea li.actual { border-top-color: var(--marca); color: var(--marca-osc); font-weight: 800; }
-  .segmento { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: #e9ede8; padding: 4px; border-radius: 14px; margin-bottom: 8px; }
-  .segmento button { background: transparent; font-size: .88rem; padding: 9px 6px; }
-  .segmento button[aria-pressed="true"] { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.14); }
   .subtitulo { font-size: .95rem; font-weight: 700; color: var(--suave); margin: 16px 0 2px; }
 
   /* Saldo */
@@ -158,7 +190,6 @@
   table { width: 100%; border-collapse: collapse; font-size: .9rem; }
   th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--borde); vertical-align: top; }
   th { font-size: .78rem; color: var(--suave); font-weight: 700; }
-  td.monto { font-weight: 800; white-space: nowrap; }
   tr:last-child td { border-bottom: 0; }
   .renglon { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px solid var(--borde); padding: 9px 0; }
   .renglon:last-child { border-bottom: 0; }
@@ -172,19 +203,23 @@
   .escala .paso strong { font-size: 1.15rem; white-space: nowrap; }
   .escala .medidor { grid-column: 2 / -1; height: 8px; border-radius: 99px; background: #edf0ec; overflow: hidden; }
   .escala .medidor i { display: block; height: 100%; border-radius: 99px; }
+  .comparar { gap: 4px; }
+  .comparar .paso { padding: 8px; border-radius: 14px; border: 2px solid transparent; }
+  .comparar .paso.elegido { background: var(--marca-claro); border-color: #9bd5ae; }
   .lista-ben { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
   .lista-ben li { display: flex; gap: 11px; align-items: center; font-size: .92rem; }
   details summary { cursor: pointer; font-weight: 700; padding: 2px 0; list-style: none; display: flex; align-items: center; gap: 8px; }
   details summary::-webkit-details-marker { display: none; }
   details summary::after { content: "›"; margin-left: auto; font-size: 1.3rem; line-height: 1; color: var(--suave); transition: transform .2s; }
   details[open] summary::after { transform: rotate(90deg); }
+  .precio-fila summary::after { margin-left: 0; }
   details.dentro { margin-top: 12px; border-top: 1px solid var(--borde); padding-top: 10px; }
   details.dentro summary { font-size: .92rem; color: var(--marca-osc); }
 
   /* Navegación */
   nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 6; background: rgba(255,255,255,.97); border-top: 1px solid var(--borde); backdrop-filter: blur(6px); }
   .nav-in { max-width: 560px; margin: 0 auto; display: flex; align-items: flex-end; padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); }
-  nav button { background: none; font-size: .7rem; font-weight: 600; padding: 4px 2px; flex: 1; color: #7b857d; flex-direction: column; gap: 2px; border-radius: 10px; }
+  nav button { background: none; font-size: .7rem; font-weight: 600; padding: 4px 2px; flex: 1; color: #7b857d; flex-direction: column; gap: 2px; border-radius: 10px; line-height: 1.15; }
   nav button svg { width: 24px; height: 24px; }
   nav button[aria-current="page"] { color: var(--marca); }
   nav button.central .circulo { width: 54px; height: 54px; border-radius: 50%; background: var(--naranja); color: #fff; display: grid; place-items: center; margin-top: -26px; box-shadow: 0 6px 14px rgba(255,107,61,.35); border: 4px solid #fff; }
@@ -193,7 +228,6 @@
   .toast { position: fixed; left: 50%; bottom: 98px; transform: translateX(-50%); background: #1e2a22; color: #fff; padding: 11px 16px; border-radius: 12px; font-size: .9rem; z-index: 10; width: max-content; max-width: 90vw; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
   footer { text-align: center; font-size: .76rem; color: var(--suave); margin-top: 6px; }
   @media (min-width: 700px) { main { padding-top: 22px; } }
-
 </style>
 </head>
 <body>
@@ -204,8 +238,9 @@
     </div>
     <div class="marca">
       <h1>Rotta</h1>
-      <p>Te compramos lo que ya no vas a vender.</p>
+      <p>Precios y cuánto obtienes por tu fruta</p>
     </div>
+    <button type="button" class="chat-boton" id="barra-agente" aria-label="Escribirle al agente de Rotta por WhatsApp" title="Escribirle al agente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.5-4.3A8.5 8.5 0 1 1 20.5 11.6z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/></svg></button>
   </div>
 </header>
 
@@ -213,25 +248,37 @@
   <!-- ===== HOY ===== -->
   <div id="vista-inicio">
     <section class="heroe" aria-labelledby="t-resumen">
-      <p class="saludo" id="t-resumen">Tu saldo</p>
-      <p class="grande"><span id="n-saldo">$0</span> <small>para cobrar</small></p>
+      <p class="saludo" id="t-resumen">Hoy puedes obtener</p>
+      <p class="grande"><span id="n-obtener">$0</span> <small>si nos vendes lo que se echa a perder</small></p>
       <div class="chicos">
+        <div class="chico"><b id="n-saldo">$0</b><span>saldo para cobrar</span></div>
         <div class="chico"><b id="n-pagado">$0</b><span>te ha pagado Rotta</span></div>
-        <div class="chico"><b id="n-perdido">$0</b><span>tirados a la basura</span></div>
       </div>
       <p class="camino" id="n-camino"></p>
     </section>
 
+    <section class="agente" aria-labelledby="t-agente">
+      <h2 id="t-agente">💬 Todo se hace por WhatsApp</h2>
+      <p>Al agente de Rotta le dices lo que te llegó, lo que quieres vendernos y cuándo quieres cobrar. Aquí solo miras los precios, cuánto obtienes y en qué va cada venta.</p>
+      <button type="button" class="whatsapp" id="abrir-agente">💬 Escribirle al agente</button>
+      <p class="sync" id="sync"></p>
+    </section>
+
     <section id="bienvenida" aria-labelledby="t-como">
       <h2 id="t-como">👋 ¿Cómo funciona Rotta?</h2>
+      <div class="chat" aria-label="Conversación con el agente de Rotta">
+        <p class="yo">Me quedan 10 kg de jitomate, se echan a perder mañana.</p>
+        <p class="rotta"><span class="quien">Rotta</span>Te pagamos $56 al recogerlo. Lupita puede pasar hoy de 4 a 7. ¿Te parece?</p>
+        <p class="yo">Sí 👍</p>
+        <p class="rotta"><span class="quien">Rotta</span>Listo. Te aviso cuando vaya en camino.</p>
+      </div>
       <ol class="pasos">
-        <li><span class="n">1</span><span>Registra lo que te llegó. Rotta pone el precio y te dice cuántos días le quedan.</span></li>
-        <li><span class="n">2</span><span>Lo que ya no vas a vender, véndenoslo. <b>Mientras antes nos avises, más te pagamos.</b></span></li>
-        <li><span class="n">3</span><span>Pasamos por él a tu negocio y te pagamos al recogerlo.</span></li>
-        <li><span class="n">4</span><span>Cobra tu saldo, cámbialo por artículos para tu negocio o dónalo.</span></li>
+        <li><span class="n">1</span><span>Por WhatsApp le dices al agente lo que te llegó.</span></li>
+        <li><span class="n">2</span><span>El agente te avisa qué se echa a perder y cuánto te pagamos. <b>Mientras antes nos lo vendas, más te pagamos.</b></span></li>
+        <li><span class="n">3</span><span>Le contestas que sí, pasamos a tu negocio y te pagamos al recogerlo.</span></li>
+        <li><span class="n">4</span><span>En esta app miras los precios de la semana, cuánto obtienes y tu saldo.</span></li>
       </ol>
-      <div class="beneficio"><span class="ico" aria-hidden="true">💵</span><span>Sin cuota ni comisión. Lo que antes tirabas ahora te deja dinero.</span></div>
-      <p class="nota">No necesitas instalar nada ni crear cuenta.</p>
+      <div class="beneficio"><span class="ico" aria-hidden="true">💵</span><span>Sin cuota ni comisión. No instalas nada: el agente te manda el enlace de la app.</span></div>
       <div class="fila">
         <button type="button" id="cerrar-bienvenida">Entendido</button>
         <a class="boton principal enlace-opinion" href="#" target="_blank" rel="noopener">Danos tu opinión</a>
@@ -241,16 +288,16 @@
     <section class="novedades" aria-labelledby="t-nuevo">
       <h2 id="t-nuevo">✨ Lo nuevo en Rotta</h2>
       <ul class="lista-ben">
-        <li><span class="ico i-verde" aria-hidden="true">💵</span><span><b>Ahora te pagamos en pesos.</b> Si se echa a perder hoy, te pagamos el 10 % de su valor: $10 por cada $100.</span></li>
-        <li><span class="ico i-amarillo" aria-hidden="true">⏰</span><span><b>Mientras antes nos avises, más te pagamos.</b> Faltando 1 día, $20 por cada $100; faltando 2 días, $30.</span></li>
-        <li><span class="ico i-cafe" aria-hidden="true">♻️</span><span><b>Si ya se pasó, depende del producto.</b> Te pagamos $5 por cada $100 de la parte que se aprovecha.</span></li>
-        <li><span class="ico i-rosa" aria-hidden="true">🚚</span><span><b>Pasamos por él y te pagamos al recogerlo.</b> Tu saldo lo cobras, lo cambias por artículos o lo donas.</span></li>
-        <li><span class="ico i-azul" aria-hidden="true">🏷️</span><span><b>Precio Rotta.</b> Ya no escribes precios: la app los pone con el mercado de la semana.</span></li>
+        <li><span class="ico i-verde" aria-hidden="true">💬</span><span><b>Todo por WhatsApp.</b> Registras, vendes y cobras con el agente. La app ya no te pide llenar nada.</span></li>
+        <li><span class="ico i-azul" aria-hidden="true">📈</span><span><b>Precios de la semana.</b> Mira el Precio Rotta de cada fruta y verdura, y si subió o bajó.</span></li>
+        <li><span class="ico i-amarillo" aria-hidden="true">🧮</span><span><b>¿Cuánto obtengo?</b> Calcula cuánto te pagamos según los días que le quedan.</span></li>
+        <li><span class="ico i-naranja" aria-hidden="true">💵</span><span><b>Te pagamos en pesos.</b> Por cada $100: $30 si faltan 2 días, $20 si falta 1 y $10 si se echa a perder hoy. Si ya se pasó, $5 por la parte que sirve.</span></li>
+        <li><span class="ico i-rosa" aria-hidden="true">🚚</span><span><b>Sigue tus ventas y tu saldo.</b> Ves quién pasa por tu producto y cuánto te pagamos.</span></li>
       </ul>
     </section>
 
     <section aria-labelledby="t-reporte">
-      <h2 id="t-reporte">📋 Reporte de hoy</h2>
+      <h2 id="t-reporte">📋 Tu reporte de hoy</h2>
       <p class="nota" id="fecha-hoy"></p>
       <div class="semaforo" role="list">
         <div class="s-pasado" role="listitem"><b id="n-pasado">0</b>Ya se pasó</div>
@@ -259,17 +306,24 @@
         <div class="s-verde" role="listitem"><b id="n-verde">0</b>Fresco</div>
       </div>
       <p id="texto-reporte"></p>
-      <div class="fila">
-        <button type="button" class="whatsapp" id="reporte-whatsapp">Mandarme el reporte por WhatsApp</button>
-        <button type="button" id="activar-avisos">🔔 Activar alertas</button>
-      </div>
-      <p class="nota" style="margin-top:8px">Revísalo antes de abrir tu negocio.</p>
+      <button type="button" class="whatsapp" id="reporte-whatsapp">💬 Pedir el reporte por WhatsApp</button>
+      <p class="nota" style="margin-top:8px">El agente te lo manda cada mañana, antes de que abras tu negocio.</p>
     </section>
 
     <section aria-labelledby="t-urgente">
-      <h2 id="t-urgente">⏳ ¿Qué te conviene hoy?</h2>
-      <p class="nota">Mientras antes nos lo vendas, más te pagamos. Si ya se pasó, solo pagamos la parte que se aprovecha, y eso depende de cada producto.</p>
+      <h2 id="t-urgente">⏳ Lo que se echa a perder</h2>
+      <p class="nota">Lo que le reportaste al agente. Mientras antes nos lo vendas, más te pagamos. Si ya se pasó, solo pagamos la parte que se aprovecha, y eso depende de cada producto.</p>
       <div id="lista-urgente"></div>
+      <details class="dentro" id="caja-frescos">
+        <summary>🟢 Lo que está fresco (<span id="n-frescos">0</span>)</summary>
+        <div id="lista-frescos"></div>
+      </details>
+    </section>
+
+    <section aria-labelledby="t-movidos">
+      <h2 id="t-movidos">📈 Lo que más se movió esta semana</h2>
+      <div id="lista-movidos"></div>
+      <button type="button" class="texto" id="ver-precios">Ver todos los precios ›</button>
     </section>
 
     <section id="opinion" aria-labelledby="t-opinion">
@@ -279,145 +333,69 @@
     </section>
   </div>
 
-  <!-- ===== PRODUCTOS ===== -->
-  <div id="vista-inventario" class="oculto">
-    <section aria-labelledby="t-inventario">
-      <h2 id="t-inventario">🧺 Lo que tengo</h2>
-      <p class="nota">Ordenado por lo que se echa a perder primero.</p>
-      <div id="lista-inventario"></div>
-    </section>
-    <section>
-      <details id="caja-registrar">
-        <summary>➕ Registrar lo que me llegó</summary>
-        <form id="form-agregar">
-          <label for="f-producto">Producto</label>
-          <select id="f-producto"></select>
-          <div id="caja-f-otro" class="oculto">
-            <label for="f-otro">¿Cuál?</label>
-            <input id="f-otro" type="text" maxlength="40" placeholder="Escribe el nombre">
-          </div>
-          <div class="dos">
-            <div>
-              <label for="f-cantidad">Cantidad</label>
-              <input id="f-cantidad" type="number" min="0.1" step="0.1" required value="1" inputmode="decimal">
-            </div>
-            <div>
-              <label for="f-unidad">Unidad</label>
-              <select id="f-unidad"><option>kg</option><option>piezas</option><option>manojos</option><option>cajas</option></select>
-            </div>
-          </div>
-          <div class="dos">
-            <div>
-              <label for="f-calidad">Calidad</label>
-              <select id="f-calidad"><option value="primera">De primera</option><option value="segunda">De segunda</option></select>
-            </div>
-            <div>
-              <label for="f-dias">Días que aguanta</label>
-              <input id="f-dias" type="number" min="1" max="60" step="1" required value="5" inputmode="numeric">
-            </div>
-          </div>
-          <label for="f-llegada">¿Cuándo llegó?</label>
-          <input id="f-llegada" type="date" required>
-          <div class="precio-rotta" id="f-precio-info" aria-live="polite"></div>
-          <p class="nota" style="margin-top:8px">Los días se llenan solos según el producto. Si llegó muy maduro, bájalos.</p>
-          <button type="submit" class="principal ancho">Guardar</button>
-        </form>
-      </details>
-    </section>
+  <!-- ===== PRECIOS ===== -->
+  <div id="vista-precios" class="oculto">
     <section aria-labelledby="t-precios">
       <h2 id="t-precios">🏷️ Precios Rotta de la semana</h2>
-      <p class="nota">Semana <span id="semana-precios"></span>. Rotta pone el precio de cada producto con tres criterios:</p>
-      <ul class="lista-ben" style="margin:8px 0 4px">
+      <p class="nota">Semana <span id="semana-precios"></span>. Toca un producto para ver cuánto te pagamos por él.</p>
+      <input id="buscar" class="buscar" type="search" aria-label="Busca una fruta o verdura" placeholder="🔍 Busca una fruta o verdura" autocomplete="off">
+      <div class="segmento" role="group" aria-label="Filtrar precios">
+        <button type="button" data-filtro="todos" aria-pressed="true">Todos</button>
+        <button type="button" data-filtro="sube" aria-pressed="false">▲ Subieron</button>
+        <button type="button" data-filtro="baja" aria-pressed="false">▼ Bajaron</button>
+      </div>
+      <div id="lista-precios"></div>
+      <p class="vacio oculto" id="sin-precios">No encontramos ese producto. Pregúntale al agente por WhatsApp.</p>
+    </section>
+    <section aria-labelledby="t-criterios">
+      <h2 id="t-criterios">🔎 ¿Cómo pone Rotta el precio?</h2>
+      <ul class="lista-ben">
         <li><span class="ico i-azul" aria-hidden="true">📈</span><span><b>Precio en la central de abasto</b> esa semana.</span></li>
         <li><span class="ico i-verde" aria-hidden="true">🌱</span><span><b>Temporada:</b> en temporada baja 10 %; fuera de temporada sube 10 %.</span></li>
         <li><span class="ico i-amarillo" aria-hidden="true">⭐</span><span><b>Calidad:</b> si llegó de segunda, baja 20 %.</span></li>
       </ul>
-      <p class="nota" style="margin-top:8px">Con este precio calculamos cuánto te pagamos.</p>
-      <details class="dentro">
-        <summary>Ver todos los precios</summary>
-        <table>
-          <thead><tr><th scope="col">Producto</th><th scope="col">Precio Rotta</th><th scope="col">Temporada</th></tr></thead>
-          <tbody id="tabla-precios"></tbody>
-        </table>
-      </details>
+      <p class="nota" style="margin-top:10px">Los precios se actualizan cada lunes. Con este precio calculamos cuánto te pagamos.</p>
     </section>
   </div>
 
-  <!-- ===== VENDER ===== -->
-  <div id="vista-avisar" class="oculto">
-    <section aria-labelledby="t-avisar">
-      <h2 id="t-avisar">💵 Véndenos lo que ya no vas a vender</h2>
-      <div class="beneficio"><span class="ico" aria-hidden="true">🚚</span><span><b>Pasamos a tu negocio por él</b> y te pagamos al recogerlo. Tú no cargas nada.</span></div>
-      <form id="form-aviso">
-        <input type="hidden" id="a-producto-id">
-        <label for="a-producto">Producto</label>
-        <select id="a-producto"></select>
-        <div id="caja-a-otro" class="oculto">
-          <label for="a-otro">¿Cuál?</label>
-          <input id="a-otro" type="text" maxlength="40" placeholder="Escribe el nombre">
-        </div>
+  <!-- ===== ¿CUÁNTO OBTENGO? ===== -->
+  <div id="vista-calcular" class="oculto">
+    <section aria-labelledby="t-calcular">
+      <h2 id="t-calcular">🧮 ¿Cuánto obtengo?</h2>
+      <p class="nota">Elige el producto, cuánto tienes y cuándo se echa a perder. Te decimos cuánto te pagamos al recogerlo.</p>
+      <form id="form-calcular">
+        <label for="c-producto">Producto</label>
+        <select id="c-producto"></select>
         <div class="dos">
           <div>
-            <label for="a-cantidad">Cantidad</label>
-            <input id="a-cantidad" type="number" min="0.1" step="0.1" required value="1" inputmode="decimal">
+            <label for="c-cantidad">Cantidad (<span id="c-unidad">kg</span>)</label>
+            <input id="c-cantidad" type="number" min="0.1" step="0.1" required value="10" inputmode="decimal">
           </div>
           <div>
-            <label for="a-unidad">Unidad</label>
-            <select id="a-unidad"><option>kg</option><option>piezas</option><option>manojos</option><option>cajas</option></select>
+            <label for="c-calidad">Calidad</label>
+            <select id="c-calidad"><option value="primera">De primera</option><option value="segunda">De segunda</option></select>
           </div>
         </div>
-        <label for="a-calidad">Calidad</label>
-        <select id="a-calidad"><option value="primera">De primera</option><option value="segunda">De segunda</option></select>
-        <div class="precio-rotta" id="a-precio-info" aria-live="polite"></div>
-
+        <div class="precio-rotta" id="c-precio-info" aria-live="polite"></div>
         <fieldset>
           <legend>¿Cuándo se echa a perder?</legend>
-          <div class="opciones" id="a-etapas"></div>
+          <div class="opciones" id="c-etapas"></div>
         </fieldset>
-
         <div id="caja-util" class="aprovecha oculto">
           <span class="ico" aria-hidden="true">♻️</span>
-          <span id="a-util-info"></span>
+          <span id="c-util-info"></span>
         </div>
-
-        <label for="a-cuando">¿Cuándo pueden pasar?</label>
-        <select id="a-cuando">
-          <option>Hoy en la mañana (9 a 12)</option>
-          <option selected>Hoy en la tarde (4 a 7 p. m.)</option>
-          <option>Mañana temprano, antes de abrir (7 a 9 a. m.)</option>
-        </select>
-        <label for="a-nota">Nota para el colaborador (opcional)</label>
-        <input id="a-nota" type="text" maxlength="120" placeholder="Está en cajas junto a la báscula">
-        <div class="estimado" id="a-estimado" aria-live="polite"></div>
-        <button type="submit" class="principal ancho">💵 Vender a Rotta</button>
+        <div class="resultado" id="c-resultado" aria-live="polite"></div>
+        <p class="subtitulo">Si nos lo vendes…</p>
+        <div class="escala comparar" id="c-comparar"></div>
+        <button type="submit" class="whatsapp ancho" style="margin-top:12px">💬 Venderlo por WhatsApp</button>
+        <p class="nota" style="margin-top:8px">El agente te confirma la hora y quién pasa por él.</p>
       </form>
-    </section>
-  </div>
-
-  <!-- ===== MIS VENTAS ===== -->
-  <div id="vista-avisos" class="oculto">
-    <section aria-labelledby="t-avisos">
-      <h2 id="t-avisos">🚚 Mis ventas a Rotta</h2>
-      <div class="segmento" role="group" aria-label="Ver la app como">
-        <button type="button" id="modo-comercio" aria-pressed="true">🏪 Comercio</button>
-        <button type="button" id="modo-colaborador" aria-pressed="false">🚚 Colaborador</button>
-      </div>
-      <p class="nota" id="nota-modo"></p>
-      <div id="lista-avisos"></div>
-    </section>
-  </div>
-
-  <!-- ===== SALDO ===== -->
-  <div id="vista-saldo" class="oculto">
-    <section class="saldo" aria-labelledby="t-saldo">
-      <h2 id="t-saldo" style="justify-content:center">💵 Tu saldo</h2>
-      <b id="p-saldo">$0</b>
-      <span>para cobrar · en total te hemos pagado <span id="p-pagado">$0</span></span>
     </section>
 
     <section aria-labelledby="t-escala">
       <h2 id="t-escala">📊 ¿Cuánto te pagamos?</h2>
-      <p class="nota">Por cada $100 de producto, a Precio Rotta. La base es el día en que se echa a perder: <b>10 % de su valor</b>. Si nos avisas antes, te pagamos más; si ya se pasó, menos.</p>
+      <p class="nota">Por cada $100 de producto, a Precio Rotta. La base es el día en que se echa a perder: <b>10 % de su valor</b>. Si nos lo vendes antes, te pagamos más; si ya se pasó, menos.</p>
       <div class="escala" id="tabla-escala"></div>
       <p class="nota" style="margin-top:10px">🟢 Si está fresco (3 días o más), véndelo normal. Te lo compramos desde que le faltan 2 días.</p>
       <details class="dentro" id="caja-pasado">
@@ -429,19 +407,28 @@
         </table>
       </details>
     </section>
+  </div>
 
-    <section aria-labelledby="t-beneficios">
-      <h2 id="t-beneficios">🎁 Lo que ganas</h2>
-      <ul class="lista-ben">
-        <li><span class="ico i-verde" aria-hidden="true">🚚</span><span><b>Pasamos a tu negocio.</b> Te quitas el producto sin cargarlo ni tirarlo.</span></li>
-        <li><span class="ico i-amarillo" aria-hidden="true">💵</span><span><b>Dinero seguro.</b> Te pagamos al recoger, sin cuota ni comisión.</span></li>
-        <li><span class="ico i-rosa" aria-hidden="true">🗑️</span><span><b>Menos pérdida.</b> Lo que antes tirabas ahora te deja dinero.</span></li>
-        <li><span class="ico i-naranja" aria-hidden="true">🤝</span><span><b>Si quieres, ayudas.</b> Puedes donar parte de tu saldo a un albergue o comedor.</span></li>
-      </ul>
+  <!-- ===== MIS VENTAS ===== -->
+  <div id="vista-ventas" class="oculto">
+    <section aria-labelledby="t-ventas">
+      <h2 id="t-ventas">🚚 Mis ventas a Rotta</h2>
+      <p class="nota">El agente las registra cuando le contestas por WhatsApp. Aquí ves en qué va cada una.</p>
+      <div id="lista-ventas"></div>
+    </section>
+  </div>
+
+  <!-- ===== SALDO ===== -->
+  <div id="vista-saldo" class="oculto">
+    <section class="saldo" aria-labelledby="t-saldo">
+      <h2 id="t-saldo" style="justify-content:center">💵 Tu saldo</h2>
+      <b id="p-saldo">$0</b>
+      <span>para cobrar · en total te hemos pagado <span id="p-pagado">$0</span></span>
     </section>
 
     <section aria-labelledby="t-dinero">
       <h2 id="t-dinero">🏦 Cobra tu saldo</h2>
+      <p class="nota">Lo pides por WhatsApp y el agente lo confirma ahí.</p>
       <form id="form-dinero">
         <div class="dos">
           <div>
@@ -454,14 +441,14 @@
           </div>
         </div>
         <p class="nota" id="d-vista" style="margin-top:8px"></p>
-        <button type="submit" class="principal ancho">Cobrar</button>
+        <button type="submit" class="whatsapp ancho">💬 Pedir mi cobro por WhatsApp</button>
       </form>
     </section>
 
     <section aria-labelledby="t-objetos">
       <h2 id="t-objetos">🛍️ Úsalo en artículos para tu negocio</h2>
       <div id="catalogo"></div>
-      <p class="nota" style="margin-top:6px">El colaborador te lo lleva en su siguiente visita.</p>
+      <p class="nota" style="margin-top:6px">Lo pides por WhatsApp y el colaborador te lo lleva en su siguiente visita.</p>
     </section>
 
     <section aria-labelledby="t-donar">
@@ -478,8 +465,18 @@
             <select id="don-destino"></select>
           </div>
         </div>
-        <p style="margin-top:10px"><button type="submit" class="principal ancho">Donar</button></p>
+        <p style="margin-top:10px"><button type="submit" class="whatsapp ancho">💬 Donar por WhatsApp</button></p>
       </form>
+    </section>
+
+    <section aria-labelledby="t-beneficios">
+      <h2 id="t-beneficios">🎁 Lo que ganas</h2>
+      <ul class="lista-ben">
+        <li><span class="ico i-verde" aria-hidden="true">🚚</span><span><b>Pasamos a tu negocio.</b> Te quitas el producto sin cargarlo ni tirarlo.</span></li>
+        <li><span class="ico i-amarillo" aria-hidden="true">💵</span><span><b>Dinero seguro.</b> Te pagamos al recoger, sin cuota ni comisión.</span></li>
+        <li><span class="ico i-rosa" aria-hidden="true">🗑️</span><span><b>Menos pérdida.</b> Lo que antes tirabas ahora te deja dinero.</span></li>
+        <li><span class="ico i-naranja" aria-hidden="true">🤝</span><span><b>Si quieres, ayudas.</b> Puedes donar parte de tu saldo a un albergue o comedor.</span></li>
+      </ul>
     </section>
 
     <section aria-labelledby="t-movimientos">
@@ -488,15 +485,15 @@
     </section>
   </div>
 
-  <footer>Rotta · Te compramos lo que ya no vas a vender · 2026<br><button type="button" class="enlace" id="reiniciar">Restablecer datos</button></footer>
+  <footer>Rotta · Te compramos lo que ya no vas a vender · 2026</footer>
 </main>
 
 <nav aria-label="Secciones">
   <div class="nav-in">
     <button type="button" data-vista="inicio" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Hoy</button>
-    <button type="button" data-vista="inventario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16l-1.5 10a2 2 0 0 1-2 1.7h-9a2 2 0 0 1-2-1.7z"/><path d="M8 9l4-6 4 6"/></svg>Productos</button>
-    <button type="button" data-vista="avisar" class="central"><span class="circulo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>Vender</button>
-    <button type="button" data-vista="avisos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h12v10H2zM14 9h4.5L22 12.5V16h-8"/><circle cx="6.5" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/></svg>Mis ventas</button>
+    <button type="button" data-vista="precios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>Precios</button>
+    <button type="button" data-vista="calcular" class="central"><span class="circulo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M16.5 7.2C15.7 6 14.1 5.3 12 5.3c-2.6 0-4.3 1.2-4.3 3.1 0 4.4 9 2.4 9 6.9 0 2-1.9 3.3-4.7 3.3-2.2 0-3.9-.8-4.8-2.3"/></svg></span>¿Cuánto obtengo?</button>
+    <button type="button" data-vista="ventas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h12v10H2zM14 9h4.5L22 12.5V16h-8"/><circle cx="6.5" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/></svg>Mis ventas</button>
     <button type="button" data-vista="saldo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.2"/></svg>Saldo</button>
   </div>
 </nav>
@@ -505,52 +502,56 @@
 
 <script>
 // ===== Ajustes de Rotta =====
+// La app acompaña al agente de WhatsApp: muestra precios, cuánto obtienes, tus ventas y tu saldo.
+// Registrar, vender, cobrar, cambiar y donar se hace por WhatsApp con el agente.
 const ENCUESTA_URL = "";            // Enlace publicado del landing con la encuesta. Vacío: no se muestran los botones de opinión
-const WHATSAPP_ROTTA = "";          // WhatsApp de Rotta (10 dígitos). Vacío: WhatsApp deja elegir el contacto
+const WHATSAPP_ROTTA = "";          // WhatsApp del agente de Rotta (10 dígitos). Vacío: WhatsApp deja elegir el contacto
 // Cuánto paga Rotta por cada $100 de producto (a Precio Rotta). La base es el día en que se echa a perder: 10 %.
-// Si avisan antes, paga más; si ya se pasó, paga menos y solo por la parte que se aprovecha.
+// Si se lo venden antes, paga más; si ya se pasó, paga menos y solo por la parte que se aprovecha.
 const ETAPAS = {
   dos:    { nombre: "Faltan 2 días",        corto: "En 2 días",  pago: 30, consejo: "El triple que el último día" },
   manana: { nombre: "Falta 1 día",          corto: "Mañana",     pago: 20, consejo: "El doble que el último día" },
   hoy:    { nombre: "Se echa a perder hoy", corto: "Hoy",        pago: 10, consejo: "La base: 10 % de su valor" },
   pasado: { nombre: "Ya se echó a perder",  corto: "Ya se pasó", pago: 5,  consejo: "Solo la parte que se aprovecha, según el producto" }
 };
+const ORDEN = ["dos", "manana", "hoy", "pasado"];
+const ESTILO = { dos: ["⏰", "i-amarillo", "var(--amarillo)"], manana: ["⏳", "i-naranja", "var(--naranja)"], hoy: ["⚠️", "i-rosa", "var(--rojo)"], pasado: ["♻️", "i-cafe", "var(--pasado)"] };
 const UTIL = [[1, "Todo"], [0.75, "Casi todo (3 de cada 4)"], [0.5, "La mitad"], [0.25, "Poco (1 de cada 4)"]];
 const REMATE = { dos: 20, manana: 30, hoy: 50 };  // Descuento sugerido para rematar (%)
 const MINIMO_COBRO = 50;            // Pesos mínimos para cobrar el saldo
 const ARTICULOS = [["Bolsa de mandado reutilizable", 40], ["Mandil de Rotta", 80], ["Caja plegable para fruta", 120], ["Báscula digital de mostrador", 450]];
 const ALBERGUES = ["Albergue para migrantes La Esperanza", "Comedor Comunitario San Andrés", "Casa Hogar Santa María"];
-const COLABORADOR = "Carlos";
 // Criterios del Precio Rotta
 const TEMPORADA = { en: 0.9, fuera: 1.1 };
 const CALIDAD = { primera: { nombre: "De primera", f: 1 }, segunda: { nombre: "De segunda", f: 0.8 } };
 
-const CLAVE = "rotta-v3";
+const CLAVE = "rotta-v6";
 const DIA = 86400000;
-// [nombre, ícono, días que aguanta, unidad, precio en la central de abasto esta semana,
-//  meses de temporada (vacío: todo el año) y cuánto sirve si ya se pasó]
+// [nombre, ícono, días que aguanta, unidad, meses de temporada (vacío: todo el año), cuánto sirve si ya se pasó,
+//  precio en la central de abasto de las últimas 6 semanas (el último es el de esta semana)]
 const PRODUCTOS = [
-  ["Aguacate", "🥑", 5, "piezas", 12, [10, 11, 12, 1, 2, 3], 0.5],
-  ["Cebolla", "🧅", 14, "kg", 26, [], 0.5],
-  ["Chile serrano", "🌶️", 7, "kg", 42, [], 0.5],
-  ["Cilantro", "🌿", 3, "manojos", 8, [], 0.25],
-  ["Durazno", "🍑", 4, "kg", 46, [6, 7, 8, 9], 0.75],
-  ["Fresa", "🍓", 3, "kg", 62, [12, 1, 2, 3, 4], 0.5],
-  ["Jitomate", "🍅", 6, "kg", 28, [], 0.75],
-  ["Lechuga", "🥬", 4, "piezas", 15, [], 0.25],
-  ["Limón", "🍋", 14, "kg", 30, [5, 6, 7, 8, 9], 0.5],
-  ["Mango", "🥭", 6, "kg", 32, [3, 4, 5, 6, 7, 8], 0.75],
-  ["Manzana", "🍎", 20, "kg", 40, [8, 9, 10, 11], 0.75],
-  ["Naranja", "🍊", 14, "kg", 18, [11, 12, 1, 2, 3], 0.5],
-  ["Papa", "🥔", 20, "kg", 28, [], 0.5],
-  ["Papaya", "🍈", 5, "piezas", 36, [], 0.5],
-  ["Pepino", "🥒", 7, "kg", 20, [], 0.25],
-  ["Plátano", "🍌", 5, "kg", 22, [], 0.75],
-  ["Zanahoria", "🥕", 15, "kg", 18, [], 0.5]
+  ["Aguacate", "🥑", 5, "piezas", [10, 11, 12, 1, 2, 3], 0.5, [14, 14, 13, 13, 12.5, 12]],
+  ["Cebolla", "🧅", 14, "kg", [], 0.5, [22, 23, 24, 25, 25, 26]],
+  ["Chile serrano", "🌶️", 7, "kg", [], 0.5, [48, 46, 45, 44, 42, 42]],
+  ["Cilantro", "🌿", 3, "manojos", [], 0.25, [7, 7, 8, 8, 9, 8]],
+  ["Durazno", "🍑", 4, "kg", [6, 7, 8, 9], 0.75, [38, 40, 42, 43, 45, 46]],
+  ["Fresa", "🍓", 3, "kg", [12, 1, 2, 3, 4], 0.5, [70, 68, 66, 65, 64, 62]],
+  ["Jitomate", "🍅", 6, "kg", [], 0.75, [24, 25, 27, 26, 27, 28]],
+  ["Lechuga", "🥬", 4, "piezas", [], 0.25, [14, 14, 15, 16, 15, 15]],
+  ["Limón", "🍋", 14, "kg", [5, 6, 7, 8, 9], 0.5, [22, 24, 25, 27, 28, 30]],
+  ["Mango", "🥭", 6, "kg", [3, 4, 5, 6, 7, 8], 0.75, [26, 27, 28, 30, 31, 32]],
+  ["Manzana", "🍎", 20, "kg", [8, 9, 10, 11], 0.75, [44, 43, 42, 41, 40, 40]],
+  ["Naranja", "🍊", 14, "kg", [11, 12, 1, 2, 3], 0.5, [22, 21, 20, 19, 18, 18]],
+  ["Papa", "🥔", 20, "kg", [], 0.5, [27, 27, 28, 28, 28, 28]],
+  ["Papaya", "🍈", 5, "piezas", [], 0.5, [34, 34, 35, 36, 36, 36]],
+  ["Pepino", "🥒", 7, "kg", [], 0.25, [18, 19, 19, 20, 21, 20]],
+  ["Plátano", "🍌", 5, "kg", [], 0.75, [21, 21, 22, 22, 22, 22]],
+  ["Zanahoria", "🥕", 15, "kg", [], 0.5, [16, 16, 17, 17, 18, 18]]
 ];
-const OTRO = { icono: "🧺", dias: 5, unidad: "kg", mercado: 20, temporada: [], aprov: 0.5 };
 const CAT = {};
-PRODUCTOS.forEach(([nombre, icono, dias, unidad, mercado, temporada, aprov]) => { CAT[nombre] = { nombre, icono, dias, unidad, mercado, temporada, aprov }; });
+PRODUCTOS.forEach(([nombre, icono, dias, unidad, temporada, aprov, historial]) => {
+  CAT[nombre] = { nombre, icono, dias, unidad, temporada, aprov, historial, mercado: historial[historial.length - 1] };
+});
 const ESTADOS = ["avisado", "en_camino", "recogido"];
 
 const $ = i => document.getElementById(i);
@@ -559,20 +560,28 @@ function aTexto(d) { const m = new Date(d.getTime() - d.getTimezoneOffset() * 60
 function deTexto(s) { const [a, m, d] = s.split("-").map(Number); return new Date(a, m - 1, d); }
 function haceDias(n) { return aTexto(new Date(hoy().getTime() - n * DIA)); }
 function pesos(n) { return "$" + Math.round(n).toLocaleString("es-MX"); }
-function precioTxt(n) { return "$" + (Number.isInteger(n) ? String(n) : n.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })); }
+function precioTxt(n) { n = Math.round(n * 100) / 100; return "$" + (Number.isInteger(n) ? String(n) : n.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })); }
 function cant(n) { return Number.isInteger(n) ? String(n) : n.toLocaleString("es-MX", { maximumFractionDigits: 1 }); }
-function id() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
 function fechaCorta(s) { return deTexto(s).toLocaleDateString("es-MX", { day: "numeric", month: "short" }); }
 function el(tag, clase, texto) { const e = document.createElement(tag); if (clase) e.className = clase; if (texto != null) e.textContent = texto; return e; }
 function boton(t, clase, fn) { const b = el("button", clase, t); b.type = "button"; b.addEventListener("click", fn); return b; }
 function mayus(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
-function info(nombre) { return CAT[nombre] || { ...OTRO, nombre }; }
-function conocido(nombre) { return !!CAT[nombre]; }
-function icono(nombre) { return info(nombre).icono; }
+function sinAcentos(t) { return t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); }
+function info(nombre) { return CAT[nombre]; }
 function porUnidad(u) { return { kg: "kg", piezas: "pieza", manojos: "manojo", cajas: "caja" }[u] || u; }
 function utilTexto(u) { const x = UTIL.find(y => y[0] === u); return x ? x[1].toLowerCase() : Math.round(u * 100) + " %"; }
 function calcPago(valorP, etapa, util) { return Math.round(valorP * util * ETAPAS[etapa].pago / 100); }
 function porCien(etapa) { return "$" + ETAPAS[etapa].pago + " por cada $100"; }
+function utilDe(nombre, etapa) { return etapa === "pasado" ? info(nombre).aprov : 1; }
+
+// ----- WhatsApp: todo se manda al agente de Rotta -----
+function abrirWhatsapp(numero, texto) {
+  window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(texto), "_blank", "noopener");
+}
+function alAgente(texto) {
+  abrirWhatsapp(WHATSAPP_ROTTA ? "52" + WHATSAPP_ROTTA : "", texto);
+  toast("Te abrimos WhatsApp. El agente de Rotta te contesta ahí.");
+}
 
 // ----- Precio Rotta: central de abasto de la semana × temporada × calidad -----
 function temporadaDe(nombre) {
@@ -580,25 +589,33 @@ function temporadaDe(nombre) {
   if (!t.length) return { texto: "Todo el año", f: 1 };
   return t.includes(hoy().getMonth() + 1) ? { texto: "En temporada", f: TEMPORADA.en } : { texto: "Fuera de temporada", f: TEMPORADA.fuera };
 }
-function precioRotta(nombre, calidad) {
-  return Math.round(info(nombre).mercado * temporadaDe(nombre).f * CALIDAD[calidad || "primera"].f * 2) / 2;
+function precioRotta(nombre, calidad, atras) {
+  const h = info(nombre).historial, central = h[h.length - 1 - (atras || 0)];
+  return Math.round(central * temporadaDe(nombre).f * CALIDAD[calidad || "primera"].f * 2) / 2;
 }
 function pct(f) { return (f < 1 ? "−" : "+") + Math.round(Math.abs(1 - f) * 100) + " %"; }
 function porQue(nombre, calidad) {
   const t = temporadaDe(nombre), c = CALIDAD[calidad || "primera"];
-  return [(conocido(nombre) ? "Central de abasto esta semana: " : "Precio general, el colaborador lo revisa: ") + precioTxt(info(nombre).mercado),
+  return ["Central de abasto esta semana: " + precioTxt(info(nombre).mercado),
     t.texto + (t.f !== 1 ? " (" + pct(t.f) + ")" : ""),
     c.nombre + (c.f !== 1 ? " (" + pct(c.f) + ")" : "")].join(" · ");
 }
-function pintarPrecio(caja, nombre, calidad, unidad) {
+function pintarPrecio(caja, nombre, calidad) {
   caja.innerHTML = "";
   caja.appendChild(el("span", "ico", "🏷️")).setAttribute("aria-hidden", "true");
   const t = el("span", "");
   t.appendChild(document.createTextNode("Precio Rotta: "));
   t.appendChild(el("b", "", precioTxt(precioRotta(nombre, calidad))));
-  t.appendChild(document.createTextNode(" por " + porUnidad(unidad)));
+  t.appendChild(document.createTextNode(" por " + porUnidad(info(nombre).unidad)));
   t.appendChild(el("small", "", porQue(nombre, calidad)));
   caja.appendChild(t);
+}
+function tendencia(nombre) {
+  const h = info(nombre).historial, antes = h[h.length - 2], ahora = h[h.length - 1];
+  const v = Math.round((ahora - antes) / antes * 100);
+  if (v > 0) return { v, clase: "sube", corto: "▲ " + v + " %", texto: "Subió " + v + " % contra la semana pasada" };
+  if (v < 0) return { v, clase: "baja", corto: "▼ " + (-v) + " %", texto: "Bajó " + (-v) + " % contra la semana pasada" };
+  return { v, clase: "igual", corto: "= igual", texto: "Igual que la semana pasada" };
 }
 function semanaTexto() {
   const d = hoy(), lunes = new Date(d.getTime() - ((d.getDay() + 6) % 7) * DIA), domingo = new Date(lunes.getTime() + 6 * DIA);
@@ -606,43 +623,43 @@ function semanaTexto() {
   return "del " + f(lunes) + " al " + f(domingo);
 }
 
+// ----- Lo que el agente tiene registrado de tu negocio (llega desde WhatsApp) -----
 function inicial() {
-  const av = (nombre, cantidad, etapa, estado, colaborador, dias, cuando) => {
-    const precio = precioRotta(nombre), util = etapa === "pasado" ? info(nombre).aprov : 1;
-    const a = { id: id(), nombre, cantidad, unidad: info(nombre).unidad, calidad: "primera", precio, etapa, util, utilReal: estado === "avisado" || estado === "en_camino" ? null : util, cuando, nota: "", estado, colaborador, pago: 0, fecha: haceDias(dias), producto: null };
-    if (a.utilReal != null) a.pago = calcPago(cantidad * precio, etapa, util);
+  const venta = (nombre, cantidad, etapa, estado, colaborador, dias, cuando) => {
+    const precio = precioRotta(nombre), util = utilDe(nombre, etapa);
+    const a = { nombre, cantidad, unidad: info(nombre).unidad, precio, etapa, util, cuando, estado, colaborador, pago: 0, fecha: haceDias(dias) };
+    if (estado === "recogido") a.pago = calcPago(cantidad * precio, etapa, util);
     return a;
   };
-  const avisos = [
-    av("Mango", 4, "manana", "en_camino", "Lupita", 0, "Hoy en la tarde (4 a 7 p. m.)"),
-    av("Jitomate", 20, "dos", "recogido", "Carlos", 2, "Hoy en la mañana (9 a 12)"),
-    av("Aguacate", 40, "manana", "recogido", "Lupita", 3, "Hoy en la tarde (4 a 7 p. m.)"),
-    av("Papaya", 6, "pasado", "recogido", "Carlos", 5, "Mañana temprano, antes de abrir (7 a 9 a. m.)"),
-    av("Durazno", 5, "hoy", "recogido", "Lupita", 6, "Hoy en la tarde (4 a 7 p. m.)")
+  const ventas = [
+    venta("Cebolla", 6, "manana", "avisado", "", 0, "mañana temprano, antes de abrir (7 a 9 a. m.)"),
+    venta("Mango", 4, "manana", "en_camino", "Lupita", 0, "hoy en la tarde (4 a 7 p. m.)"),
+    venta("Jitomate", 20, "dos", "recogido", "Carlos", 2, "en la mañana (9 a 12)"),
+    venta("Aguacate", 40, "manana", "recogido", "Lupita", 3, "en la tarde (4 a 7 p. m.)"),
+    venta("Papaya", 6, "pasado", "recogido", "Carlos", 5, "temprano, antes de abrir (7 a 9 a. m.)"),
+    venta("Durazno", 5, "hoy", "recogido", "Lupita", 6, "en la tarde (4 a 7 p. m.)")
   ];
-  const hechos = avisos.filter(a => a.estado === "recogido");
+  const hechos = ventas.filter(a => a.estado === "recogido");
   const pagado = hechos.reduce((s, a) => s + a.pago, 0), cobrado = 200;
-  const movimientos = hechos.map(a => ({ id: id(), fecha: a.fecha, texto: movTexto(a), monto: a.pago }));
-  movimientos.unshift({ id: id(), fecha: haceDias(1), texto: "Cobro por transferencia", monto: -cobrado });
-  const prod = (nombre, cantidad, hace) => ({ id: id(), nombre, cantidad, unidad: info(nombre).unidad, calidad: "primera", precio: precioRotta(nombre), llegada: haceDias(hace), dias: info(nombre).dias });
+  const movimientos = hechos.map(a => ({ fecha: a.fecha, texto: movTexto(a), monto: a.pago }));
+  movimientos.unshift({ fecha: haceDias(1), texto: "Cobro por transferencia", monto: -cobrado });
+  const prod = (nombre, cantidad, hace) => ({ nombre, cantidad, unidad: info(nombre).unidad, calidad: "primera", precio: precioRotta(nombre), llegada: haceDias(hace), dias: info(nombre).dias });
   return {
-    bienvenidaVista: false, modo: "comercio",
     saldo: pagado - cobrado, pagado,
-    rescatado: hechos.reduce((s, a) => s + a.cantidad * a.precio * a.utilReal, 0),
-    perdido: 0,
     productos: [prod("Plátano", 8, 6), prod("Lechuga", 20, 5), prod("Cilantro", 10, 3), prod("Jitomate", 10, 5),
       prod("Aguacate", 20, 3), prod("Fresa", 3, 1), prod("Manzana", 10, 2), prod("Limón", 5, 1)],
-    avisos, movimientos
+    ventas, movimientos
   };
 }
 function movTexto(a) {
   const cuando = { dos: "faltaban 2 días", manana: "faltaba 1 día", hoy: "se echaba a perder ese día", pasado: "ya se había pasado" }[a.etapa];
-  return "Venta a Rotta: " + a.nombre.toLowerCase() + ", " + cant(a.cantidad) + " " + a.unidad + " (" + cuando + (a.utilReal < 1 ? "; se aprovechó " + utilTexto(a.utilReal) : "") + ")";
+  return "Venta a Rotta: " + a.nombre.toLowerCase() + ", " + cant(a.cantidad) + " " + a.unidad + " (" + cuando + (a.util < 1 ? "; sirvió " + utilTexto(a.util) : "") + ")";
 }
 
-let datos;
-try { datos = JSON.parse(localStorage.getItem(CLAVE)) || inicial(); } catch (e) { datos = inicial(); }
-function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(datos)); } catch (e) {} }
+const datos = inicial();
+let prefs = {};
+try { prefs = JSON.parse(localStorage.getItem(CLAVE)) || {}; } catch (e) { prefs = {}; }
+function guardarPrefs() { try { localStorage.setItem(CLAVE, JSON.stringify(prefs)); } catch (e) {} }
 
 function restantes(p) { return Math.round((deTexto(p.llegada).getTime() + p.dias * DIA - hoy().getTime()) / DIA); }
 function color(p) { const r = restantes(p); return r < 0 ? "pasado" : r === 0 ? "rojo" : r <= 2 ? "amarillo" : "verde"; }
@@ -655,6 +672,7 @@ function estadoTexto(p) {
   return "Quedan " + r + " días";
 }
 function valor(p) { return p.cantidad * p.precio; }
+function pagoHoy(p) { const e = etapaDe(p); return e ? calcPago(valor(p), e, utilDe(p.nombre, e)) : 0; }
 function ordenados() { return [...datos.productos].sort((a, b) => restantes(a) - restantes(b)); }
 
 function toast(t) {
@@ -665,6 +683,16 @@ function toast(t) {
 
 // ----- Tarjeta de producto -----
 const COLOR_BARRA = { pasado: "var(--pasado)", rojo: "var(--rojo)", amarillo: "var(--amarillo)", verde: "var(--marca)" };
+function textoVenta(p) {
+  const e = etapaDe(p);
+  return "Hola, Rotta. Les vendo " + cant(p.cantidad) + " " + p.unidad + " de " + p.nombre.toLowerCase() + (p.calidad === "segunda" ? " de segunda" : "") +
+    " (" + estadoTexto(p).toLowerCase() + (e === "pasado" ? "; sirve " + utilTexto(info(p.nombre).aprov) : "") + "). En la app dice que me pagan " + pesos(pagoHoy(p)) + ". ¿Cuándo pueden pasar?";
+}
+function rematar(p) {
+  const desc = REMATE[etapaDe(p)] || 20, nuevo = Math.round(p.precio * (1 - desc / 100) * 2) / 2;
+  abrirWhatsapp("", "¡Remate de hoy! Tengo " + cant(p.cantidad) + " " + p.unidad + " de " + p.nombre.toLowerCase() + " a " + precioTxt(nuevo) + " por " + porUnidad(p.unidad) + " (" + desc + " % menos). ¿Te aparto?");
+  toast("Elige en WhatsApp a quién mandarle tu remate.");
+}
 function tarjetaProducto(p) {
   const c = color(p), e = etapaDe(p), r = restantes(p), v = valor(p), i = info(p.nombre);
   const div = el("div", "producto");
@@ -692,172 +720,194 @@ function tarjetaProducto(p) {
 
   const acciones = el("div", "acciones");
   if (e === "pasado") {
-    const pago = calcPago(v, "pasado", i.aprov);
+    const pago = pagoHoy(p);
     const d = el("div", "decide"), a = el("div", "rescate");
     a.appendChild(el("span", "t", "♻️ Todavía sirve una parte"));
     a.appendChild(el("b", "", pesos(pago)));
     a.appendChild(el("span", "", "De " + p.nombre.toLowerCase() + " todavía sirve " + utilTexto(i.aprov) + ". Pasamos por él y te pagamos $5 por cada $100 de esa parte."));
     d.appendChild(a); div.appendChild(d);
-    acciones.appendChild(boton("♻️ Vender lo que sirve · " + pesos(pago), "principal chico", () => avisarDesde(p.id)));
-    acciones.appendChild(boton("🗑️ Lo tiré", "peligro chico", () => tirado(p.id)));
-    acciones.classList.add("rejilla", "par");
+    acciones.appendChild(boton("💬 Vender lo que sirve · " + pesos(pago), "principal", () => alAgente(textoVenta(p))));
+    acciones.classList.add("uno");
   } else if (e) {
-    const desc = REMATE[e], pago = calcPago(v, e, 1);
+    const desc = REMATE[e], pago = pagoHoy(p);
     const d = el("div", "decide");
+    const seg = el("div", "segura");
+    seg.appendChild(el("span", "t", "💵 Si nos lo vendes hoy"));
+    seg.appendChild(el("b", "", pesos(pago)));
+    seg.appendChild(el("span", "", "seguro: pasamos por él y te pagamos"));
     const rem = el("div", "remate");
     rem.appendChild(el("span", "t", "🏷️ Si lo rematas"));
     rem.appendChild(el("b", "", "hasta " + pesos(v * (1 - desc / 100))));
     rem.appendChild(el("span", "", desc + " % menos, si se vende todo"));
-    const seg = el("div", "segura");
-    seg.appendChild(el("span", "t", "💵 Si nos lo vendes"));
-    seg.appendChild(el("b", "", pesos(pago)));
-    seg.appendChild(el("span", "", "seguro: pasamos por él y te pagamos"));
-    d.appendChild(rem); d.appendChild(seg); div.appendChild(d);
+    d.appendChild(seg); d.appendChild(rem); div.appendChild(d);
     const consejo = el("p", "consejo");
     if (e === "dos") consejo.textContent = "Si esperas a mañana te pagamos " + pesos(calcPago(v, "manana", 1)) + ", y el último día " + pesos(calcPago(v, "hoy", 1)) + ".";
     else if (e === "manana") consejo.textContent = "Si esperas a mañana te pagamos " + pesos(calcPago(v, "hoy", 1)) + ".";
-    else {
-      const z = calcPago(v, "pasado", i.aprov);
-      consejo.textContent = "Es su último día: te pagamos el 10 % de su valor. Si se pasa, de " + p.nombre.toLowerCase() + " solo sirve " + utilTexto(i.aprov) + " y te pagaríamos " + pesos(z) + ".";
-    }
+    else consejo.textContent = "Es su último día: te pagamos el 10 % de su valor. Si se pasa, de " + p.nombre.toLowerCase() + " solo sirve " + utilTexto(i.aprov) + " y te pagaríamos " + pesos(calcPago(v, "pasado", i.aprov)) + ".";
     div.appendChild(consejo);
-    acciones.appendChild(boton("💵 Vender a Rotta · " + pesos(pago), "principal chico", () => avisarDesde(p.id)));
-    const rb = boton("🏷️ Rematar", "whatsapp chico", () => rematar(p.id)); rb.title = "Manda el remate por WhatsApp";
+    acciones.appendChild(boton("💬 Vender a Rotta · " + pesos(pago), "principal", () => alAgente(textoVenta(p))));
+    const rb = boton("🏷️ Rematar", "", () => rematar(p)); rb.title = "Manda tu remate por WhatsApp a tus clientes";
     acciones.appendChild(rb);
-    acciones.appendChild(boton("✅ Lo vendí", "chico", () => vendido(p.id)));
-    acciones.appendChild(boton("🗑️ Lo tiré", "peligro chico", () => tirado(p.id)));
-    acciones.classList.add("rejilla");
   } else {
     const c2 = el("p", "consejo");
     c2.appendChild(document.createTextNode("Está fresco: véndelo normal. Si faltando 2 días sigue aquí, te lo compramos en "));
     c2.appendChild(el("b", "", pesos(calcPago(v, "dos", 1))));
-    c2.appendChild(document.createTextNode("."));
+    c2.appendChild(document.createTextNode(". El agente te avisa."));
     div.appendChild(c2);
-    acciones.appendChild(boton("✅ Lo vendí", "chico", () => vendido(p.id)));
   }
-  div.appendChild(acciones);
+  if (acciones.childNodes.length) div.appendChild(acciones);
   return div;
 }
 
-// ----- Tarjeta de venta a Rotta -----
-function nombreEstado(a, s) {
-  return { avisado: "Avisado", en_camino: "En camino", recogido: "Pagado" }[s];
+// ----- Precios -----
+function mini(nombre, clase) {
+  const h = info(nombre).historial, min = Math.min(...h), max = Math.max(...h), w = 64, al = 24;
+  const trazo = h.map((v, i) => (i * w / (h.length - 1)).toFixed(1) + "," + (max === min ? al / 2 : (al - 3) - (v - min) / (max - min) * (al - 6)).toFixed(1)).join(" ");
+  const ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("viewBox", "-2 0 " + (w + 4) + " " + al); svg.setAttribute("width", w); svg.setAttribute("height", al);
+  svg.setAttribute("class", "linea-mini " + clase); svg.setAttribute("aria-hidden", "true");
+  const pl = document.createElementNS(ns, "polyline");
+  [["points", trazo], ["fill", "none"], ["stroke", "currentColor"], ["stroke-width", "2.2"], ["stroke-linecap", "round"], ["stroke-linejoin", "round"]].forEach(([k, x]) => pl.setAttribute(k, x));
+  svg.appendChild(pl);
+  return svg;
 }
-function tarjetaAviso(a) {
-  const colab = datos.modo === "colaborador", pasado = a.etapa === "pasado";
+function cabPrecio(cab, nombre) {
+  const i = info(nombre), t = tendencia(nombre);
+  cab.appendChild(el("span", "emoji", i.icono));
+  const n = el("span", "nom", nombre);
+  n.appendChild(el("small", "", "por " + porUnidad(i.unidad) + " · " + temporadaDe(nombre).texto.toLowerCase()));
+  cab.appendChild(n);
+  cab.appendChild(mini(nombre, t.clase));
+  const v = el("span", "val");
+  v.appendChild(el("b", "", precioTxt(precioRotta(nombre))));
+  const s = el("small", t.clase, t.corto); s.title = t.texto; s.setAttribute("aria-label", t.texto);
+  v.appendChild(s);
+  cab.appendChild(v);
+}
+function filaPrecio(nombre) {
+  const i = info(nombre), t = tendencia(nombre), precio = precioRotta(nombre);
+  const d = el("details", "precio-fila"); d.dataset.nombre = nombre; d.dataset.tendencia = t.clase;
+  const s = el("summary", "cab"); cabPrecio(s, nombre); d.appendChild(s);
+  const det = el("div", "detalle-precio");
+  det.appendChild(el("p", "nota", porQue(nombre) + ". " + t.texto + "."));
+  det.appendChild(el("p", "", "Por cada " + porUnidad(i.unidad) + " te pagamos:"));
+  const g = el("div", "por-etapa");
+  ORDEN.forEach(k => {
+    const c = el("div", "e-" + k);
+    c.appendChild(el("b", "", precioTxt(precio * utilDe(nombre, k) * ETAPAS[k].pago / 100)));
+    c.appendChild(document.createTextNode(ETAPAS[k].corto));
+    g.appendChild(c);
+  });
+  det.appendChild(g);
+  det.appendChild(el("p", "nota", "Si ya se pasó, de " + nombre.toLowerCase() + " sirve " + utilTexto(i.aprov) + ". Si es de segunda, el precio baja 20 %."));
+  det.appendChild(boton("🧮 Calcular cuánto obtengo", "principal chico", () => calcularDesde(nombre)));
+  d.appendChild(det);
+  return d;
+}
+let filtro = "todos";
+function pintarPrecios() {
+  const q = sinAcentos($("buscar").value.trim());
+  let n = 0;
+  document.querySelectorAll("#lista-precios .precio-fila").forEach(d => {
+    const ok = (!q || sinAcentos(d.dataset.nombre).includes(q)) && (filtro === "todos" || d.dataset.tendencia === filtro);
+    d.classList.toggle("oculto", !ok); if (ok) n++;
+  });
+  $("sin-precios").classList.toggle("oculto", n > 0);
+  document.querySelectorAll(".segmento button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.filtro === filtro)));
+}
+
+// ----- Tarjeta de venta (seguimiento) -----
+function tarjetaVenta(a) {
+  const pasado = a.etapa === "pasado";
   const div = el("div", "producto");
   const top = el("div", "top");
-  top.appendChild(el("span", "emoji", icono(a.nombre)));
+  top.appendChild(el("span", "emoji", info(a.nombre).icono));
   const t = el("div", "");
   t.appendChild(el("h3", "", a.nombre + " · " + cant(a.cantidad) + " " + a.unidad));
-  t.appendChild(el("p", "info", ETAPAS[a.etapa].nombre + (pasado ? " · sirve " + utilTexto(a.util) : "") + " · " + porCien(a.etapa)));
+  t.appendChild(el("p", "info", ETAPAS[a.etapa].nombre + (pasado ? " · sirve " + utilTexto(a.util) : "") + " · " + porCien(a.etapa) + " · Avisado el " + fechaCorta(a.fecha)));
   top.appendChild(t);
   div.appendChild(top);
-  div.appendChild(el("p", "info", "Pasan: " + a.cuando + (a.nota ? " · Nota: " + a.nota : "") + " · Avisado el " + fechaCorta(a.fecha)));
 
-  const ol = el("ol", "linea"); ol.setAttribute("aria-label", "Estado de la venta");
+  const ol = el("ol", "linea"); ol.setAttribute("aria-label", "En qué va la venta");
   const i = ESTADOS.indexOf(a.estado);
-  ESTADOS.forEach((s, j) => {
-    const li = el("li", j < i ? "hecho" : j === i ? "actual" : "", nombreEstado(a, s));
+  ["Avisado", "En camino", "Pagado"].forEach((s, j) => {
+    const li = el("li", j < i ? "hecho" : j === i ? "actual" : "", s);
     if (j === i) li.setAttribute("aria-current", "step");
     ol.appendChild(li);
   });
   div.appendChild(ol);
 
   const estim = calcPago(valor(a), a.etapa, a.util);
-  const detalle = el("p", "");
-  const acciones = el("div", "acciones");
-  if (a.estado === "avisado") {
-    detalle.textContent = colab ? "Producto de " + pesos(valor(a)) + " a Precio Rotta. Al recogerlo le pagas unos " + pesos(estim) + " al comercio." : "Esperando a que un colaborador lo acepte. Al recogerlo te pagamos unos " + pesos(estim) + ".";
-    if (colab) acciones.appendChild(boton("Aceptar: voy en camino", "principal chico", () => aceptar(a.id)));
-    else {
-      acciones.appendChild(boton("Mandar también por WhatsApp", "whatsapp chico", () => avisoWhatsapp(a.id)));
-      acciones.appendChild(boton("Cancelar venta", "peligro chico", () => cancelar(a.id)));
-    }
-  } else if (a.estado === "en_camino") {
-    if (colab) {
-      const max = pasado ? info(a.nombre).aprov : 1;
-      detalle.textContent = "Vas en camino. Al llegar, revisa cuánto sirve" + (max < 1 ? " (de " + a.nombre.toLowerCase() + ", máximo " + utilTexto(max) + ")" : "") + " y paga al comercio.";
-      const lab = el("label", "", "¿Cuánto sirve de verdad?"); const sel = el("select", "");
-      sel.id = "util-" + a.id; lab.htmlFor = sel.id;
-      UTIL.filter(([u]) => u <= max).forEach(([u, txt]) => { const o = el("option", "", txt); o.value = u; if (u === a.util) o.selected = true; sel.appendChild(o); });
-      const caja = el("div", ""); caja.style.width = "100%"; caja.appendChild(lab); caja.appendChild(sel);
-      acciones.appendChild(caja);
-      acciones.appendChild(boton("Lo recogí y pagué", "principal chico", () => recoger(a.id, Number(sel.value))));
-    } else {
-      detalle.textContent = "👤 " + a.colaborador + " de Rotta va a pasar por él a tu negocio y te paga al recogerlo.";
-    }
-  } else {
-    detalle.textContent = colab
-      ? "✅ Recogido. Le pagaste " + pesos(a.pago) + " al comercio."
-      : "✅ " + a.colaborador + " lo recogió" + (a.utilReal < 1 ? " (sirvió " + utilTexto(a.utilReal) + ")" : "") + ". Te pagamos " + pesos(a.pago) + "; ya está en tu saldo.";
+  if (a.estado === "avisado") div.appendChild(el("p", "", "⏳ El agente está confirmando quién pasa " + a.cuando + ". Al recogerlo te pagamos unos " + pesos(estim) + "."));
+  else if (a.estado === "en_camino") div.appendChild(el("p", "", "👤 " + a.colaborador + " de Rotta pasa " + a.cuando + " y te paga unos " + pesos(estim) + " al recogerlo."));
+  else div.appendChild(el("p", "", "✅ " + a.colaborador + " lo recogió" + (a.util < 1 ? " (sirvió " + utilTexto(a.util) + ")" : "") + ". Te pagamos " + pesos(a.pago) + "; ya está en tu saldo."));
+  if (a.estado !== "recogido") {
+    const acc = el("div", "acciones uno");
+    acc.appendChild(boton("💬 Preguntar por WhatsApp", "whatsapp chico", () => alAgente("Hola, Rotta. ¿Cómo va mi venta de " + cant(a.cantidad) + " " + a.unidad + " de " + a.nombre.toLowerCase() + "?")));
+    div.appendChild(acc);
   }
-  div.appendChild(detalle);
-  if (acciones.childNodes.length) div.appendChild(acciones);
   return div;
 }
 
 // ----- Pintar -----
 function pintar() {
-  $("bienvenida").classList.toggle("oculto", !!datos.bienvenidaVista);
+  $("bienvenida").classList.toggle("oculto", !!prefs.bienvenidaVista);
+  const lista = ordenados(), urgentes = lista.filter(p => etapaDe(p)), frescos = lista.filter(p => !etapaDe(p));
+  const obtener = urgentes.reduce((s, p) => s + pagoHoy(p), 0);
+  $("n-obtener").textContent = pesos(obtener);
   $("n-saldo").textContent = pesos(datos.saldo);
   $("n-pagado").textContent = pesos(datos.pagado);
-  $("n-perdido").textContent = pesos(datos.perdido);
+  const ahora = new Date(Date.now() - 4 * 60000);
+  $("sync").textContent = "Al día con tu chat de WhatsApp · hoy a las " + ahora.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit" });
   $("fecha-hoy").textContent = mayus(hoy().toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" }));
 
-  const activos = datos.avisos.filter(a => a.estado !== "recogido");
-  const camino = activos.filter(a => a.estado === "en_camino");
-  $("n-camino").textContent = camino.length
-    ? "🚚 " + camino.map(a => a.colaborador + " va por " + cant(a.cantidad) + " " + a.unidad + " de " + a.nombre.toLowerCase()).join(" · ")
-    : activos.length ? "📦 Tienes " + activos.length + " venta(s) en proceso." : "💵 Lo que ya no vas a vender, véndenoslo: pasamos por él y te pagamos.";
+  const activas = datos.ventas.filter(a => a.estado !== "recogido");
+  const camino = activas.filter(a => a.estado === "en_camino"), porConfirmar = activas.filter(a => a.estado === "avisado");
+  const partes = camino.map(a => "🚚 " + a.colaborador + " va por " + cant(a.cantidad) + " " + a.unidad + " de " + a.nombre.toLowerCase() + " " + a.cuando);
+  if (porConfirmar.length) partes.push("⏳ " + porConfirmar.length + (porConfirmar.length === 1 ? " venta por confirmar" : " ventas por confirmar"));
+  $("n-camino").textContent = partes.length ? partes.join("\n") : "💵 Lo que ya no vas a vender, véndenoslo por WhatsApp: pasamos por él y te pagamos.";
 
-  const lista = ordenados();
   const cuenta = { pasado: 0, rojo: 0, amarillo: 0, verde: 0 };
   lista.forEach(p => cuenta[color(p)]++);
   ["pasado", "rojo", "amarillo", "verde"].forEach(k => $("n-" + k).textContent = cuenta[k]);
-
-  const urgentes = lista.filter(p => color(p) !== "verde");
   const enRiesgo = urgentes.reduce((s, p) => s + valor(p), 0);
   $("texto-reporte").textContent = urgentes.length
-    ? "Tienes " + pesos(enRiesgo) + " en producto que se echa a perder. Véndenoslo hoy (mientras antes, más te pagamos) o remátalo."
+    ? "Tienes " + pesos(enRiesgo) + " en producto que se echa a perder. Si nos lo vendes hoy, te pagamos " + pesos(obtener) + "."
     : "Todo está fresco. ¡Buen día!";
 
   const lu = $("lista-urgente"); lu.innerHTML = "";
-  if (!urgentes.length) lu.appendChild(el("p", "vacio", "No hay nada urgente."));
+  if (!urgentes.length) lu.appendChild(el("p", "vacio", "No hay nada que se eche a perder pronto."));
   urgentes.forEach(p => lu.appendChild(tarjetaProducto(p)));
+  $("n-frescos").textContent = frescos.length;
+  const lf = $("lista-frescos"); lf.innerHTML = "";
+  frescos.forEach(p => lf.appendChild(tarjetaProducto(p)));
+  $("caja-frescos").classList.toggle("oculto", !frescos.length);
 
-  const li = $("lista-inventario"); li.innerHTML = "";
-  if (!lista.length) li.appendChild(el("p", "vacio", "Todavía no registras productos."));
-  lista.forEach(p => li.appendChild(tarjetaProducto(p)));
+  const lm = $("lista-movidos"); lm.innerHTML = "";
+  [...PRODUCTOS].map(x => x[0]).sort((a, b) => Math.abs(tendencia(b).v) - Math.abs(tendencia(a).v) || a.localeCompare(b, "es")).slice(0, 4).forEach(n => {
+    const f = el("div", "precio-fila"), c = el("div", "cab");
+    cabPrecio(c, n); f.appendChild(c); lm.appendChild(f);
+  });
 
   // Mis ventas
-  const colab = datos.modo === "colaborador";
-  $("modo-comercio").setAttribute("aria-pressed", String(!colab));
-  $("modo-colaborador").setAttribute("aria-pressed", String(colab));
-  $("nota-modo").textContent = colab ? "Así ve las ventas el colaborador que pasa a recoger y paga." : "Aquí ves en qué va cada venta.";
-  const la = $("lista-avisos"); la.innerHTML = "";
-  if (colab) {
-    if (!activos.length) la.appendChild(el("p", "vacio", "No hay recolecciones pendientes."));
-    activos.forEach(a => la.appendChild(tarjetaAviso(a)));
-  } else {
-    const entregados = datos.avisos.filter(a => a.estado === "recogido");
-    la.appendChild(el("p", "subtitulo", "En proceso"));
-    if (!activos.length) la.appendChild(el("p", "vacio", "No tienes ventas en proceso."));
-    activos.forEach(a => la.appendChild(tarjetaAviso(a)));
-    la.appendChild(el("p", "subtitulo", "Ya pagadas"));
-    if (!entregados.length) la.appendChild(el("p", "vacio", "Todavía no hay ventas pagadas."));
-    entregados.forEach(a => la.appendChild(tarjetaAviso(a)));
-  }
+  const lv = $("lista-ventas"); lv.innerHTML = "";
+  lv.appendChild(el("p", "subtitulo", "En proceso"));
+  if (!activas.length) lv.appendChild(el("p", "vacio", "No tienes ventas en proceso."));
+  activas.forEach(a => lv.appendChild(tarjetaVenta(a)));
+  const pagadas = datos.ventas.filter(a => a.estado === "recogido");
+  lv.appendChild(el("p", "subtitulo", "Ya pagadas"));
+  if (!pagadas.length) lv.appendChild(el("p", "vacio", "Todavía no hay ventas pagadas."));
+  pagadas.forEach(a => lv.appendChild(tarjetaVenta(a)));
 
   // Saldo
   $("p-saldo").textContent = pesos(datos.saldo);
   $("p-pagado").textContent = pesos(datos.pagado);
-  vistaCobro();
+  $("d-vista").textContent = "Mínimo " + pesos(MINIMO_COBRO) + ". Tu saldo: " + pesos(datos.saldo) + ".";
   const cat = $("catalogo"); cat.innerHTML = "";
   ARTICULOS.forEach(([nombre, precio]) => {
     const r = el("div", "renglon");
     r.appendChild(el("span", "", nombre));
-    const b = boton("Cambiar · " + pesos(precio), "chico", () => descontar(precio, "Artículo: " + nombre.toLowerCase(), "Pediste: " + nombre + ". El colaborador te lo lleva en su siguiente visita."));
+    const b = boton("💬 Pedir · " + pesos(precio), "chico", () => alAgente("Hola, Rotta. Quiero cambiar " + pesos(precio) + " de mi saldo por: " + nombre.toLowerCase() + "."));
     b.disabled = datos.saldo < precio;
     r.appendChild(b); cat.appendChild(r);
   });
@@ -872,11 +922,9 @@ function pintar() {
 }
 
 function pintarTablas() {
-  const fila = (tb, celdas) => { const tr = el("tr", ""); celdas.forEach(([txt, clase]) => tr.appendChild(el("td", clase || "", txt))); tb.appendChild(tr); };
   const te = $("tabla-escala"), max = ETAPAS.dos.pago;
-  [["dos", "⏰", "i-amarillo", "var(--amarillo)"], ["manana", "⏳", "i-naranja", "var(--naranja)"],
-   ["hoy", "⚠️", "i-rosa", "var(--rojo)"], ["pasado", "♻️", "i-cafe", "var(--pasado)"]].forEach(([k, ic, tinte, col]) => {
-    const e = ETAPAS[k], d = el("div", "paso");
+  ORDEN.forEach(k => {
+    const [ic, tinte, col] = ESTILO[k], e = ETAPAS[k], d = el("div", "paso");
     d.appendChild(el("span", "ico " + tinte, ic)).setAttribute("aria-hidden", "true");
     const t = el("span", ""); t.appendChild(el("b", "", e.nombre)); t.appendChild(el("small", "", e.consejo));
     d.appendChild(t);
@@ -887,242 +935,102 @@ function pintarTablas() {
     te.appendChild(d);
   });
   const tp = $("tabla-pasado");
-  [...PRODUCTOS].sort((a, b) => b[6] - a[6] || a[0].localeCompare(b[0], "es")).forEach(([n, ic, , , , , aprov]) => fila(tp, [[ic + " " + n], [mayus(utilTexto(aprov))]]));
-  const tr = $("tabla-precios");
-  PRODUCTOS.forEach(([n, ic, , unidad]) => fila(tr, [[ic + " " + n], [precioTxt(precioRotta(n)) + "/" + porUnidad(unidad), "monto"], [temporadaDe(n).texto]]));
+  [...PRODUCTOS].sort((a, b) => b[5] - a[5] || a[0].localeCompare(b[0], "es")).forEach(([n, ic, , , , aprov]) => {
+    const tr = el("tr", ""); tr.appendChild(el("td", "", ic + " " + n)); tr.appendChild(el("td", "", mayus(utilTexto(aprov)))); tp.appendChild(tr);
+  });
+  const lp = $("lista-precios");
+  PRODUCTOS.forEach(([n]) => lp.appendChild(filaPrecio(n)));
   $("semana-precios").textContent = semanaTexto();
 }
 
-// ----- Inventario -----
-function vendido(pid) {
-  const p = datos.productos.find(x => x.id === pid); if (!p) return;
-  datos.productos = datos.productos.filter(x => x.id !== pid);
-  guardar(); pintar(); toast("¡Bien! " + p.nombre + " vendido.");
-}
-function tirado(pid) {
-  const p = datos.productos.find(x => x.id === pid); if (!p) return;
-  datos.perdido += valor(p);
-  datos.productos = datos.productos.filter(x => x.id !== pid);
-  guardar(); pintar(); toast("Anotamos " + pesos(valor(p)) + " tirados. La próxima vez véndenoslo antes y te pagamos.");
-}
-function rematar(pid) {
-  const p = datos.productos.find(x => x.id === pid); if (!p) return;
-  const desc = REMATE[etapaDe(p)] || 20, nuevo = Math.round(p.precio * (1 - desc / 100) * 2) / 2;
-  const t = "¡Remate de hoy! Tengo " + cant(p.cantidad) + " " + p.unidad + " de " + p.nombre.toLowerCase() + " a " + precioTxt(nuevo) + " por " + porUnidad(p.unidad) + " (" + desc + " % menos). ¿Te aparto?";
-  window.open("https://wa.me/?text=" + encodeURIComponent(t), "_blank", "noopener");
-}
-
-// ----- Vender a Rotta -----
-function llenarSelect(sel) {
-  PRODUCTOS.forEach(([n, ic]) => { const o = el("option", "", ic + " " + n); o.value = n; sel.appendChild(o); });
-  const o = el("option", "", "🧺 Otro"); o.value = "Otro"; sel.appendChild(o);
-}
-const ap = $("a-producto"); llenarSelect(ap);
-["dos", "manana", "hoy", "pasado"].forEach(k => {
-  const lab = el("label", "opcion"); const inp = el("input", "");
+// ----- ¿Cuánto obtengo? -----
+const cp = $("c-producto");
+PRODUCTOS.forEach(([n, ic]) => { const o = el("option", "", ic + " " + n); o.value = n; cp.appendChild(o); });
+ORDEN.forEach(k => {
+  const lab = el("label", "opcion"), inp = el("input", "");
   inp.type = "radio"; inp.name = "etapa"; inp.value = k; inp.id = "etapa-" + k;
   lab.appendChild(inp); lab.appendChild(document.createTextNode(ETAPAS[k].corto));
   lab.appendChild(el("small", "", k === "pasado" ? "$5 por $100 de lo que sirve" : porCien(k)));
-  inp.addEventListener("change", estimado);
-  $("a-etapas").appendChild(lab);
+  inp.addEventListener("change", calcular);
+  $("c-etapas").appendChild(lab);
 });
 function etapaElegida() { const r = document.querySelector("input[name=etapa]:checked"); return r ? r.value : "hoy"; }
 function elegirEtapa(k) { $("etapa-" + k).checked = true; }
-function nombreAviso() { return ap.value === "Otro" ? ($("a-otro").value.trim() || "Otro") : ap.value; }
-function precioAviso() { return precioRotta(nombreAviso(), $("a-calidad").value); }
-function utilAviso(e) { return e === "pasado" ? info(nombreAviso()).aprov : 1; }
-function llenarAviso() {
-  const ok = conocido(ap.value);
-  $("caja-a-otro").classList.toggle("oculto", ok);
-  if (ok) $("a-unidad").value = info(ap.value).unidad;
-  $("a-unidad").disabled = ok;
-  estimado();
-}
-function estimado() {
-  const e = etapaElegida(), pas = e === "pasado", nombre = nombreAviso();
-  const util = utilAviso(e), precio = precioAviso();
-  pintarPrecio($("a-precio-info"), nombre, $("a-calidad").value, $("a-unidad").value);
+function calcular() {
+  const nombre = cp.value, i = info(nombre), calidad = $("c-calidad").value, e = etapaElegida(), pas = e === "pasado";
+  $("c-unidad").textContent = i.unidad;
+  pintarPrecio($("c-precio-info"), nombre, calidad);
   $("caja-util").classList.toggle("oculto", !pas);
-  $("a-util-info").textContent = "De " + nombre.toLowerCase() + " todavía sirve " + utilTexto(util) + ". El colaborador lo confirma al recoger.";
-  const v = Number($("a-cantidad").value) * precio;
-  const box = $("a-estimado"); box.innerHTML = "";
+  $("c-util-info").textContent = "De " + nombre.toLowerCase() + " todavía sirve " + utilTexto(i.aprov) + ". El colaborador lo confirma al recoger.";
+  const v = Number($("c-cantidad").value) * precioRotta(nombre, calidad);
+  const box = $("c-resultado"), cmp = $("c-comparar"); box.innerHTML = ""; cmp.innerHTML = "";
   if (!(v > 0)) { box.textContent = "Escribe la cantidad para calcular cuánto te pagamos."; return; }
-  box.appendChild(document.createTextNode("Te pagamos unos "));
-  box.appendChild(el("b", "", pesos(calcPago(v, e, util))));
-  box.appendChild(document.createTextNode(" al recogerlo"));
-  box.appendChild(el("div", "nota", pesos(v) + " de producto" + (pas ? " × " + utilTexto(util) + " que sirve" : "") + " · " + ETAPAS[e].nombre.toLowerCase() + ": " + porCien(e)));
+  box.appendChild(el("span", "", "Te pagamos al recogerlo"));
+  box.appendChild(el("b", "", pesos(calcPago(v, e, utilDe(nombre, e)))));
+  box.appendChild(el("span", "nota", pesos(v) + " de producto" + (pas ? " × " + utilTexto(i.aprov) + " que sirve" : "") + " · " + ETAPAS[e].nombre.toLowerCase() + ": " + porCien(e)));
+  const max = calcPago(v, "dos", 1) || 1;
+  ORDEN.forEach(k => {
+    const [ic, tinte, col] = ESTILO[k], pago = calcPago(v, k, utilDe(nombre, k));
+    const d = el("div", "paso" + (k === e ? " elegido" : ""));
+    d.appendChild(el("span", "ico " + tinte, ic)).setAttribute("aria-hidden", "true");
+    const t = el("span", ""); t.appendChild(el("b", "", ETAPAS[k].nombre));
+    t.appendChild(el("small", "", k === "pasado" ? "Sirve " + utilTexto(i.aprov) + ": $5 por cada $100 de esa parte" : porCien(k)));
+    d.appendChild(t);
+    d.appendChild(el("strong", "", pesos(pago)));
+    const m = el("span", "medidor"), b = el("i", "");
+    b.style.width = Math.max(2, pago / max * 100) + "%"; b.style.background = col;
+    m.appendChild(b); d.appendChild(m);
+    cmp.appendChild(d);
+  });
 }
-ap.addEventListener("change", () => { $("a-producto-id").value = ""; llenarAviso(); });
-["a-cantidad", "a-otro"].forEach(i => $(i).addEventListener("input", estimado));
-["a-calidad", "a-unidad"].forEach(i => $(i).addEventListener("change", estimado));
-function limpiarAviso() {
-  $("form-aviso").reset(); $("a-producto-id").value = "";
-  ap.value = "Jitomate"; elegirEtapa("hoy"); llenarAviso();
+function textoCalculo() {
+  const nombre = cp.value, e = etapaElegida(), calidad = $("c-calidad").value, n = Number($("c-cantidad").value);
+  const pago = calcPago(n * precioRotta(nombre, calidad), e, utilDe(nombre, e));
+  return "Hola, Rotta. Les vendo " + cant(n) + " " + info(nombre).unidad + " de " + nombre.toLowerCase() + (calidad === "segunda" ? " de segunda" : "") +
+    " (" + ETAPAS[e].nombre.toLowerCase() + (e === "pasado" ? "; sirve " + utilTexto(info(nombre).aprov) : "") + "). En la app dice que me pagan " + pesos(pago) + ". ¿Cuándo pueden pasar?";
 }
-function avisarDesde(pid) {
-  const p = datos.productos.find(x => x.id === pid); if (!p) return;
-  const ok = conocido(p.nombre);
-  ap.value = ok ? p.nombre : "Otro";
-  $("a-otro").value = ok ? "" : p.nombre;
-  $("a-calidad").value = p.calidad || "primera";
-  $("a-cantidad").value = p.cantidad;
-  llenarAviso();
-  if (!ok) $("a-unidad").value = p.unidad;
-  $("a-producto-id").value = p.id;
-  elegirEtapa(etapaDe(p) || "dos");
-  estimado(); mostrar("avisar");
+function calcularDesde(nombre) {
+  cp.value = nombre; $("c-calidad").value = "primera";
+  const p = datos.productos.find(x => x.nombre === nombre);
+  $("c-cantidad").value = p ? p.cantidad : 10;
+  elegirEtapa((p && etapaDe(p)) || "dos");
+  calcular(); mostrar("calcular");
 }
-$("form-aviso").addEventListener("submit", e => {
+cp.addEventListener("change", calcular);
+$("c-calidad").addEventListener("change", calcular);
+$("c-cantidad").addEventListener("input", calcular);
+$("form-calcular").addEventListener("submit", e => {
   e.preventDefault();
-  const nombre = ap.value === "Otro" ? $("a-otro").value.trim() : ap.value;
-  if (!nombre) { toast("Escribe el nombre del producto."); return; }
-  const cantidad = Number($("a-cantidad").value);
-  if (!(cantidad > 0)) { toast("Escribe cuánto es."); return; }
-  const etapa = etapaElegida();
-  const pid = $("a-producto-id").value;
-  const original = pid ? datos.productos.find(x => x.id === pid) : null;
-  const a = {
-    id: id(), nombre, cantidad, unidad: $("a-unidad").value, calidad: $("a-calidad").value, precio: precioAviso(), etapa,
-    util: utilAviso(etapa), utilReal: null,
-    cuando: $("a-cuando").value, nota: $("a-nota").value.trim(),
-    estado: "avisado", colaborador: "", pago: 0, fecha: aTexto(hoy()),
-    producto: original ? { ...original } : null
-  };
-  if (original) {
-    if (cantidad < original.cantidad) original.cantidad = Math.round((original.cantidad - cantidad) * 10) / 10;
-    else datos.productos = datos.productos.filter(x => x.id !== pid);
-  }
-  datos.avisos.unshift(a);
-  datos.modo = "comercio";
-  guardar(); limpiarAviso(); pintar(); mostrar("avisos");
-  toast("Listo. Te diremos quién pasa a tu negocio y te paga.");
+  if (!(Number($("c-cantidad").value) > 0)) { toast("Escribe cuánto tienes."); return; }
+  alAgente(textoCalculo());
 });
 
-function textoAviso(a) {
-  return "Hola, Rotta. Les vendo para que pasen por él: " + cant(a.cantidad) + " " + a.unidad + " de " + a.nombre.toLowerCase() +
-    " (" + ETAPAS[a.etapa].nombre.toLowerCase() + (a.etapa === "pasado" ? "; sirve " + utilTexto(a.util) : "") + "). Pueden pasar: " + a.cuando.toLowerCase() + "." + (a.nota ? " Nota: " + a.nota : "");
-}
-function avisoWhatsapp(aid) {
-  const a = datos.avisos.find(x => x.id === aid); if (!a) return;
-  window.open("https://wa.me/" + (WHATSAPP_ROTTA ? "52" + WHATSAPP_ROTTA : "") + "?text=" + encodeURIComponent(textoAviso(a)), "_blank", "noopener");
-}
-function cancelar(aid) {
-  const a = datos.avisos.find(x => x.id === aid); if (!a || a.estado !== "avisado") return;
-  if (!confirm("¿Cancelar la venta de " + a.nombre.toLowerCase() + "?")) return;
-  if (a.producto) {
-    const p = datos.productos.find(x => x.id === a.producto.id);
-    if (p) p.cantidad = Math.round((p.cantidad + a.cantidad) * 10) / 10;
-    else datos.productos.push({ ...a.producto, cantidad: a.cantidad });
-  }
-  datos.avisos = datos.avisos.filter(x => x.id !== aid);
-  guardar(); pintar(); toast("Venta cancelada." + (a.producto ? " Regresó a «Lo que tengo»." : ""));
-}
-
-// ----- Colaborador -----
-function aceptar(aid) {
-  const a = datos.avisos.find(x => x.id === aid); if (!a) return;
-  a.estado = "en_camino"; a.colaborador = COLABORADOR;
-  guardar(); pintar(); toast("Aceptado. El comercio ya sabe que vas en camino.");
-}
-function recoger(aid, utilReal) {
-  const a = datos.avisos.find(x => x.id === aid); if (!a) return;
-  a.estado = "recogido"; a.utilReal = utilReal; a.pago = calcPago(valor(a), a.etapa, utilReal);
-  datos.saldo += a.pago; datos.pagado += a.pago; datos.rescatado += valor(a) * utilReal;
-  datos.movimientos.unshift({ id: id(), fecha: aTexto(hoy()), texto: movTexto(a), monto: a.pago });
-  guardar(); pintar(); toast("Recogido. Se pagaron " + pesos(a.pago) + " al comercio.");
-}
-$("modo-comercio").addEventListener("click", () => { datos.modo = "comercio"; guardar(); pintar(); });
-$("modo-colaborador").addEventListener("click", () => { datos.modo = "colaborador"; guardar(); pintar(); });
-
-// ----- Saldo -----
-function descontar(monto, texto, mensaje) {
-  if (!Number.isInteger(monto) || monto <= 0) { toast("Escribe cuánto."); return false; }
-  if (monto > datos.saldo) { toast("No te alcanza el saldo. Tienes " + pesos(datos.saldo) + "."); return false; }
-  datos.saldo -= monto;
-  datos.movimientos.unshift({ id: id(), fecha: aTexto(hoy()), texto, monto: -monto });
-  guardar(); pintar(); toast(mensaje);
-  return true;
-}
-function vistaCobro() {
-  $("d-vista").textContent = "Mínimo " + pesos(MINIMO_COBRO) + ". Tu saldo: " + pesos(datos.saldo) + ".";
-}
+// ----- Saldo: se pide por WhatsApp -----
 $("form-dinero").addEventListener("submit", e => {
   e.preventDefault();
-  const n = Number($("d-monto").value);
-  if (n < MINIMO_COBRO) { toast("El mínimo para cobrar es " + pesos(MINIMO_COBRO) + "."); return; }
-  const efectivo = $("d-metodo").value.startsWith("Efectivo");
-  descontar(n, "Cobro " + (efectivo ? "en efectivo" : "por transferencia"),
-    "Cobraste " + pesos(n) + (efectivo ? " en efectivo. Te lo da el colaborador en su siguiente visita." : " por transferencia. Te llega en 1 a 2 días hábiles."));
+  const n = Number($("d-monto").value), efectivo = $("d-metodo").value.startsWith("Efectivo");
+  if (!Number.isInteger(n) || n < MINIMO_COBRO) { toast("El mínimo para cobrar es " + pesos(MINIMO_COBRO) + "."); return; }
+  if (n > datos.saldo) { toast("No te alcanza el saldo. Tienes " + pesos(datos.saldo) + "."); return; }
+  alAgente("Hola, Rotta. Quiero cobrar " + pesos(n) + " de mi saldo " + (efectivo ? "en efectivo cuando pase el colaborador." : "por transferencia."));
 });
 ALBERGUES.forEach(d => $("don-destino").appendChild(el("option", "", d)));
 $("form-donar").addEventListener("submit", e => {
   e.preventDefault();
   const n = Number($("don-monto").value), destino = $("don-destino").value;
-  descontar(n, "Donación a " + destino, "¡Gracias! Donaste " + pesos(n) + " a " + destino + ".");
+  if (!Number.isInteger(n) || n <= 0) { toast("Escribe cuánto quieres donar."); return; }
+  if (n > datos.saldo) { toast("No te alcanza el saldo. Tienes " + pesos(datos.saldo) + "."); return; }
+  alAgente("Hola, Rotta. Quiero donar " + pesos(n) + " de mi saldo a " + destino + ".");
 });
 
-// ----- Reporte y alertas -----
-function textoReporte() {
-  const urg = ordenados().filter(p => color(p) !== "verde");
-  if (!urg.length) return "Rotta · Reporte de hoy: todo está fresco.";
-  return "Rotta · Reporte de hoy\n" + urg.map(p => {
-    const e = etapaDe(p);
-    return "• " + p.nombre + ": " + cant(p.cantidad) + " " + p.unidad + " (" + estadoTexto(p).toLowerCase() + ") → " +
-      (e === "pasado" ? "Rotta te paga " + pesos(calcPago(valor(p), "pasado", info(p.nombre).aprov)) + " por lo que sirve" : "véndelo a Rotta hoy por " + pesos(calcPago(valor(p), e, 1)) + " o remátalo");
-  }).join("\n") + "\nPasamos a tu negocio y te pagamos al recoger.";
-}
-$("reporte-whatsapp").addEventListener("click", () => {
-  window.open("https://wa.me/?text=" + encodeURIComponent(textoReporte()), "_blank", "noopener");
-});
-function notificar() {
-  const urg = ordenados().filter(p => color(p) !== "verde");
-  if (!urg.length) return;
-  try { new Notification("Rotta", { body: urg.length + " producto(s) se echan a perder: " + urg.slice(0, 3).map(p => p.nombre).join(", ") + ". Véndelos hoy a Rotta: mientras antes, más te pagamos." }); } catch (e) {}
-}
-$("activar-avisos").addEventListener("click", async () => {
-  if (!("Notification" in window)) { toast("Tu navegador no permite alertas. Usa el reporte por WhatsApp."); return; }
-  const r = await Notification.requestPermission();
-  if (r === "granted") { notificar(); toast("Listo. Te alertaremos cada vez que abras la app."); }
-  else toast("No se activaron las alertas.");
-});
+// ----- Agente y reporte -----
+$("abrir-agente").addEventListener("click", () => alAgente("Hola, Rotta."));
+$("barra-agente").addEventListener("click", () => alAgente("Hola, Rotta."));
+$("reporte-whatsapp").addEventListener("click", () => alAgente("Hola, Rotta. Mándame el reporte de hoy, por favor."));
+$("ver-precios").addEventListener("click", () => mostrar("precios"));
+$("buscar").addEventListener("input", pintarPrecios);
+document.querySelectorAll(".segmento button").forEach(b => b.addEventListener("click", () => { filtro = b.dataset.filtro; pintarPrecios(); }));
 
-// ----- Registrar lo que llegó -----
-const fp = $("f-producto"); llenarSelect(fp);
-function nombreRegistro() { return fp.value === "Otro" ? ($("f-otro").value.trim() || "Otro") : fp.value; }
-function precioRegistro() { pintarPrecio($("f-precio-info"), nombreRegistro(), $("f-calidad").value, $("f-unidad").value); }
-function llenarProducto() {
-  const ok = conocido(fp.value);
-  $("caja-f-otro").classList.toggle("oculto", ok);
-  if (ok) { $("f-dias").value = info(fp.value).dias; $("f-unidad").value = info(fp.value).unidad; }
-  $("f-unidad").disabled = ok;
-  precioRegistro();
-}
-fp.addEventListener("change", llenarProducto);
-["f-calidad", "f-unidad"].forEach(i => $(i).addEventListener("change", precioRegistro));
-$("f-otro").addEventListener("input", precioRegistro);
-function limpiarRegistro() {
-  $("form-agregar").reset(); fp.value = "Jitomate"; llenarProducto();
-  $("f-llegada").value = aTexto(hoy()); $("f-llegada").max = aTexto(hoy());
-}
-$("form-agregar").addEventListener("submit", e => {
-  e.preventDefault();
-  const nombre = fp.value === "Otro" ? $("f-otro").value.trim() : fp.value;
-  if (!nombre) { toast("Escribe el nombre del producto."); return; }
-  const calidad = $("f-calidad").value;
-  const p = {
-    id: id(), nombre,
-    cantidad: Number($("f-cantidad").value), unidad: $("f-unidad").value, calidad,
-    precio: precioRotta(nombre, calidad), llegada: $("f-llegada").value, dias: Number($("f-dias").value)
-  };
-  datos.productos.push(p); guardar(); pintar();
-  toast(nombre + " guardado a " + precioTxt(p.precio) + "/" + porUnidad(p.unidad) + ": " + estadoTexto(p).toLowerCase() + ".");
-  limpiarRegistro();
-});
-
-$("cerrar-bienvenida").addEventListener("click", () => { datos.bienvenidaVista = true; guardar(); pintar(); });
-$("reiniciar").addEventListener("click", () => {
-  if (confirm("¿Restablecer los datos de Rotta? Se borran los cambios que hiciste.")) { datos = inicial(); guardar(); pintar(); mostrar("inicio"); toast("Datos restablecidos."); }
-});
+$("cerrar-bienvenida").addEventListener("click", () => { prefs.bienvenidaVista = true; guardarPrefs(); pintar(); });
 $("opinion").classList.toggle("oculto", !ENCUESTA_URL);
 document.querySelectorAll(".enlace-opinion").forEach(a => {
   if (ENCUESTA_URL) a.href = ENCUESTA_URL;
@@ -1130,19 +1038,17 @@ document.querySelectorAll(".enlace-opinion").forEach(a => {
 });
 
 // ----- Navegación -----
-const VISTAS = ["inicio", "inventario", "avisar", "avisos", "saldo"];
+const VISTAS = ["inicio", "precios", "calcular", "ventas", "saldo"];
 function mostrar(v) {
   VISTAS.forEach(x => $("vista-" + x).classList.toggle("oculto", x !== v));
   document.querySelectorAll("nav button").forEach(b => b.setAttribute("aria-current", b.dataset.vista === v ? "page" : "false"));
   window.scrollTo(0, 0);
 }
-document.querySelectorAll("nav button").forEach(b => b.addEventListener("click", () => {
-  if (b.dataset.vista === "avisar") limpiarAviso();
-  mostrar(b.dataset.vista);
-}));
+document.querySelectorAll("nav button").forEach(b => b.addEventListener("click", () => mostrar(b.dataset.vista)));
 
-pintarTablas(); limpiarAviso(); limpiarRegistro(); pintar();
-if ("Notification" in window && Notification.permission === "granted") notificar();
+pintarTablas();
+cp.value = "Jitomate"; elegirEtapa("manana"); calcular();
+pintar();
 </script>
 </body>
 </html>
