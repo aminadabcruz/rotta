@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Rotta · Lo que ya no vendes, todavía alimenta</title>
-<meta name="description" content="Rotta: avisa la fruta y verdura que se va a echar a perder, pasamos a recogerla a tu negocio, ganas puntos y la comida se dona a albergues y comedores.">
+<title>Rotta · Te compramos lo que ya no vas a vender</title>
+<meta name="description" content="Rotta te compra la fruta y verdura que ya no vas a vender: pasamos a tu negocio y te pagamos al recogerla. Mientras antes nos avises, más te pagamos.">
 <meta property="og:title" content="Rotta">
-<meta property="og:description" content="Avisa lo que se va a echar a perder, pasamos a tu negocio por él, ganas puntos y se dona a albergues y comedores.">
+<meta property="og:description" content="Te compramos lo que ya no vas a vender. Mientras antes nos avises, más te pagamos.">
 <meta name="theme-color" content="#17803d">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%2317803d'/%3E%3Ccircle cx='20' cy='23' r='11' fill='%23ff6b3d'/%3E%3Cpath d='M20 12c0-4 3-6 7-6-1 4-3 6-7 6z' fill='%238fe0a0'/%3E%3C/svg%3E">
 <style>
@@ -152,13 +152,13 @@
   .segmento button[aria-pressed="true"] { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.14); }
   .subtitulo { font-size: .95rem; font-weight: 700; color: var(--suave); margin: 16px 0 2px; }
 
-  /* Puntos */
+  /* Saldo */
   .saldo { text-align: center; background: linear-gradient(135deg, #fff6df, #ffe7b0); border-color: #f7dc9b; }
   .saldo b { display: block; font-size: 3rem; line-height: 1.05; }
   table { width: 100%; border-collapse: collapse; font-size: .9rem; }
   th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--borde); vertical-align: top; }
   th { font-size: .78rem; color: var(--suave); font-weight: 700; }
-  td.pts { font-weight: 800; white-space: nowrap; }
+  td.monto { font-weight: 800; white-space: nowrap; }
   tr:last-child td { border-bottom: 0; }
   .renglon { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px solid var(--borde); padding: 9px 0; }
   .renglon:last-child { border-bottom: 0; }
@@ -193,6 +193,7 @@
   .toast { position: fixed; left: 50%; bottom: 98px; transform: translateX(-50%); background: #1e2a22; color: #fff; padding: 11px 16px; border-radius: 12px; font-size: .9rem; z-index: 10; width: max-content; max-width: 90vw; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
   footer { text-align: center; font-size: .76rem; color: var(--suave); margin-top: 6px; }
   @media (min-width: 700px) { main { padding-top: 22px; } }
+
 </style>
 </head>
 <body>
@@ -203,7 +204,7 @@
     </div>
     <div class="marca">
       <h1>Rotta</h1>
-      <p>Lo que ya no vendes, todavía alimenta.</p>
+      <p>Te compramos lo que ya no vas a vender.</p>
     </div>
   </div>
 </header>
@@ -212,10 +213,10 @@
   <!-- ===== HOY ===== -->
   <div id="vista-inicio">
     <section class="heroe" aria-labelledby="t-resumen">
-      <p class="saludo" id="t-resumen">Tus puntos</p>
-      <p class="grande"><span id="n-puntos">0</span> <small>pts = <span id="n-equiv">$0</span></small></p>
+      <p class="saludo" id="t-resumen">Tu saldo</p>
+      <p class="grande"><span id="n-saldo">$0</span> <small>para cobrar</small></p>
       <div class="chicos">
-        <div class="chico"><b id="n-donado">$0</b><span>donados a albergues</span></div>
+        <div class="chico"><b id="n-pagado">$0</b><span>te ha pagado Rotta</span></div>
         <div class="chico"><b id="n-perdido">$0</b><span>tirados a la basura</span></div>
       </div>
       <p class="camino" id="n-camino"></p>
@@ -225,11 +226,11 @@
       <h2 id="t-como">👋 ¿Cómo funciona Rotta?</h2>
       <ol class="pasos">
         <li><span class="n">1</span><span>Registra lo que te llegó. Rotta pone el precio y te dice cuántos días le quedan.</span></li>
-        <li><span class="n">2</span><span><b>Mientras antes lo avises, más puntos ganas.</b> Si prefieres, remátalo.</span></li>
-        <li><span class="n">3</span><span>Un colaborador pasa a recogerlo a tu negocio, sin costo.</span></li>
-        <li><span class="n">4</span><span>Cambia tus puntos por dinero u objetos, o dónalos.</span></li>
+        <li><span class="n">2</span><span>Lo que ya no vas a vender, véndenoslo. <b>Mientras antes nos avises, más te pagamos.</b></span></li>
+        <li><span class="n">3</span><span>Pasamos por él a tu negocio y te pagamos al recogerlo.</span></li>
+        <li><span class="n">4</span><span>Cobra tu saldo, cámbialo por artículos para tu negocio o dónalo.</span></li>
       </ol>
-      <div class="beneficio"><span class="ico" aria-hidden="true">🍲</span><span>Todo lo que se recoge se dona a albergues y comedores para preparar comida.</span></div>
+      <div class="beneficio"><span class="ico" aria-hidden="true">💵</span><span>Sin cuota ni comisión. Lo que antes tirabas ahora te deja dinero.</span></div>
       <p class="nota">No necesitas instalar nada ni crear cuenta.</p>
       <div class="fila">
         <button type="button" id="cerrar-bienvenida">Entendido</button>
@@ -240,11 +241,11 @@
     <section class="novedades" aria-labelledby="t-nuevo">
       <h2 id="t-nuevo">✨ Lo nuevo en Rotta</h2>
       <ul class="lista-ben">
-        <li><span class="ico i-verde" aria-hidden="true">🚚</span><span><b>Pasamos por él a tu negocio.</b> Ya no tienes que llevarlo a ningún lado.</span></li>
-        <li><span class="ico i-amarillo" aria-hidden="true">⏰</span><span><b>Mientras antes avises, más ganas.</b> Faltando 2 días te damos 10 puntos por cada $100; el último día, 2.</span></li>
-        <li><span class="ico i-cafe" aria-hidden="true">♻️</span><span><b>Si ya se pasó, depende del producto.</b> Del plátano se aprovecha casi todo; de la lechuga, poco.</span></li>
+        <li><span class="ico i-verde" aria-hidden="true">💵</span><span><b>Ahora te pagamos en pesos.</b> Si se echa a perder hoy, te pagamos el 10 % de su valor: $10 por cada $100.</span></li>
+        <li><span class="ico i-amarillo" aria-hidden="true">⏰</span><span><b>Mientras antes nos avises, más te pagamos.</b> Faltando 1 día, $20 por cada $100; faltando 2 días, $30.</span></li>
+        <li><span class="ico i-cafe" aria-hidden="true">♻️</span><span><b>Si ya se pasó, depende del producto.</b> Te pagamos $5 por cada $100 de la parte que se aprovecha.</span></li>
+        <li><span class="ico i-rosa" aria-hidden="true">🚚</span><span><b>Pasamos por él y te pagamos al recogerlo.</b> Tu saldo lo cobras, lo cambias por artículos o lo donas.</span></li>
         <li><span class="ico i-azul" aria-hidden="true">🏷️</span><span><b>Precio Rotta.</b> Ya no escribes precios: la app los pone con el mercado de la semana.</span></li>
-        <li><span class="ico i-rosa" aria-hidden="true">🤝</span><span><b>Dinero, objetos o donarlos.</b> Tú decides qué hacer con tus puntos.</span></li>
       </ul>
     </section>
 
@@ -267,7 +268,7 @@
 
     <section aria-labelledby="t-urgente">
       <h2 id="t-urgente">⏳ ¿Qué te conviene hoy?</h2>
-      <p class="nota">Mientras antes lo avises, más puntos ganas. Si ya se pasó, solo cuenta lo que se aprovecha, y eso depende de cada producto.</p>
+      <p class="nota">Mientras antes nos lo vendas, más te pagamos. Si ya se pasó, solo pagamos la parte que se aprovecha, y eso depende de cada producto.</p>
       <div id="lista-urgente"></div>
     </section>
 
@@ -331,6 +332,7 @@
         <li><span class="ico i-verde" aria-hidden="true">🌱</span><span><b>Temporada:</b> en temporada baja 10 %; fuera de temporada sube 10 %.</span></li>
         <li><span class="ico i-amarillo" aria-hidden="true">⭐</span><span><b>Calidad:</b> si llegó de segunda, baja 20 %.</span></li>
       </ul>
+      <p class="nota" style="margin-top:8px">Con este precio calculamos cuánto te pagamos.</p>
       <details class="dentro">
         <summary>Ver todos los precios</summary>
         <table>
@@ -341,11 +343,11 @@
     </section>
   </div>
 
-  <!-- ===== AVISAR ===== -->
+  <!-- ===== VENDER ===== -->
   <div id="vista-avisar" class="oculto">
     <section aria-labelledby="t-avisar">
-      <h2 id="t-avisar">📦 Avisar para que lo recojan</h2>
-      <div class="beneficio"><span class="ico" aria-hidden="true">🚚</span><span><b>Pasamos a recogerlo a tu negocio</b>, sin costo. Tú no cargas nada.</span></div>
+      <h2 id="t-avisar">💵 Véndenos lo que ya no vas a vender</h2>
+      <div class="beneficio"><span class="ico" aria-hidden="true">🚚</span><span><b>Pasamos a tu negocio por él</b> y te pagamos al recogerlo. Tú no cargas nada.</span></div>
       <form id="form-aviso">
         <input type="hidden" id="a-producto-id">
         <label for="a-producto">Producto</label>
@@ -387,15 +389,15 @@
         <label for="a-nota">Nota para el colaborador (opcional)</label>
         <input id="a-nota" type="text" maxlength="120" placeholder="Está en cajas junto a la báscula">
         <div class="estimado" id="a-estimado" aria-live="polite"></div>
-        <button type="submit" class="principal ancho">📦 Avisar para que lo recojan</button>
+        <button type="submit" class="principal ancho">💵 Vender a Rotta</button>
       </form>
     </section>
   </div>
 
-  <!-- ===== MIS AVISOS ===== -->
+  <!-- ===== MIS VENTAS ===== -->
   <div id="vista-avisos" class="oculto">
     <section aria-labelledby="t-avisos">
-      <h2 id="t-avisos">🚚 Mis avisos</h2>
+      <h2 id="t-avisos">🚚 Mis ventas a Rotta</h2>
       <div class="segmento" role="group" aria-label="Ver la app como">
         <button type="button" id="modo-comercio" aria-pressed="true">🏪 Comercio</button>
         <button type="button" id="modo-colaborador" aria-pressed="false">🚚 Colaborador</button>
@@ -405,24 +407,24 @@
     </section>
   </div>
 
-  <!-- ===== PUNTOS ===== -->
-  <div id="vista-puntos" class="oculto">
+  <!-- ===== SALDO ===== -->
+  <div id="vista-saldo" class="oculto">
     <section class="saldo" aria-labelledby="t-saldo">
-      <h2 id="t-saldo" style="justify-content:center">⭐ Tus puntos</h2>
-      <b id="p-saldo">0</b>
-      <span>equivalen a <span id="p-equiv">$0</span> · cada punto vale $1</span>
+      <h2 id="t-saldo" style="justify-content:center">💵 Tu saldo</h2>
+      <b id="p-saldo">$0</b>
+      <span>para cobrar · en total te hemos pagado <span id="p-pagado">$0</span></span>
     </section>
 
     <section aria-labelledby="t-escala">
-      <h2 id="t-escala">🎯 ¿Cuántos puntos gano?</h2>
-      <p class="nota">Puntos por cada $100 de producto, a Precio Rotta. Mientras antes lo avises, más ganas.</p>
+      <h2 id="t-escala">📊 ¿Cuánto te pagamos?</h2>
+      <p class="nota">Por cada $100 de producto, a Precio Rotta. La base es el día en que se echa a perder: <b>10 % de su valor</b>. Si nos avisas antes, te pagamos más; si ya se pasó, menos.</p>
       <div class="escala" id="tabla-escala"></div>
-      <p class="nota" style="margin-top:10px">🟢 Si está fresco (3 días o más), véndelo normal.</p>
+      <p class="nota" style="margin-top:10px">🟢 Si está fresco (3 días o más), véndelo normal. Te lo compramos desde que le faltan 2 días.</p>
       <details class="dentro" id="caja-pasado">
-        <summary>♻️ Si ya se pasó: cuánto se aprovecha de cada producto</summary>
-        <p class="nota" style="margin-top:8px">No todo se aprovecha igual. Ganas 2 puntos por cada $100 de la parte que todavía sirve. El colaborador lo revisa al recoger.</p>
+        <summary>♻️ Si ya se pasó: cuánto sirve de cada producto</summary>
+        <p class="nota" style="margin-top:8px">No todo se aprovecha igual. Te pagamos $5 por cada $100 de la parte que todavía sirve. El colaborador lo revisa al recoger.</p>
         <table>
-          <thead><tr><th scope="col">Producto</th><th scope="col">Se aprovecha</th><th scope="col">Para</th></tr></thead>
+          <thead><tr><th scope="col">Producto</th><th scope="col">Todavía sirve</th></tr></thead>
           <tbody id="tabla-pasado"></tbody>
         </table>
       </details>
@@ -432,19 +434,19 @@
       <h2 id="t-beneficios">🎁 Lo que ganas</h2>
       <ul class="lista-ben">
         <li><span class="ico i-verde" aria-hidden="true">🚚</span><span><b>Pasamos a tu negocio.</b> Te quitas el producto sin cargarlo ni tirarlo.</span></li>
-        <li><span class="ico i-amarillo" aria-hidden="true">💸</span><span><b>Gratis.</b> Sin cuota mensual ni comisión.</span></li>
-        <li><span class="ico i-azul" aria-hidden="true">⭐</span><span><b>Puntos</b> que cambias por dinero u objetos, o donas.</span></li>
-        <li><span class="ico i-naranja" aria-hidden="true">🍲</span><span><b>Ayudas.</b> Se cocina en albergues y comedores.</span></li>
+        <li><span class="ico i-amarillo" aria-hidden="true">💵</span><span><b>Dinero seguro.</b> Te pagamos al recoger, sin cuota ni comisión.</span></li>
+        <li><span class="ico i-rosa" aria-hidden="true">🗑️</span><span><b>Menos pérdida.</b> Lo que antes tirabas ahora te deja dinero.</span></li>
+        <li><span class="ico i-naranja" aria-hidden="true">🤝</span><span><b>Si quieres, ayudas.</b> Puedes donar parte de tu saldo a un albergue o comedor.</span></li>
       </ul>
     </section>
 
     <section aria-labelledby="t-dinero">
-      <h2 id="t-dinero">💵 Cámbialos por dinero</h2>
+      <h2 id="t-dinero">🏦 Cobra tu saldo</h2>
       <form id="form-dinero">
         <div class="dos">
           <div>
-            <label for="d-puntos">Puntos</label>
-            <input id="d-puntos" type="number" min="1" step="1" required value="50" inputmode="numeric">
+            <label for="d-monto">¿Cuánto? ($)</label>
+            <input id="d-monto" type="number" min="1" step="1" required value="50" inputmode="numeric">
           </div>
           <div>
             <label for="d-metodo">¿Cómo lo quieres?</label>
@@ -452,31 +454,31 @@
           </div>
         </div>
         <p class="nota" id="d-vista" style="margin-top:8px"></p>
-        <button type="submit" class="principal ancho">Pedir mi dinero</button>
+        <button type="submit" class="principal ancho">Cobrar</button>
       </form>
     </section>
 
     <section aria-labelledby="t-objetos">
-      <h2 id="t-objetos">🛍️ Cámbialos por objetos</h2>
+      <h2 id="t-objetos">🛍️ Úsalo en artículos para tu negocio</h2>
       <div id="catalogo"></div>
       <p class="nota" style="margin-top:6px">El colaborador te lo lleva en su siguiente visita.</p>
     </section>
 
     <section aria-labelledby="t-donar">
-      <h2 id="t-donar">🤝 Dónalos</h2>
-      <p>Dona tus puntos a un albergue o comedor. Rotta los convierte en despensa para su cocina.</p>
+      <h2 id="t-donar">🤝 Dona parte de tu saldo</h2>
+      <p>Dónalo a un albergue o comedor de la zona.</p>
       <form id="form-donar">
         <div class="dos">
           <div>
-            <label for="don-puntos">Puntos</label>
-            <input id="don-puntos" type="number" min="1" step="1" required value="10" inputmode="numeric">
+            <label for="don-monto">¿Cuánto? ($)</label>
+            <input id="don-monto" type="number" min="1" step="1" required value="10" inputmode="numeric">
           </div>
           <div>
             <label for="don-destino">¿A quién?</label>
             <select id="don-destino"></select>
           </div>
         </div>
-        <p style="margin-top:10px"><button type="submit" class="principal ancho">Donar mis puntos</button></p>
+        <p style="margin-top:10px"><button type="submit" class="principal ancho">Donar</button></p>
       </form>
     </section>
 
@@ -486,16 +488,16 @@
     </section>
   </div>
 
-  <footer>Rotta · Lo que ya no vendes, todavía alimenta · 2026<br><button type="button" class="enlace" id="reiniciar">Restablecer datos</button></footer>
+  <footer>Rotta · Te compramos lo que ya no vas a vender · 2026<br><button type="button" class="enlace" id="reiniciar">Restablecer datos</button></footer>
 </main>
 
 <nav aria-label="Secciones">
   <div class="nav-in">
     <button type="button" data-vista="inicio" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Hoy</button>
     <button type="button" data-vista="inventario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16l-1.5 10a2 2 0 0 1-2 1.7h-9a2 2 0 0 1-2-1.7z"/><path d="M8 9l4-6 4 6"/></svg>Productos</button>
-    <button type="button" data-vista="avisar" class="central"><span class="circulo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>Avisar</button>
-    <button type="button" data-vista="avisos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h12v10H2zM14 9h4.5L22 12.5V16h-8"/><circle cx="6.5" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/></svg>Mis avisos</button>
-    <button type="button" data-vista="puntos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>Puntos</button>
+    <button type="button" data-vista="avisar" class="central"><span class="circulo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>Vender</button>
+    <button type="button" data-vista="avisos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h12v10H2zM14 9h4.5L22 12.5V16h-8"/><circle cx="6.5" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/></svg>Mis ventas</button>
+    <button type="button" data-vista="saldo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.2"/></svg>Saldo</button>
   </div>
 </nav>
 
@@ -505,52 +507,51 @@
 // ===== Ajustes de Rotta =====
 const ENCUESTA_URL = "";            // Enlace publicado del landing con la encuesta. Vacío: no se muestran los botones de opinión
 const WHATSAPP_ROTTA = "";          // WhatsApp de Rotta (10 dígitos). Vacío: WhatsApp deja elegir el contacto
-// Puntos por cada $100 de producto (a Precio Rotta): mientras antes se avisa, más puntos
+// Cuánto paga Rotta por cada $100 de producto (a Precio Rotta). La base es el día en que se echa a perder: 10 %.
+// Si avisan antes, paga más; si ya se pasó, paga menos y solo por la parte que se aprovecha.
 const ETAPAS = {
-  dos:    { nombre: "Faltan 2 días",        corto: "En 2 días",  pts: 10, consejo: "Avísalo ya: es cuando más ganas" },
-  manana: { nombre: "Falta 1 día",          corto: "Mañana",     pts: 5,  consejo: "Remátalo hoy o avísalo; mañana baja" },
-  hoy:    { nombre: "Se echa a perder hoy", corto: "Hoy",        pts: 2,  consejo: "Último día: avísalo antes de que se pase" },
-  pasado: { nombre: "Ya se echó a perder",  corto: "Ya se pasó", pts: 2,  consejo: "Solo cuenta lo que se aprovecha, según el producto" }
+  dos:    { nombre: "Faltan 2 días",        corto: "En 2 días",  pago: 30, consejo: "El triple que el último día" },
+  manana: { nombre: "Falta 1 día",          corto: "Mañana",     pago: 20, consejo: "El doble que el último día" },
+  hoy:    { nombre: "Se echa a perder hoy", corto: "Hoy",        pago: 10, consejo: "La base: 10 % de su valor" },
+  pasado: { nombre: "Ya se echó a perder",  corto: "Ya se pasó", pago: 5,  consejo: "Solo la parte que se aprovecha, según el producto" }
 };
 const UTIL = [[1, "Todo"], [0.75, "Casi todo (3 de cada 4)"], [0.5, "La mitad"], [0.25, "Poco (1 de cada 4)"]];
 const REMATE = { dos: 20, manana: 30, hoy: 50 };  // Descuento sugerido para rematar (%)
-const VALOR_PUNTO = 1;              // Cada punto vale $1
-const MINIMO_DINERO = 50;           // Puntos mínimos para pedir dinero
-const OBJETOS = [["Bolsa de mandado reutilizable", 40], ["Mandil de Rotta", 80], ["Caja plegable para fruta", 120], ["Báscula digital de mostrador", 450]];
-const DESTINOS = ["Albergue para migrantes La Esperanza", "Comedor Comunitario San Andrés", "Casa Hogar Santa María"];
+const MINIMO_COBRO = 50;            // Pesos mínimos para cobrar el saldo
+const ARTICULOS = [["Bolsa de mandado reutilizable", 40], ["Mandil de Rotta", 80], ["Caja plegable para fruta", 120], ["Báscula digital de mostrador", 450]];
+const ALBERGUES = ["Albergue para migrantes La Esperanza", "Comedor Comunitario San Andrés", "Casa Hogar Santa María"];
 const COLABORADOR = "Carlos";
 // Criterios del Precio Rotta
 const TEMPORADA = { en: 0.9, fuera: 1.1 };
 const CALIDAD = { primera: { nombre: "De primera", f: 1 }, segunda: { nombre: "De segunda", f: 0.8 } };
 
-const CLAVE = "rotta-v2";
+const CLAVE = "rotta-v3";
 const DIA = 86400000;
 // [nombre, ícono, días que aguanta, unidad, precio en la central de abasto esta semana,
-//  meses de temporada (vacío: todo el año), cuánto se aprovecha si ya se pasó, para qué se aprovecha]
+//  meses de temporada (vacío: todo el año) y cuánto sirve si ya se pasó]
 const PRODUCTOS = [
-  ["Aguacate", "🥑", 5, "piezas", 12, [10, 11, 12, 1, 2, 3], 0.5, "guacamole del día"],
-  ["Cebolla", "🧅", 14, "kg", 26, [], 0.5, "caldos y guisos"],
-  ["Chile serrano", "🌶️", 7, "kg", 42, [], 0.5, "salsas"],
-  ["Cilantro", "🌿", 3, "manojos", 8, [], 0.25, "caldos"],
-  ["Durazno", "🍑", 4, "kg", 46, [6, 7, 8, 9], 0.75, "mermelada y postres"],
-  ["Fresa", "🍓", 3, "kg", 62, [12, 1, 2, 3, 4], 0.5, "mermelada y licuados"],
-  ["Jitomate", "🍅", 6, "kg", 28, [], 0.75, "salsa y caldillo"],
-  ["Lechuga", "🥬", 4, "piezas", 15, [], 0.25, "solo las hojas de adentro"],
-  ["Limón", "🍋", 14, "kg", 30, [5, 6, 7, 8, 9], 0.5, "agua fresca"],
-  ["Mango", "🥭", 6, "kg", 32, [3, 4, 5, 6, 7, 8], 0.75, "licuados y mermelada"],
-  ["Manzana", "🍎", 20, "kg", 40, [8, 9, 10, 11], 0.75, "compota y postres"],
-  ["Naranja", "🍊", 14, "kg", 18, [11, 12, 1, 2, 3], 0.5, "jugo"],
-  ["Papa", "🥔", 20, "kg", 28, [], 0.5, "puré y guisos"],
-  ["Papaya", "🍈", 5, "piezas", 36, [], 0.5, "licuados"],
-  ["Pepino", "🥒", 7, "kg", 20, [], 0.25, "agua fresca"],
-  ["Plátano", "🍌", 5, "kg", 22, [], 0.75, "pan de plátano y licuados"],
-  ["Zanahoria", "🥕", 15, "kg", 18, [], 0.5, "caldos y jugos"]
+  ["Aguacate", "🥑", 5, "piezas", 12, [10, 11, 12, 1, 2, 3], 0.5],
+  ["Cebolla", "🧅", 14, "kg", 26, [], 0.5],
+  ["Chile serrano", "🌶️", 7, "kg", 42, [], 0.5],
+  ["Cilantro", "🌿", 3, "manojos", 8, [], 0.25],
+  ["Durazno", "🍑", 4, "kg", 46, [6, 7, 8, 9], 0.75],
+  ["Fresa", "🍓", 3, "kg", 62, [12, 1, 2, 3, 4], 0.5],
+  ["Jitomate", "🍅", 6, "kg", 28, [], 0.75],
+  ["Lechuga", "🥬", 4, "piezas", 15, [], 0.25],
+  ["Limón", "🍋", 14, "kg", 30, [5, 6, 7, 8, 9], 0.5],
+  ["Mango", "🥭", 6, "kg", 32, [3, 4, 5, 6, 7, 8], 0.75],
+  ["Manzana", "🍎", 20, "kg", 40, [8, 9, 10, 11], 0.75],
+  ["Naranja", "🍊", 14, "kg", 18, [11, 12, 1, 2, 3], 0.5],
+  ["Papa", "🥔", 20, "kg", 28, [], 0.5],
+  ["Papaya", "🍈", 5, "piezas", 36, [], 0.5],
+  ["Pepino", "🥒", 7, "kg", 20, [], 0.25],
+  ["Plátano", "🍌", 5, "kg", 22, [], 0.75],
+  ["Zanahoria", "🥕", 15, "kg", 18, [], 0.5]
 ];
-const OTRO = { icono: "🧺", dias: 5, unidad: "kg", mercado: 20, temporada: [], aprov: 0.5, uso: "lo que se pueda cocinar" };
+const OTRO = { icono: "🧺", dias: 5, unidad: "kg", mercado: 20, temporada: [], aprov: 0.5 };
 const CAT = {};
-PRODUCTOS.forEach(([nombre, icono, dias, unidad, mercado, temporada, aprov, uso]) => { CAT[nombre] = { nombre, icono, dias, unidad, mercado, temporada, aprov, uso }; });
-const ESTADOS = ["avisado", "en_camino", "recogido", "entregado"];
-const NOMBRE_ESTADO = { avisado: "Avisado", en_camino: "En camino", recogido: "Recogido", entregado: "En el albergue" };
+PRODUCTOS.forEach(([nombre, icono, dias, unidad, mercado, temporada, aprov]) => { CAT[nombre] = { nombre, icono, dias, unidad, mercado, temporada, aprov }; });
+const ESTADOS = ["avisado", "en_camino", "recogido"];
 
 const $ = i => document.getElementById(i);
 function hoy() { const d = new Date(); d.setHours(0, 0, 0, 0); return d; }
@@ -570,8 +571,8 @@ function conocido(nombre) { return !!CAT[nombre]; }
 function icono(nombre) { return info(nombre).icono; }
 function porUnidad(u) { return { kg: "kg", piezas: "pieza", manojos: "manojo", cajas: "caja" }[u] || u; }
 function utilTexto(u) { const x = UTIL.find(y => y[0] === u); return x ? x[1].toLowerCase() : Math.round(u * 100) + " %"; }
-function ptsTxt(n) { return n === 1 ? "1 punto" : n.toLocaleString("es-MX") + " puntos"; }
-function calcPuntos(valorP, etapa, util) { return Math.round(valorP * util * ETAPAS[etapa].pts / 100); }
+function calcPago(valorP, etapa, util) { return Math.round(valorP * util * ETAPAS[etapa].pago / 100); }
+function porCien(etapa) { return "$" + ETAPAS[etapa].pago + " por cada $100"; }
 
 // ----- Precio Rotta: central de abasto de la semana × temporada × calidad -----
 function temporadaDe(nombre) {
@@ -606,35 +607,37 @@ function semanaTexto() {
 }
 
 function inicial() {
-  const av = (nombre, cantidad, etapa, estado, colaborador, destino, dias, cuando) => {
+  const av = (nombre, cantidad, etapa, estado, colaborador, dias, cuando) => {
     const precio = precioRotta(nombre), util = etapa === "pasado" ? info(nombre).aprov : 1;
-    const a = { id: id(), nombre, cantidad, unidad: info(nombre).unidad, calidad: "primera", precio, etapa, util, utilReal: estado === "avisado" || estado === "en_camino" ? null : util, cuando, nota: "", estado, colaborador, destino, puntos: 0, fecha: haceDias(dias), producto: null };
-    if (a.utilReal != null) a.puntos = calcPuntos(cantidad * precio, etapa, util);
+    const a = { id: id(), nombre, cantidad, unidad: info(nombre).unidad, calidad: "primera", precio, etapa, util, utilReal: estado === "avisado" || estado === "en_camino" ? null : util, cuando, nota: "", estado, colaborador, pago: 0, fecha: haceDias(dias), producto: null };
+    if (a.utilReal != null) a.pago = calcPago(cantidad * precio, etapa, util);
     return a;
   };
   const avisos = [
-    av("Mango", 4, "manana", "en_camino", "Lupita", "", 0, "Hoy en la tarde (4 a 7 p. m.)"),
-    av("Jitomate", 20, "dos", "entregado", "Carlos", DESTINOS[1], 2, "Hoy en la mañana (9 a 12)"),
-    av("Aguacate", 40, "manana", "entregado", "Lupita", DESTINOS[0], 3, "Hoy en la tarde (4 a 7 p. m.)"),
-    av("Papaya", 6, "pasado", "entregado", "Carlos", DESTINOS[0], 5, "Mañana temprano, antes de abrir (7 a 9 a. m.)"),
-    av("Durazno", 5, "hoy", "entregado", "Lupita", DESTINOS[2], 6, "Hoy en la tarde (4 a 7 p. m.)")
+    av("Mango", 4, "manana", "en_camino", "Lupita", 0, "Hoy en la tarde (4 a 7 p. m.)"),
+    av("Jitomate", 20, "dos", "recogido", "Carlos", 2, "Hoy en la mañana (9 a 12)"),
+    av("Aguacate", 40, "manana", "recogido", "Lupita", 3, "Hoy en la tarde (4 a 7 p. m.)"),
+    av("Papaya", 6, "pasado", "recogido", "Carlos", 5, "Mañana temprano, antes de abrir (7 a 9 a. m.)"),
+    av("Durazno", 5, "hoy", "recogido", "Lupita", 6, "Hoy en la tarde (4 a 7 p. m.)")
   ];
-  const hechos = avisos.filter(a => a.estado === "entregado");
+  const hechos = avisos.filter(a => a.estado === "recogido");
+  const pagado = hechos.reduce((s, a) => s + a.pago, 0), cobrado = 200;
+  const movimientos = hechos.map(a => ({ id: id(), fecha: a.fecha, texto: movTexto(a), monto: a.pago }));
+  movimientos.unshift({ id: id(), fecha: haceDias(1), texto: "Cobro por transferencia", monto: -cobrado });
   const prod = (nombre, cantidad, hace) => ({ id: id(), nombre, cantidad, unidad: info(nombre).unidad, calidad: "primera", precio: precioRotta(nombre), llegada: haceDias(hace), dias: info(nombre).dias });
   return {
     bienvenidaVista: false, modo: "comercio",
-    puntos: hechos.reduce((s, a) => s + a.puntos, 0),
-    donado: hechos.reduce((s, a) => s + a.cantidad * a.precio * a.utilReal, 0),
+    saldo: pagado - cobrado, pagado,
+    rescatado: hechos.reduce((s, a) => s + a.cantidad * a.precio * a.utilReal, 0),
     perdido: 0,
     productos: [prod("Plátano", 8, 6), prod("Lechuga", 20, 5), prod("Cilantro", 10, 3), prod("Jitomate", 10, 5),
       prod("Aguacate", 20, 3), prod("Fresa", 3, 1), prod("Manzana", 10, 2), prod("Limón", 5, 1)],
-    avisos,
-    movimientos: hechos.map(a => ({ id: id(), fecha: a.fecha, texto: movTexto(a), puntos: a.puntos }))
+    avisos, movimientos
   };
 }
 function movTexto(a) {
-  const cuando = { dos: "avisado faltando 2 días", manana: "avisado faltando 1 día", hoy: "avisado el último día", pasado: "ya se había pasado" }[a.etapa];
-  return "Recolección: " + a.nombre.toLowerCase() + ", " + cant(a.cantidad) + " " + a.unidad + " (" + cuando + (a.utilReal < 1 ? "; se aprovechó " + utilTexto(a.utilReal) : "") + ")";
+  const cuando = { dos: "faltaban 2 días", manana: "faltaba 1 día", hoy: "se echaba a perder ese día", pasado: "ya se había pasado" }[a.etapa];
+  return "Venta a Rotta: " + a.nombre.toLowerCase() + ", " + cant(a.cantidad) + " " + a.unidad + " (" + cuando + (a.utilReal < 1 ? "; se aprovechó " + utilTexto(a.utilReal) : "") + ")";
 }
 
 let datos;
@@ -689,36 +692,36 @@ function tarjetaProducto(p) {
 
   const acciones = el("div", "acciones");
   if (e === "pasado") {
-    const pts = calcPuntos(v, "pasado", i.aprov);
+    const pago = calcPago(v, "pasado", i.aprov);
     const d = el("div", "decide"), a = el("div", "rescate");
-    a.appendChild(el("span", "t", "♻️ Todavía se aprovecha algo"));
-    a.appendChild(el("b", "", pts + " pts"));
-    a.appendChild(el("span", "", "De " + p.nombre.toLowerCase() + " se aprovecha " + utilTexto(i.aprov) + ": " + i.uso + ". Pasamos a tu negocio por él."));
+    a.appendChild(el("span", "t", "♻️ Todavía sirve una parte"));
+    a.appendChild(el("b", "", pesos(pago)));
+    a.appendChild(el("span", "", "De " + p.nombre.toLowerCase() + " todavía sirve " + utilTexto(i.aprov) + ". Pasamos por él y te pagamos $5 por cada $100 de esa parte."));
     d.appendChild(a); div.appendChild(d);
-    acciones.appendChild(boton("♻️ Rescatar lo que sirve · " + pts + " pts", "principal chico", () => avisarDesde(p.id)));
+    acciones.appendChild(boton("♻️ Vender lo que sirve · " + pesos(pago), "principal chico", () => avisarDesde(p.id)));
     acciones.appendChild(boton("🗑️ Lo tiré", "peligro chico", () => tirado(p.id)));
     acciones.classList.add("rejilla", "par");
   } else if (e) {
-    const desc = REMATE[e], pts = calcPuntos(v, e, 1);
+    const desc = REMATE[e], pago = calcPago(v, e, 1);
     const d = el("div", "decide");
     const rem = el("div", "remate");
     rem.appendChild(el("span", "t", "🏷️ Si lo rematas"));
     rem.appendChild(el("b", "", "hasta " + pesos(v * (1 - desc / 100))));
     rem.appendChild(el("span", "", desc + " % menos, si se vende todo"));
     const seg = el("div", "segura");
-    seg.appendChild(el("span", "t", "🛡️ Si lo avisas"));
-    seg.appendChild(el("b", "", pts + " pts"));
-    seg.appendChild(el("span", "", "hoy mismo, y pasamos por él"));
+    seg.appendChild(el("span", "t", "💵 Si nos lo vendes"));
+    seg.appendChild(el("b", "", pesos(pago)));
+    seg.appendChild(el("span", "", "seguro: pasamos por él y te pagamos"));
     d.appendChild(rem); d.appendChild(seg); div.appendChild(d);
     const consejo = el("p", "consejo");
-    if (e === "dos") consejo.textContent = "Si esperas a mañana bajan a " + calcPuntos(v, "manana", 1) + " pts, y el último día a " + calcPuntos(v, "hoy", 1) + ".";
-    else if (e === "manana") consejo.textContent = "Si esperas a mañana bajan a " + calcPuntos(v, "hoy", 1) + " pts.";
+    if (e === "dos") consejo.textContent = "Si esperas a mañana te pagamos " + pesos(calcPago(v, "manana", 1)) + ", y el último día " + pesos(calcPago(v, "hoy", 1)) + ".";
+    else if (e === "manana") consejo.textContent = "Si esperas a mañana te pagamos " + pesos(calcPago(v, "hoy", 1)) + ".";
     else {
-      const z = calcPuntos(v, "pasado", i.aprov);
-      consejo.textContent = "Es su último día. Si se pasa, de " + p.nombre.toLowerCase() + " solo se aprovecha " + utilTexto(i.aprov) + (z > 0 ? " y bajan a " + z + " pts." : " y ya casi no da puntos.");
+      const z = calcPago(v, "pasado", i.aprov);
+      consejo.textContent = "Es su último día: te pagamos el 10 % de su valor. Si se pasa, de " + p.nombre.toLowerCase() + " solo sirve " + utilTexto(i.aprov) + " y te pagaríamos " + pesos(z) + ".";
     }
     div.appendChild(consejo);
-    acciones.appendChild(boton("📦 Avisar · " + pts + " pts", "principal chico", () => avisarDesde(p.id)));
+    acciones.appendChild(boton("💵 Vender a Rotta · " + pesos(pago), "principal chico", () => avisarDesde(p.id)));
     const rb = boton("🏷️ Rematar", "whatsapp chico", () => rematar(p.id)); rb.title = "Manda el remate por WhatsApp";
     acciones.appendChild(rb);
     acciones.appendChild(boton("✅ Lo vendí", "chico", () => vendido(p.id)));
@@ -726,8 +729,8 @@ function tarjetaProducto(p) {
     acciones.classList.add("rejilla");
   } else {
     const c2 = el("p", "consejo");
-    c2.appendChild(document.createTextNode("Está fresco: véndelo normal. Si faltando 2 días sigue aquí, avísalo y ganas "));
-    c2.appendChild(el("b", "", calcPuntos(v, "dos", 1) + " pts"));
+    c2.appendChild(document.createTextNode("Está fresco: véndelo normal. Si faltando 2 días sigue aquí, te lo compramos en "));
+    c2.appendChild(el("b", "", pesos(calcPago(v, "dos", 1))));
     c2.appendChild(document.createTextNode("."));
     div.appendChild(c2);
     acciones.appendChild(boton("✅ Lo vendí", "chico", () => vendido(p.id)));
@@ -736,61 +739,58 @@ function tarjetaProducto(p) {
   return div;
 }
 
-// ----- Tarjeta de aviso -----
+// ----- Tarjeta de venta a Rotta -----
+function nombreEstado(a, s) {
+  return { avisado: "Avisado", en_camino: "En camino", recogido: "Pagado" }[s];
+}
 function tarjetaAviso(a) {
-  const colab = datos.modo === "colaborador";
+  const colab = datos.modo === "colaborador", pasado = a.etapa === "pasado";
   const div = el("div", "producto");
   const top = el("div", "top");
   top.appendChild(el("span", "emoji", icono(a.nombre)));
   const t = el("div", "");
   t.appendChild(el("h3", "", a.nombre + " · " + cant(a.cantidad) + " " + a.unidad));
-  t.appendChild(el("p", "info", ETAPAS[a.etapa].nombre + (a.etapa === "pasado" ? " · se aprovecha " + utilTexto(a.util) : "") + " · " + ETAPAS[a.etapa].pts + " pts por $100"));
+  t.appendChild(el("p", "info", ETAPAS[a.etapa].nombre + (pasado ? " · sirve " + utilTexto(a.util) : "") + " · " + porCien(a.etapa)));
   top.appendChild(t);
   div.appendChild(top);
   div.appendChild(el("p", "info", "Pasan: " + a.cuando + (a.nota ? " · Nota: " + a.nota : "") + " · Avisado el " + fechaCorta(a.fecha)));
 
-  const ol = el("ol", "linea"); ol.setAttribute("aria-label", "Estado de la recolección");
+  const ol = el("ol", "linea"); ol.setAttribute("aria-label", "Estado de la venta");
   const i = ESTADOS.indexOf(a.estado);
   ESTADOS.forEach((s, j) => {
-    const li = el("li", j < i ? "hecho" : j === i ? "actual" : "", NOMBRE_ESTADO[s]);
+    const li = el("li", j < i ? "hecho" : j === i ? "actual" : "", nombreEstado(a, s));
     if (j === i) li.setAttribute("aria-current", "step");
     ol.appendChild(li);
   });
   div.appendChild(ol);
 
-  const estim = calcPuntos(valor(a), a.etapa, a.util);
+  const estim = calcPago(valor(a), a.etapa, a.util);
   const detalle = el("p", "");
   const acciones = el("div", "acciones");
   if (a.estado === "avisado") {
-    detalle.textContent = colab ? "Producto de " + pesos(valor(a)) + " a Precio Rotta. Al recogerlo, el comercio gana unos " + ptsTxt(estim) + "." : "Esperando a que un colaborador lo acepte. Ganarás unos " + ptsTxt(estim) + ".";
+    detalle.textContent = colab ? "Producto de " + pesos(valor(a)) + " a Precio Rotta. Al recogerlo le pagas unos " + pesos(estim) + " al comercio." : "Esperando a que un colaborador lo acepte. Al recogerlo te pagamos unos " + pesos(estim) + ".";
     if (colab) acciones.appendChild(boton("Aceptar: voy en camino", "principal chico", () => aceptar(a.id)));
     else {
       acciones.appendChild(boton("Mandar también por WhatsApp", "whatsapp chico", () => avisoWhatsapp(a.id)));
-      acciones.appendChild(boton("Cancelar aviso", "peligro chico", () => cancelar(a.id)));
+      acciones.appendChild(boton("Cancelar venta", "peligro chico", () => cancelar(a.id)));
     }
   } else if (a.estado === "en_camino") {
     if (colab) {
-      const max = a.etapa === "pasado" ? info(a.nombre).aprov : 1;
-      detalle.textContent = "Vas en camino. Al llegar, revisa cuánto se aprovecha" + (max < 1 ? " (de " + a.nombre.toLowerCase() + ", máximo " + utilTexto(max) + ")." : ".");
-      const lab = el("label", "", "¿Cuánto se aprovecha de verdad?"); const sel = el("select", "");
+      const max = pasado ? info(a.nombre).aprov : 1;
+      detalle.textContent = "Vas en camino. Al llegar, revisa cuánto sirve" + (max < 1 ? " (de " + a.nombre.toLowerCase() + ", máximo " + utilTexto(max) + ")" : "") + " y paga al comercio.";
+      const lab = el("label", "", "¿Cuánto sirve de verdad?"); const sel = el("select", "");
       sel.id = "util-" + a.id; lab.htmlFor = sel.id;
       UTIL.filter(([u]) => u <= max).forEach(([u, txt]) => { const o = el("option", "", txt); o.value = u; if (u === a.util) o.selected = true; sel.appendChild(o); });
       const caja = el("div", ""); caja.style.width = "100%"; caja.appendChild(lab); caja.appendChild(sel);
       acciones.appendChild(caja);
-      acciones.appendChild(boton("Ya lo recogí", "principal chico", () => recoger(a.id, Number(sel.value))));
+      acciones.appendChild(boton("Lo recogí y pagué", "principal chico", () => recoger(a.id, Number(sel.value))));
     } else {
-      detalle.textContent = "👤 " + a.colaborador + " de Rotta va a pasar por él a tu negocio.";
-    }
-  } else if (a.estado === "recogido") {
-    detalle.textContent = colab ? "Llévalo al albergue o comedor." : "✅ " + a.colaborador + " lo recogió" + (a.utilReal < 1 ? " (se aprovechó " + utilTexto(a.utilReal) + ")" : "") + ". Ganaste " + ptsTxt(a.puntos) + ". Va camino al albergue.";
-    if (colab) {
-      const sel = el("select", ""); sel.setAttribute("aria-label", "¿A dónde lo entregaste?");
-      DESTINOS.forEach(d => sel.appendChild(el("option", "", d)));
-      acciones.appendChild(sel);
-      acciones.appendChild(boton("Entregado en el albergue", "principal chico", () => entregar(a.id, sel.value)));
+      detalle.textContent = "👤 " + a.colaborador + " de Rotta va a pasar por él a tu negocio y te paga al recogerlo.";
     }
   } else {
-    detalle.textContent = "🍲 Llegó a " + a.destino + ". Ganaste " + ptsTxt(a.puntos) + (a.utilReal < 1 ? " por " + utilTexto(a.utilReal) + " que se aprovechó" : "") + ".";
+    detalle.textContent = colab
+      ? "✅ Recogido. Le pagaste " + pesos(a.pago) + " al comercio."
+      : "✅ " + a.colaborador + " lo recogió" + (a.utilReal < 1 ? " (sirvió " + utilTexto(a.utilReal) + ")" : "") + ". Te pagamos " + pesos(a.pago) + "; ya está en tu saldo.";
   }
   div.appendChild(detalle);
   if (acciones.childNodes.length) div.appendChild(acciones);
@@ -800,17 +800,16 @@ function tarjetaAviso(a) {
 // ----- Pintar -----
 function pintar() {
   $("bienvenida").classList.toggle("oculto", !!datos.bienvenidaVista);
-  $("n-puntos").textContent = datos.puntos.toLocaleString("es-MX");
-  $("n-equiv").textContent = pesos(datos.puntos * VALOR_PUNTO);
-  $("n-donado").textContent = pesos(datos.donado);
+  $("n-saldo").textContent = pesos(datos.saldo);
+  $("n-pagado").textContent = pesos(datos.pagado);
   $("n-perdido").textContent = pesos(datos.perdido);
   $("fecha-hoy").textContent = mayus(hoy().toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" }));
 
-  const activos = datos.avisos.filter(a => a.estado !== "entregado");
+  const activos = datos.avisos.filter(a => a.estado !== "recogido");
   const camino = activos.filter(a => a.estado === "en_camino");
   $("n-camino").textContent = camino.length
     ? "🚚 " + camino.map(a => a.colaborador + " va por " + cant(a.cantidad) + " " + a.unidad + " de " + a.nombre.toLowerCase()).join(" · ")
-    : activos.length ? "📦 Tienes " + activos.length + " aviso(s) en proceso." : "🍲 Lo que avisas se dona a albergues y comedores.";
+    : activos.length ? "📦 Tienes " + activos.length + " venta(s) en proceso." : "💵 Lo que ya no vas a vender, véndenoslo: pasamos por él y te pagamos.";
 
   const lista = ordenados();
   const cuenta = { pasado: 0, rojo: 0, amarillo: 0, verde: 0 };
@@ -820,7 +819,7 @@ function pintar() {
   const urgentes = lista.filter(p => color(p) !== "verde");
   const enRiesgo = urgentes.reduce((s, p) => s + valor(p), 0);
   $("texto-reporte").textContent = urgentes.length
-    ? "Tienes " + pesos(enRiesgo) + " en producto que se echa a perder. Avísalo hoy (mientras antes, más puntos) o remátalo."
+    ? "Tienes " + pesos(enRiesgo) + " en producto que se echa a perder. Véndenoslo hoy (mientras antes, más te pagamos) o remátalo."
     : "Todo está fresco. ¡Buen día!";
 
   const lu = $("lista-urgente"); lu.innerHTML = "";
@@ -831,35 +830,35 @@ function pintar() {
   if (!lista.length) li.appendChild(el("p", "vacio", "Todavía no registras productos."));
   lista.forEach(p => li.appendChild(tarjetaProducto(p)));
 
-  // Mis avisos
+  // Mis ventas
   const colab = datos.modo === "colaborador";
   $("modo-comercio").setAttribute("aria-pressed", String(!colab));
   $("modo-colaborador").setAttribute("aria-pressed", String(colab));
-  $("nota-modo").textContent = colab ? "Así ve los avisos el colaborador que pasa a recoger." : "Aquí ves en qué va cada aviso.";
+  $("nota-modo").textContent = colab ? "Así ve las ventas el colaborador que pasa a recoger y paga." : "Aquí ves en qué va cada venta.";
   const la = $("lista-avisos"); la.innerHTML = "";
   if (colab) {
     if (!activos.length) la.appendChild(el("p", "vacio", "No hay recolecciones pendientes."));
     activos.forEach(a => la.appendChild(tarjetaAviso(a)));
   } else {
-    const entregados = datos.avisos.filter(a => a.estado === "entregado");
+    const entregados = datos.avisos.filter(a => a.estado === "recogido");
     la.appendChild(el("p", "subtitulo", "En proceso"));
-    if (!activos.length) la.appendChild(el("p", "vacio", "No tienes avisos en proceso."));
+    if (!activos.length) la.appendChild(el("p", "vacio", "No tienes ventas en proceso."));
     activos.forEach(a => la.appendChild(tarjetaAviso(a)));
-    la.appendChild(el("p", "subtitulo", "Ya donados"));
-    if (!entregados.length) la.appendChild(el("p", "vacio", "Todavía no hay entregas."));
+    la.appendChild(el("p", "subtitulo", "Ya pagadas"));
+    if (!entregados.length) la.appendChild(el("p", "vacio", "Todavía no hay ventas pagadas."));
     entregados.forEach(a => la.appendChild(tarjetaAviso(a)));
   }
 
-  // Puntos
-  $("p-saldo").textContent = datos.puntos.toLocaleString("es-MX");
-  $("p-equiv").textContent = pesos(datos.puntos * VALOR_PUNTO);
-  vistaDinero();
+  // Saldo
+  $("p-saldo").textContent = pesos(datos.saldo);
+  $("p-pagado").textContent = pesos(datos.pagado);
+  vistaCobro();
   const cat = $("catalogo"); cat.innerHTML = "";
-  OBJETOS.forEach(([nombre, pts]) => {
+  ARTICULOS.forEach(([nombre, precio]) => {
     const r = el("div", "renglon");
     r.appendChild(el("span", "", nombre));
-    const b = boton("Cambiar · " + pts + " pts", "chico", () => canjear(pts, "Objeto: " + nombre.toLowerCase(), "Pediste: " + nombre + ". El colaborador te lo lleva en su siguiente visita."));
-    b.disabled = datos.puntos < pts;
+    const b = boton("Cambiar · " + pesos(precio), "chico", () => descontar(precio, "Artículo: " + nombre.toLowerCase(), "Pediste: " + nombre + ". El colaborador te lo lleva en su siguiente visita."));
+    b.disabled = datos.saldo < precio;
     r.appendChild(b); cat.appendChild(r);
   });
   const mv = $("movimientos"); mv.innerHTML = "";
@@ -867,30 +866,30 @@ function pintar() {
   datos.movimientos.forEach(m => {
     const r = el("div", "renglon");
     r.appendChild(el("span", "", fechaCorta(m.fecha) + " · " + m.texto));
-    r.appendChild(el("span", m.puntos >= 0 ? "mas" : "menos", (m.puntos >= 0 ? "+" : "−") + Math.abs(m.puntos) + " pts"));
+    r.appendChild(el("span", m.monto >= 0 ? "mas" : "menos", (m.monto >= 0 ? "+" : "−") + pesos(Math.abs(m.monto))));
     mv.appendChild(r);
   });
 }
 
 function pintarTablas() {
   const fila = (tb, celdas) => { const tr = el("tr", ""); celdas.forEach(([txt, clase]) => tr.appendChild(el("td", clase || "", txt))); tb.appendChild(tr); };
-  const te = $("tabla-escala");
+  const te = $("tabla-escala"), max = ETAPAS.dos.pago;
   [["dos", "⏰", "i-amarillo", "var(--amarillo)"], ["manana", "⏳", "i-naranja", "var(--naranja)"],
    ["hoy", "⚠️", "i-rosa", "var(--rojo)"], ["pasado", "♻️", "i-cafe", "var(--pasado)"]].forEach(([k, ic, tinte, col]) => {
     const e = ETAPAS[k], d = el("div", "paso");
     d.appendChild(el("span", "ico " + tinte, ic)).setAttribute("aria-hidden", "true");
     const t = el("span", ""); t.appendChild(el("b", "", e.nombre)); t.appendChild(el("small", "", e.consejo));
     d.appendChild(t);
-    d.appendChild(el("strong", "", e.pts + " pts"));
+    d.appendChild(el("strong", "", "$" + e.pago));
     const m = el("span", "medidor"), i = el("i", "");
-    i.style.width = (k === "pasado" ? e.pts * 0.5 : e.pts) * 10 + "%"; i.style.background = col;
+    i.style.width = (e.pago / max * 100) + "%"; i.style.background = col;
     m.appendChild(i); d.appendChild(m);
     te.appendChild(d);
   });
   const tp = $("tabla-pasado");
-  [...PRODUCTOS].sort((a, b) => b[6] - a[6] || a[0].localeCompare(b[0], "es")).forEach(([n, ic, , , , , aprov, uso]) => fila(tp, [[ic + " " + n], [mayus(utilTexto(aprov))], [mayus(uso)]]));
+  [...PRODUCTOS].sort((a, b) => b[6] - a[6] || a[0].localeCompare(b[0], "es")).forEach(([n, ic, , , , , aprov]) => fila(tp, [[ic + " " + n], [mayus(utilTexto(aprov))]]));
   const tr = $("tabla-precios");
-  PRODUCTOS.forEach(([n, ic, , unidad]) => fila(tr, [[ic + " " + n], [precioTxt(precioRotta(n)) + "/" + porUnidad(unidad), "pts"], [temporadaDe(n).texto]]));
+  PRODUCTOS.forEach(([n, ic, , unidad]) => fila(tr, [[ic + " " + n], [precioTxt(precioRotta(n)) + "/" + porUnidad(unidad), "monto"], [temporadaDe(n).texto]]));
   $("semana-precios").textContent = semanaTexto();
 }
 
@@ -904,7 +903,7 @@ function tirado(pid) {
   const p = datos.productos.find(x => x.id === pid); if (!p) return;
   datos.perdido += valor(p);
   datos.productos = datos.productos.filter(x => x.id !== pid);
-  guardar(); pintar(); toast("Anotamos " + pesos(valor(p)) + " tirados. La próxima vez avísalo antes y gana puntos.");
+  guardar(); pintar(); toast("Anotamos " + pesos(valor(p)) + " tirados. La próxima vez véndenoslo antes y te pagamos.");
 }
 function rematar(pid) {
   const p = datos.productos.find(x => x.id === pid); if (!p) return;
@@ -913,7 +912,7 @@ function rematar(pid) {
   window.open("https://wa.me/?text=" + encodeURIComponent(t), "_blank", "noopener");
 }
 
-// ----- Avisar -----
+// ----- Vender a Rotta -----
 function llenarSelect(sel) {
   PRODUCTOS.forEach(([n, ic]) => { const o = el("option", "", ic + " " + n); o.value = n; sel.appendChild(o); });
   const o = el("option", "", "🧺 Otro"); o.value = "Otro"; sel.appendChild(o);
@@ -923,7 +922,7 @@ const ap = $("a-producto"); llenarSelect(ap);
   const lab = el("label", "opcion"); const inp = el("input", "");
   inp.type = "radio"; inp.name = "etapa"; inp.value = k; inp.id = "etapa-" + k;
   lab.appendChild(inp); lab.appendChild(document.createTextNode(ETAPAS[k].corto));
-  lab.appendChild(el("small", "", k === "pasado" ? "Según el producto" : ETAPAS[k].pts + " pts por cada $100"));
+  lab.appendChild(el("small", "", k === "pasado" ? "$5 por $100 de lo que sirve" : porCien(k)));
   inp.addEventListener("change", estimado);
   $("a-etapas").appendChild(lab);
 });
@@ -940,17 +939,18 @@ function llenarAviso() {
   estimado();
 }
 function estimado() {
-  const e = etapaElegida(), pas = e === "pasado", nombre = nombreAviso(), i = info(nombre);
+  const e = etapaElegida(), pas = e === "pasado", nombre = nombreAviso();
   const util = utilAviso(e), precio = precioAviso();
   pintarPrecio($("a-precio-info"), nombre, $("a-calidad").value, $("a-unidad").value);
   $("caja-util").classList.toggle("oculto", !pas);
-  $("a-util-info").textContent = "De " + nombre.toLowerCase() + " se aprovecha " + utilTexto(util) + ": " + i.uso + ". El colaborador lo confirma al recoger.";
+  $("a-util-info").textContent = "De " + nombre.toLowerCase() + " todavía sirve " + utilTexto(util) + ". El colaborador lo confirma al recoger.";
   const v = Number($("a-cantidad").value) * precio;
   const box = $("a-estimado"); box.innerHTML = "";
-  if (!(v > 0)) { box.textContent = "Escribe la cantidad para calcular tus puntos."; return; }
-  box.appendChild(document.createTextNode("Ganarás unos "));
-  box.appendChild(el("b", "", ptsTxt(calcPuntos(v, e, util))));
-  box.appendChild(el("div", "nota", pesos(v) + " de producto" + (pas ? " × " + utilTexto(util) + " que se aprovecha" : "") + " · " + ETAPAS[e].nombre.toLowerCase() + ": " + ETAPAS[e].pts + " pts por cada $100"));
+  if (!(v > 0)) { box.textContent = "Escribe la cantidad para calcular cuánto te pagamos."; return; }
+  box.appendChild(document.createTextNode("Te pagamos unos "));
+  box.appendChild(el("b", "", pesos(calcPago(v, e, util))));
+  box.appendChild(document.createTextNode(" al recogerlo"));
+  box.appendChild(el("div", "nota", pesos(v) + " de producto" + (pas ? " × " + utilTexto(util) + " que sirve" : "") + " · " + ETAPAS[e].nombre.toLowerCase() + ": " + porCien(e)));
 }
 ap.addEventListener("change", () => { $("a-producto-id").value = ""; llenarAviso(); });
 ["a-cantidad", "a-otro"].forEach(i => $(i).addEventListener("input", estimado));
@@ -985,7 +985,7 @@ $("form-aviso").addEventListener("submit", e => {
     id: id(), nombre, cantidad, unidad: $("a-unidad").value, calidad: $("a-calidad").value, precio: precioAviso(), etapa,
     util: utilAviso(etapa), utilReal: null,
     cuando: $("a-cuando").value, nota: $("a-nota").value.trim(),
-    estado: "avisado", colaborador: "", destino: "", puntos: 0, fecha: aTexto(hoy()),
+    estado: "avisado", colaborador: "", pago: 0, fecha: aTexto(hoy()),
     producto: original ? { ...original } : null
   };
   if (original) {
@@ -995,12 +995,12 @@ $("form-aviso").addEventListener("submit", e => {
   datos.avisos.unshift(a);
   datos.modo = "comercio";
   guardar(); limpiarAviso(); pintar(); mostrar("avisos");
-  toast("Aviso enviado. Te diremos quién pasa a tu negocio.");
+  toast("Listo. Te diremos quién pasa a tu negocio y te paga.");
 });
 
 function textoAviso(a) {
-  return "Hola, Rotta. Tengo para recoger: " + cant(a.cantidad) + " " + a.unidad + " de " + a.nombre.toLowerCase() +
-    " (" + ETAPAS[a.etapa].nombre.toLowerCase() + (a.etapa === "pasado" ? "; se aprovecha " + utilTexto(a.util) : "") + "). Pueden pasar: " + a.cuando.toLowerCase() + "." + (a.nota ? " Nota: " + a.nota : "");
+  return "Hola, Rotta. Les vendo para que pasen por él: " + cant(a.cantidad) + " " + a.unidad + " de " + a.nombre.toLowerCase() +
+    " (" + ETAPAS[a.etapa].nombre.toLowerCase() + (a.etapa === "pasado" ? "; sirve " + utilTexto(a.util) : "") + "). Pueden pasar: " + a.cuando.toLowerCase() + "." + (a.nota ? " Nota: " + a.nota : "");
 }
 function avisoWhatsapp(aid) {
   const a = datos.avisos.find(x => x.id === aid); if (!a) return;
@@ -1008,14 +1008,14 @@ function avisoWhatsapp(aid) {
 }
 function cancelar(aid) {
   const a = datos.avisos.find(x => x.id === aid); if (!a || a.estado !== "avisado") return;
-  if (!confirm("¿Cancelar el aviso de " + a.nombre.toLowerCase() + "?")) return;
+  if (!confirm("¿Cancelar la venta de " + a.nombre.toLowerCase() + "?")) return;
   if (a.producto) {
     const p = datos.productos.find(x => x.id === a.producto.id);
     if (p) p.cantidad = Math.round((p.cantidad + a.cantidad) * 10) / 10;
     else datos.productos.push({ ...a.producto, cantidad: a.cantidad });
   }
   datos.avisos = datos.avisos.filter(x => x.id !== aid);
-  guardar(); pintar(); toast("Aviso cancelado." + (a.producto ? " Regresó a «Lo que tengo»." : ""));
+  guardar(); pintar(); toast("Venta cancelada." + (a.producto ? " Regresó a «Lo que tengo»." : ""));
 }
 
 // ----- Colaborador -----
@@ -1026,46 +1026,39 @@ function aceptar(aid) {
 }
 function recoger(aid, utilReal) {
   const a = datos.avisos.find(x => x.id === aid); if (!a) return;
-  a.estado = "recogido"; a.utilReal = utilReal; a.puntos = calcPuntos(valor(a), a.etapa, utilReal);
-  datos.puntos += a.puntos; datos.donado += valor(a) * utilReal;
-  datos.movimientos.unshift({ id: id(), fecha: aTexto(hoy()), texto: movTexto(a), puntos: a.puntos });
-  guardar(); pintar(); toast("Recogido. El comercio ganó " + ptsTxt(a.puntos) + ".");
-}
-function entregar(aid, destino) {
-  const a = datos.avisos.find(x => x.id === aid); if (!a) return;
-  a.estado = "entregado"; a.destino = destino;
-  guardar(); pintar(); toast("Entregado en " + destino + ". ¡Gracias!");
+  a.estado = "recogido"; a.utilReal = utilReal; a.pago = calcPago(valor(a), a.etapa, utilReal);
+  datos.saldo += a.pago; datos.pagado += a.pago; datos.rescatado += valor(a) * utilReal;
+  datos.movimientos.unshift({ id: id(), fecha: aTexto(hoy()), texto: movTexto(a), monto: a.pago });
+  guardar(); pintar(); toast("Recogido. Se pagaron " + pesos(a.pago) + " al comercio.");
 }
 $("modo-comercio").addEventListener("click", () => { datos.modo = "comercio"; guardar(); pintar(); });
 $("modo-colaborador").addEventListener("click", () => { datos.modo = "colaborador"; guardar(); pintar(); });
 
-// ----- Puntos -----
-function canjear(pts, texto, mensaje) {
-  if (!Number.isInteger(pts) || pts <= 0) { toast("Escribe cuántos puntos."); return false; }
-  if (pts > datos.puntos) { toast("No te alcanzan los puntos. Tienes " + datos.puntos + "."); return false; }
-  datos.puntos -= pts;
-  datos.movimientos.unshift({ id: id(), fecha: aTexto(hoy()), texto, puntos: -pts });
+// ----- Saldo -----
+function descontar(monto, texto, mensaje) {
+  if (!Number.isInteger(monto) || monto <= 0) { toast("Escribe cuánto."); return false; }
+  if (monto > datos.saldo) { toast("No te alcanza el saldo. Tienes " + pesos(datos.saldo) + "."); return false; }
+  datos.saldo -= monto;
+  datos.movimientos.unshift({ id: id(), fecha: aTexto(hoy()), texto, monto: -monto });
   guardar(); pintar(); toast(mensaje);
   return true;
 }
-function vistaDinero() {
-  const n = Number($("d-puntos").value) || 0;
-  $("d-vista").textContent = "Recibirías " + pesos(n * VALOR_PUNTO) + ". Mínimo " + MINIMO_DINERO + " puntos.";
+function vistaCobro() {
+  $("d-vista").textContent = "Mínimo " + pesos(MINIMO_COBRO) + ". Tu saldo: " + pesos(datos.saldo) + ".";
 }
-$("d-puntos").addEventListener("input", vistaDinero);
 $("form-dinero").addEventListener("submit", e => {
   e.preventDefault();
-  const n = Number($("d-puntos").value);
-  if (n < MINIMO_DINERO) { toast("El mínimo para pedir dinero es " + MINIMO_DINERO + " puntos."); return; }
+  const n = Number($("d-monto").value);
+  if (n < MINIMO_COBRO) { toast("El mínimo para cobrar es " + pesos(MINIMO_COBRO) + "."); return; }
   const efectivo = $("d-metodo").value.startsWith("Efectivo");
-  canjear(n, "Dinero: " + pesos(n * VALOR_PUNTO) + (efectivo ? " (efectivo)" : " (transferencia)"),
-    "Pediste " + pesos(n * VALOR_PUNTO) + (efectivo ? " en efectivo. Te lo da el colaborador en su siguiente visita." : " por transferencia. Te llega en 1 a 2 días hábiles."));
+  descontar(n, "Cobro " + (efectivo ? "en efectivo" : "por transferencia"),
+    "Cobraste " + pesos(n) + (efectivo ? " en efectivo. Te lo da el colaborador en su siguiente visita." : " por transferencia. Te llega en 1 a 2 días hábiles."));
 });
-DESTINOS.forEach(d => $("don-destino").appendChild(el("option", "", d)));
+ALBERGUES.forEach(d => $("don-destino").appendChild(el("option", "", d)));
 $("form-donar").addEventListener("submit", e => {
   e.preventDefault();
-  const n = Number($("don-puntos").value), destino = $("don-destino").value;
-  canjear(n, "Donación a " + destino, "¡Gracias! Donaste " + ptsTxt(n) + " a " + destino + ".");
+  const n = Number($("don-monto").value), destino = $("don-destino").value;
+  descontar(n, "Donación a " + destino, "¡Gracias! Donaste " + pesos(n) + " a " + destino + ".");
 });
 
 // ----- Reporte y alertas -----
@@ -1075,8 +1068,8 @@ function textoReporte() {
   return "Rotta · Reporte de hoy\n" + urg.map(p => {
     const e = etapaDe(p);
     return "• " + p.nombre + ": " + cant(p.cantidad) + " " + p.unidad + " (" + estadoTexto(p).toLowerCase() + ") → " +
-      (e === "pasado" ? "rescata lo que se aprovecha (" + calcPuntos(valor(p), "pasado", info(p.nombre).aprov) + " pts)" : "avísalo hoy por " + calcPuntos(valor(p), e, 1) + " pts o remátalo");
-  }).join("\n") + "\nPasamos a tu negocio por lo que avises.";
+      (e === "pasado" ? "Rotta te paga " + pesos(calcPago(valor(p), "pasado", info(p.nombre).aprov)) + " por lo que sirve" : "véndelo a Rotta hoy por " + pesos(calcPago(valor(p), e, 1)) + " o remátalo");
+  }).join("\n") + "\nPasamos a tu negocio y te pagamos al recoger.";
 }
 $("reporte-whatsapp").addEventListener("click", () => {
   window.open("https://wa.me/?text=" + encodeURIComponent(textoReporte()), "_blank", "noopener");
@@ -1084,7 +1077,7 @@ $("reporte-whatsapp").addEventListener("click", () => {
 function notificar() {
   const urg = ordenados().filter(p => color(p) !== "verde");
   if (!urg.length) return;
-  try { new Notification("Rotta", { body: urg.length + " producto(s) se echan a perder: " + urg.slice(0, 3).map(p => p.nombre).join(", ") + ". Avísalos hoy y gana más puntos." }); } catch (e) {}
+  try { new Notification("Rotta", { body: urg.length + " producto(s) se echan a perder: " + urg.slice(0, 3).map(p => p.nombre).join(", ") + ". Véndelos hoy a Rotta: mientras antes, más te pagamos." }); } catch (e) {}
 }
 $("activar-avisos").addEventListener("click", async () => {
   if (!("Notification" in window)) { toast("Tu navegador no permite alertas. Usa el reporte por WhatsApp."); return; }
@@ -1137,7 +1130,7 @@ document.querySelectorAll(".enlace-opinion").forEach(a => {
 });
 
 // ----- Navegación -----
-const VISTAS = ["inicio", "inventario", "avisar", "avisos", "puntos"];
+const VISTAS = ["inicio", "inventario", "avisar", "avisos", "saldo"];
 function mostrar(v) {
   VISTAS.forEach(x => $("vista-" + x).classList.toggle("oculto", x !== v));
   document.querySelectorAll("nav button").forEach(b => b.setAttribute("aria-current", b.dataset.vista === v ? "page" : "false"));
